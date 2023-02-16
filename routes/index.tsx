@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Fresh App</title>
+        <title>EATS | Easy Advanced Twitter Search</title>
       </Head>
       <div class="p-4 mx-auto max-w-screen-md">
         <img
