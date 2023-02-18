@@ -68,15 +68,18 @@ const Builder = () => {
           disabled
         />
       </Command>
-      <Command id="@" title="@" noColon>
-        <input type="text" placeholder="screen name" class="border px-2" />
-      </Command>
+      {
+        // <Command id="@" title="@" noColon>
+        //   <input type="text" placeholder="screen name" class="border px-2" />
+        // </Command>
+      }
 
       <Category title="Tweet Type" />
-      <Command id="filter:tweet" title="filter/include" desc="tweet type">
+      <Command id="filter:tweet" title="filter" desc="tweet type">
+        <FilterSelect type="tweet" />
       </Command>
-      <Command id="filter:media" title="filter" desc="media type">
-        <MediaSelect />
+      <Command id="filter:media" title="filter" desc="medsia type">
+        <FilterSelect type="media" />
       </Command>
 
       <Category title="Engagement" />
@@ -85,10 +88,8 @@ const Builder = () => {
       <Command id="min_replies" title="min_replies"></Command>
 
       <Category title="Time" />
-      <Command id="until" title="until">
-      </Command>
-      <Command id="since" title="since">
-      </Command>
+      <Command id="until" title="until"></Command>
+      <Command id="since" title="since"></Command>
       <Command id="until_time" title="until_time"></Command>
       <Command id="since_time" title="since_time"></Command>
       <Command id="since_id" title="since_id"></Command>
@@ -191,6 +192,12 @@ const Command: FunctionComponent<CommandProps> = (
   );
 };
 
+const tweetFilters: { value: string; label: string }[] = [
+  { value: "nativeretweets", label: "nativeretweets" },
+  { value: "retweets", label: "retweets" },
+  { value: "replies", label: "replies" },
+  { value: "quote", label: "quote" },
+];
 const mediaFilters: { value: string; label: string }[] = [
   { value: "media", label: "media" },
   { value: "twimg", label: "twimg" },
@@ -201,9 +208,13 @@ const mediaFilters: { value: string; label: string }[] = [
   { value: "pro_video", label: "pro_video" },
   { value: "spaces", label: "spaces" },
 ];
+const filtersMap = {
+  tweet: tweetFilters,
+  media: mediaFilters,
+} as const;
 
-const MediaSelect = () => {
-  const options = mediaFilters.map(({ value, label }) => (
+const FilterSelect = ({ type }: { type: "tweet" | "media" }) => {
+  const options = filtersMap[type].map(({ value, label }) => (
     <option key={value} value={value}>{label}</option>
   ));
 
