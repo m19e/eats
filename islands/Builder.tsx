@@ -146,7 +146,7 @@ const TextInput = ({ placeholder, onInput, disabled }: TextInputProps) => {
 
   return (
     <input
-      class="border px-2"
+      class="border px-2 min-w-[12rem]"
       type="text"
       placeholder={placeholder}
       value={text}
@@ -208,7 +208,7 @@ const MediaSelect = () => {
   ));
 
   return (
-    <select class="border px-2">
+    <select class="border px-2 min-w-[12rem]">
       {options}
     </select>
   );
