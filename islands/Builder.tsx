@@ -26,7 +26,7 @@ const toggleQuery = (data: QueryData) => {
 
 const Builder = () => {
   return (
-    <div class="space-y-4 px-3 w-2/3">
+    <div class="space-y-4 px-3 w-full">
       <Category title="Users" />
       <Command
         id="from"
