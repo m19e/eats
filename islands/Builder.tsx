@@ -68,18 +68,23 @@ const Builder = () => {
           disabled
         />
       </Command>
-      <Command id="@" title="@">
+      <Command id="@" title="@" noColon>
         <input type="text" placeholder="screen name" class="border px-2" />
       </Command>
 
       <Category title="Tweet Type" />
+      <Command id="filter:tweet" title="filter/include" desc="tweet type">
+      </Command>
       <Command id="filter:media" title="filter" desc="media type">
         <MediaSelect />
       </Command>
-      <Command id="filter:tweet" title="filter" desc="tweet type"></Command>
 
-      {
-        /* <Category title="Time" />
+      <Category title="Engagement" />
+      <Command id="min_retweets" title="min_retweets"></Command>
+      <Command id="min_faves" title="min_faves"></Command>
+      <Command id="min_replies" title="min_replies"></Command>
+
+      <Category title="Time" />
       <Command id="until" title="until">
       </Command>
       <Command id="since" title="since">
@@ -89,9 +94,7 @@ const Builder = () => {
       <Command id="since_id" title="since_id"></Command>
       <Command id="max_id" title="max_id"></Command>
       <Command id="within_time" title="within_time"></Command>
-      <Command id="min_retweets" title="min_retweets"></Command>
-      <Command id="min_faves" title="min_faves"></Command> */
-      }
+
       <SearchQuery />
     </div>
   );
@@ -157,11 +160,12 @@ type CommandProps = {
   id: string;
   title: string;
   desc?: string;
+  noColon?: boolean;
   onToggle?: (a: boolean) => void;
 };
 
 const Command: FunctionComponent<CommandProps> = (
-  { id, title, desc, onToggle, children },
+  { id, title, desc, noColon = false, onToggle, children },
 ) => {
   return (
     <div class="flex w-full">
@@ -172,7 +176,9 @@ const Command: FunctionComponent<CommandProps> = (
       />
       <div class="flex flex-1">
         <p class="flex-1 mx-2 border-b border-black border-opacity-50">
-          {title}:{desc &&
+          {title}
+          {!noColon && ":"}
+          {desc &&
             (
               <span class="text-black text-opacity-50 px-1 text-sm">
                 {desc}
