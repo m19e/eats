@@ -75,10 +75,26 @@ const Builder = () => {
       }
 
       <Category title="Tweet Type" />
-      <Command id="filter:media" title="filter" desc="media type">
+      <Command
+        id="filter:media"
+        title="filter"
+        desc="media type"
+        onToggle={(active) =>
+          toggleQuery({ id: "filter:media", query: "filter:images", active })}
+      >
         <FilterSelect type="media" />
       </Command>
-      <Command id="filter:tweet" title="filter" desc="tweet type">
+      <Command
+        id="filter:tweet"
+        title="filter"
+        desc="tweet type"
+        onToggle={(active) =>
+          toggleQuery({
+            id: "filter:tweet",
+            query: "filter:nativeretweets",
+            active,
+          })}
+      >
         <FilterSelect type="tweet" />
       </Command>
 
