@@ -104,12 +104,13 @@ const Builder = () => {
 const SearchQuery = () => {
   return (
     <div class="w-full flex items-center gap-2">
-      <input
-        class="py-1 px-2 flex-1 rounded border border-gray-400"
-        value={queryString.value}
-        placeholder="Search Query"
-        disabled
-      />
+      <p class="py-1 px-2 flex-1 rounded border border-gray-400 whitespace-pre-wrap">
+        {queryString.value || (
+          <span class="opacity-50">
+            Search Query
+          </span>
+        )}
+      </p>
       <div class="flex justify-center items-center rounded-full border-2 border-gray-400 w-8 h-8">
         <svg
           xmlns="http://www.w3.org/2000/svg"
