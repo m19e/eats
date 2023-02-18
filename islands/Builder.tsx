@@ -78,7 +78,7 @@ const Builder = () => {
       <Command id="filter:tweet" title="filter" desc="tweet type">
         <FilterSelect type="tweet" />
       </Command>
-      <Command id="filter:media" title="filter" desc="medsia type">
+      <Command id="filter:media" title="filter" desc="media type">
         <FilterSelect type="media" />
       </Command>
 
