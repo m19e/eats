@@ -75,11 +75,11 @@ const Builder = () => {
       }
 
       <Category title="Tweet Type" />
-      <Command id="filter:tweet" title="filter" desc="tweet type">
-        <FilterSelect type="tweet" />
-      </Command>
       <Command id="filter:media" title="filter" desc="media type">
         <FilterSelect type="media" />
+      </Command>
+      <Command id="filter:tweet" title="filter" desc="tweet type">
+        <FilterSelect type="tweet" />
       </Command>
 
       <Category title="Engagement" />
@@ -87,14 +87,14 @@ const Builder = () => {
       <Command id="min_faves" title="min_faves"></Command>
       <Command id="min_replies" title="min_replies"></Command>
 
-      <Category title="Time" />
-      <Command id="until" title="until"></Command>
-      <Command id="since" title="since"></Command>
-      <Command id="until_time" title="until_time"></Command>
-      <Command id="since_time" title="since_time"></Command>
-      <Command id="since_id" title="since_id"></Command>
-      <Command id="max_id" title="max_id"></Command>
-      <Command id="within_time" title="within_time"></Command>
+      {/* <Category title="Time" /> */}
+      {/* <Command id="until" title="until"></Command> */}
+      {/* <Command id="since" title="since"></Command> */}
+      {/* <Command id="until_time" title="until_time"></Command> */}
+      {/* <Command id="since_time" title="since_time"></Command> */}
+      {/* <Command id="since_id" title="since_id"></Command> */}
+      {/* <Command id="max_id" title="max_id"></Command> */}
+      {/* <Command id="within_time" title="within_time"></Command> */}
 
       <SearchQuery />
     </div>
@@ -217,9 +217,19 @@ const FilterSelect = ({ type }: { type: "tweet" | "media" }) => {
   const options = filtersMap[type].map(({ value, label }) => (
     <option key={value} value={value}>{label}</option>
   ));
+  const handleChange = (value: string) => {
+    updateQuery({
+      id: `filter:${type}`,
+      query: `filter:${value}`,
+      active: true,
+    });
+  };
 
   return (
-    <select class="border px-2 min-w-[12rem]">
+    <select
+      class="border px-2 min-w-[12rem]"
+      onChange={(e) => handleChange(e.currentTarget.value)}
+    >
       {options}
     </select>
   );
