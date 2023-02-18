@@ -200,11 +200,11 @@ const tweetFilters: { value: string; label: string }[] = [
   { value: "quote", label: "quote" },
 ];
 const mediaFilters: { value: string; label: string }[] = [
-  { value: "media", label: "media" },
-  { value: "twimg", label: "twimg" },
   { value: "images", label: "images" },
   { value: "videos", label: "videos" },
+  { value: "twimg", label: "twimg" },
   { value: "native_video", label: "native_video" },
+  { value: "media", label: "media" },
   { value: "consumer_video", label: "consumer_video" },
   { value: "pro_video", label: "pro_video" },
   { value: "spaces", label: "spaces" },
@@ -229,6 +229,7 @@ const FilterSelect = ({ type }: { type: "tweet" | "media" }) => {
   return (
     <select
       class="border px-2 min-w-[12rem]"
+      defaultValue={filtersMap[type][0].value}
       onChange={(e) => handleChange(e.currentTarget.value)}
     >
       {options}
