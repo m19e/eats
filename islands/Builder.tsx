@@ -27,6 +27,63 @@ const toggleQuery = (data: QueryData) => {
 const Builder = () => {
   return (
     <div class="space-y-4 px-3 w-full">
+      <SearchQuery />
+
+      <Category title="Basic" />
+      <Command id="keywords" title="keywords" noColon>
+        <TextInput
+          placeholder="what’s happening"
+          onInput={(v) =>
+            updateQuery({ id: "keywords", query: v.trim(), active: true })}
+        />
+      </Command>
+      <Command id="exact" title={`"exact match"`} noColon>
+        <TextInput
+          placeholder="happy hour"
+          onInput={(v) =>
+            updateQuery({ id: "exact", query: `"${v.trim()}"`, active: true })}
+        />
+      </Command>
+      <Command id="or" title="a OR b" noColon>
+        <TextInput
+          placeholder="cats dogs"
+          onInput={(v) =>
+            updateQuery({
+              id: "or",
+              query: `(${v.trim().split(" ").filter((c) => c).join(" OR ")})`,
+              active: true,
+            })}
+        />
+      </Command>
+      <Command id="minus" title="-exclude" noColon>
+        <TextInput
+          placeholder="cats dogs"
+          onInput={(v) =>
+            updateQuery({
+              id: "minus",
+              query: v.trim().split(" ").filter((c) => c).map((c) => `-${c}`)
+                .join(
+                  " ",
+                ),
+              active: true,
+            })}
+        />
+      </Command>
+      <Command id="hashtag" title="#hashtag" noColon>
+        <TextInput
+          placeholder="ThrowbackThursday"
+          onInput={(v) =>
+            updateQuery({
+              id: "hashtag",
+              query: v.trim().split(" ").filter((c) => c).map((c) => `#${c}`)
+                .join(
+                  " ",
+                ),
+              active: true,
+            })}
+        />
+      </Command>
+
       <Category title="Users" />
       <Command
         id="from"
