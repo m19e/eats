@@ -8,7 +8,7 @@ export default function Home() {
       <Head>
         <title>EATS | Easy Advanced Twitter Search</title>
       </Head>
-      <div class="p-4 mx-auto flex flex-col items-center max-w-screen-md">
+      <div class="p-4 mx-auto flex flex-col items-center max-w-screen-sm">
         <img
           src="/logo.svg"
           class="w-32 h-32"
