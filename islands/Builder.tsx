@@ -211,7 +211,14 @@ const SearchQuery = () => {
           </span>
         )}
       </p>
-      <div class="flex justify-center items-center rounded-full border-2 border-gray-400 w-8 h-8">
+      <a
+        class="flex justify-center items-center rounded-full border-2 border-gray-400 w-8 h-8"
+        href={`https://twitter.com/search?q=${
+          encodeURIComponent(queryString.value)
+        }&src=typed_query`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -224,7 +231,7 @@ const SearchQuery = () => {
             clipRule="evenodd"
           />
         </svg>
-      </div>
+      </a>
     </div>
   );
 };
