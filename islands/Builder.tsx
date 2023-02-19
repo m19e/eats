@@ -1,6 +1,6 @@
 import type { FunctionComponent } from "preact";
-import { computed, signal } from "@preact/signals";
-import { useState } from "preact/hooks";
+import { computed, effect, signal } from "@preact/signals";
+import { useEffect, useState } from "preact/hooks";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 
 type QueryData = {
@@ -98,22 +98,106 @@ const Builder = () => {
         <FilterSelect type="tweet" />
       </Command>
 
+      <Category title="Time" />
+      <Command
+        id="until"
+        title="until"
+        onToggle={(active) =>
+          toggleQuery({ id: "until", query: "until:2023-1-1", active })}
+      >
+        <Calendar id="until" />
+      </Command>
+      <Command
+        id="since"
+        title="since"
+        onToggle={(active) =>
+          toggleQuery({ id: "since", query: "since:2023-1-1", active })}
+      >
+        <Calendar id="since" />
+      </Command>
+
       <Category title="Engagement" />
       <Command id="min_retweets" title="min_retweets"></Command>
       <Command id="min_faves" title="min_faves"></Command>
       <Command id="min_replies" title="min_replies"></Command>
 
-      {/* <Category title="Time" /> */}
-      {/* <Command id="until" title="until"></Command> */}
-      {/* <Command id="since" title="since"></Command> */}
       {/* <Command id="until_time" title="until_time"></Command> */}
       {/* <Command id="since_time" title="since_time"></Command> */}
       {/* <Command id="since_id" title="since_id"></Command> */}
       {/* <Command id="max_id" title="max_id"></Command> */}
       {/* <Command id="within_time" title="within_time"></Command> */}
-
-      <SearchQuery />
     </div>
+  );
+};
+
+function* range(start: number, end: number) {
+  for (let i = start; i <= end; i++) {
+    yield i;
+  }
+}
+type CalendarData = {
+  y: string;
+  m: string;
+  d: string;
+  skip: boolean;
+};
+const Calendar = ({ id }: { id: "until" | "since" }) => {
+  const [calendar, setCalendar] = useState({
+    y: "2023",
+    m: "1",
+    d: "1",
+    skip: true,
+  });
+
+  useEffect(() => {
+    const { y, m, d, skip } = calendar;
+    if (skip) return;
+    const ymd = `${y}-${m}-${d}`;
+    console.log(ymd);
+    updateQuery({ id, query: `${id}:${ymd}`, active: true });
+  }, [calendar]);
+
+  const updateCalendar = (data: Partial<CalendarData>) => {
+    setCalendar((prev) => ({ ...prev, ...data, skip: false }));
+  };
+
+  return (
+    <div class="flex gap-1 min-w-[12rem]">
+      <DateSelect
+        times={[...range(2006, 2023)].reverse()}
+        onChange={(value) => updateCalendar({ y: value })}
+      />
+      <span>-</span>
+      <DateSelect
+        times={[...range(1, 12)]}
+        onChange={(value) => updateCalendar({ m: value })}
+      />
+      <span>-</span>
+      <DateSelect
+        times={[...range(1, 31)]}
+        onChange={(value) => updateCalendar({ d: value })}
+      />
+    </div>
+  );
+};
+const DateSelect = (
+  { times, onChange }: {
+    times: number[];
+    onChange: (value: string) => void;
+  },
+) => {
+  const options = times
+    .map(
+      (time) => <option key={time} value={time}>{time}</option>,
+    );
+
+  return (
+    <select
+      class="border px-1"
+      onChange={(e) => onChange(e.currentTarget.value)}
+    >
+      {options}
+    </select>
   );
 };
 
