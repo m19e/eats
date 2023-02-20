@@ -15,8 +15,11 @@ const queryString = computed(() => {
     q.query
   ).join(" ");
 });
-const updateQuery = (data: QueryData) => {
-  queryMap.value = new Map(queryMap.value.set(data.id, data));
+type UpdateQueryData = Omit<QueryData, "active"> & Partial<QueryData>;
+const updateQuery = (
+  { id, query, active = true }: UpdateQueryData,
+) => {
+  queryMap.value = new Map(queryMap.value.set(id, { id, query, active }));
 };
 const toggleQuery = (data: QueryData) => {
   const { id, active } = data;
@@ -39,8 +42,7 @@ const Builder = () => {
       >
         <TextInput
           placeholder="what’s happening"
-          onInput={(v) =>
-            updateQuery({ id: "keywords", query: v.trim(), active: true })}
+          onInput={(v) => updateQuery({ id: "keywords", query: v.trim() })}
         />
       </Command>
       <Command
@@ -51,8 +53,7 @@ const Builder = () => {
       >
         <TextInput
           placeholder="happy hour"
-          onInput={(v) =>
-            updateQuery({ id: "exact", query: `"${v.trim()}"`, active: true })}
+          onInput={(v) => updateQuery({ id: "exact", query: `"${v.trim()}"` })}
         />
       </Command>
       <Command
@@ -67,7 +68,6 @@ const Builder = () => {
             updateQuery({
               id: "or",
               query: `(${v.trim().split(" ").filter((c) => c).join(" OR ")})`,
-              active: true,
             })}
         />
       </Command>
@@ -86,7 +86,6 @@ const Builder = () => {
                 .join(
                   " ",
                 ),
-              active: true,
             })}
         />
       </Command>
@@ -105,7 +104,6 @@ const Builder = () => {
                 .join(
                   " ",
                 ),
-              active: true,
             })}
         />
       </Command>
@@ -118,9 +116,8 @@ const Builder = () => {
           toggleQuery({ id: "from", query: "from:", active })}
       >
         <TextInput
-          placeholder="screen name"
-          onInput={(v) =>
-            updateQuery({ id: "from", query: `from:${v}`, active: true })}
+          placeholder="@misskey_io"
+          onInput={(v) => updateQuery({ id: "from", query: `from:${v}` })}
         />
       </Command>
       <Command
@@ -129,9 +126,8 @@ const Builder = () => {
         onToggle={(active) => toggleQuery({ id: "to", query: "to:", active })}
       >
         <TextInput
-          placeholder="screen name"
-          onInput={(v) =>
-            updateQuery({ id: "to", query: `to:${v}`, active: true })}
+          placeholder="@misskey_io"
+          onInput={(v) => updateQuery({ id: "to", query: `to:${v}` })}
         />
       </Command>
       <Command
@@ -237,7 +233,7 @@ const Calendar = ({ id }: { id: "until" | "since" }) => {
     if (skip) return;
     const ymd = `${y}-${m}-${d}`;
     console.log(ymd);
-    updateQuery({ id, query: `${id}:${ymd}`, active: true });
+    updateQuery({ id, query: `${id}:${ymd}` });
   }, [calendar]);
 
   const updateCalendar = (data: Partial<CalendarData>) => {
@@ -412,7 +408,6 @@ const FilterSelect = ({ type }: { type: "tweet" | "media" }) => {
     updateQuery({
       id: `filter:${type}`,
       query: `filter:${value}`,
-      active: true,
     });
   };
 
