@@ -14,7 +14,7 @@ const isExcludeUser = signal(true);
 const queryString = computed(() => {
   return [...queryMap.value.values()].filter((q) => q.active).map((q) =>
     q.query
-  ).join(" ") + (isExcludeUser ? " OR @i -@i" : "");
+  ).join(" ") + (isExcludeUser.value ? " OR @i -@i" : "");
 });
 type UpdateQueryData = Omit<QueryData, "active"> & Partial<QueryData>;
 const updateQuery = (
@@ -315,7 +315,11 @@ const SearchQuery = () => {
         </a>
       </div>
       <div class="flex items-center gap-2">
-        <input type="checkbox" checked={isExcludeUser.value} />
+        <input
+          type="checkbox"
+          checked={isExcludeUser.value}
+          onClick={(e) => isExcludeUser.value = !isExcludeUser.value}
+        />
         <p class="text-sm">
           Exclude user name and screen name
         </p>
