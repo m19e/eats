@@ -250,7 +250,7 @@ const DateSelect = (
 
   return (
     <select
-      class="border px-1"
+      class="border px-0.5"
       onChange={(e) => onChange(e.currentTarget.value)}
     >
       {options}
