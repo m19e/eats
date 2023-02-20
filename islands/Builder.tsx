@@ -30,21 +30,37 @@ const Builder = () => {
       <SearchQuery />
 
       <Category title="Basic" />
-      <Command id="keywords" title="keywords" noColon>
+      <Command
+        id="keywords"
+        title="keywords"
+        noColon
+        onToggle={(active) =>
+          toggleQuery({ id: "keywords", query: "", active })}
+      >
         <TextInput
           placeholder="what’s happening"
           onInput={(v) =>
             updateQuery({ id: "keywords", query: v.trim(), active: true })}
         />
       </Command>
-      <Command id="exact" title={`"exact match"`} noColon>
+      <Command
+        id="exact"
+        title={`"exact match"`}
+        noColon
+        onToggle={(active) => toggleQuery({ id: "exact", query: `""`, active })}
+      >
         <TextInput
           placeholder="happy hour"
           onInput={(v) =>
             updateQuery({ id: "exact", query: `"${v.trim()}"`, active: true })}
         />
       </Command>
-      <Command id="or" title="a OR b" noColon>
+      <Command
+        id="or"
+        title="a OR b"
+        noColon
+        onToggle={(active) => toggleQuery({ id: "or", query: "", active })}
+      >
         <TextInput
           placeholder="cats dogs"
           onInput={(v) =>
@@ -55,7 +71,12 @@ const Builder = () => {
             })}
         />
       </Command>
-      <Command id="minus" title="-exclude" noColon>
+      <Command
+        id="minus"
+        title="-minus"
+        noColon
+        onToggle={(active) => toggleQuery({ id: "minus", query: "-", active })}
+      >
         <TextInput
           placeholder="cats dogs"
           onInput={(v) =>
@@ -69,7 +90,12 @@ const Builder = () => {
             })}
         />
       </Command>
-      <Command id="hashtag" title="#hashtag" noColon>
+      <Command
+        id="hashtag"
+        title="#hashtag"
+        noColon
+        onToggle={(active) => toggleQuery({ id: "", query: "#", active })}
+      >
         <TextInput
           placeholder="ThrowbackThursday"
           onInput={(v) =>
