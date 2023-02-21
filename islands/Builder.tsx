@@ -91,16 +91,16 @@ const Builder = () => {
         />
       </Command>
       <Command
-        id="hashtag"
+        id="tag"
         title="#hashtag"
         noColon
-        onToggle={(active) => toggleQuery({ id: "", query: "#", active })}
+        onToggle={(active) => toggleQuery({ id: "tag", query: "#", active })}
       >
         <TextInput
           placeholder="ThrowbackThursday"
           onInput={(v) =>
             updateQuery({
-              id: "hashtag",
+              id: "tag",
               query: v.trim().split(" ").filter((c) => c).map((c) => `#${c}`)
                 .join(
                   " ",
