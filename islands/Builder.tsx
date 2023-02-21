@@ -197,9 +197,52 @@ const Builder = () => {
       </Command>
 
       <Category title="Engagement" />
-      <Command id="min_retweets" title="min_retweets"></Command>
-      <Command id="min_faves" title="min_faves"></Command>
-      <Command id="min_replies" title="min_replies"></Command>
+      <Command
+        id="min_retweets"
+        title="min_retweets"
+        onToggle={(active) =>
+          toggleQuery({
+            id: "min_retweets",
+            query: "min_retweets:0",
+            active,
+          })}
+      >
+        <TextInput
+          placeholder="280"
+          onInput={(v) =>
+            updateQuery({
+              id: "min_retweets",
+              query: `min_retweets:${v.trim()}`,
+            })}
+        />
+      </Command>
+      <Command
+        id="min_faves"
+        title="min_faves"
+        onToggle={(active) =>
+          toggleQuery({ id: "min_faves", query: "min_faves:0", active })}
+      >
+        <TextInput
+          placeholder="280"
+          onInput={(v) =>
+            updateQuery({ id: "min_faves", query: `min_faves:${v.trim()}` })}
+        />
+      </Command>
+      <Command
+        id="min_replies"
+        title="min_replies"
+        onToggle={(active) =>
+          toggleQuery({ id: "min_replies", query: "min_replies:0", active })}
+      >
+        <TextInput
+          placeholder="280"
+          onInput={(v) =>
+            updateQuery({
+              id: "min_replies",
+              query: `min_replies:${v.trim()}`,
+            })}
+        />
+      </Command>
 
       {/* <Command id="until_time" title="until_time"></Command> */}
       {/* <Command id="since_time" title="since_time"></Command> */}
