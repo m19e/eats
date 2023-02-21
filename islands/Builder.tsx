@@ -142,7 +142,7 @@ const Builder = () => {
           })}
       >
         <input
-          class="border px-2"
+          class="border px-2 min-w-[12rem]"
           type="text"
           value="follows"
           disabled
