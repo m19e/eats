@@ -117,7 +117,7 @@ const Builder = () => {
           toggleQuery({ id: "from", query: "from:", active })}
       >
         <TextInput
-          placeholder="@misskey_io"
+          placeholder="@discord_jp"
           onInput={(v) => updateQuery({ id: "from", query: `from:${v}` })}
         />
       </Command>
@@ -127,7 +127,7 @@ const Builder = () => {
         onToggle={(active) => toggleQuery({ id: "to", query: "to:", active })}
       >
         <TextInput
-          placeholder="@misskey_io"
+          placeholder="@discord_jp"
           onInput={(v) => updateQuery({ id: "to", query: `to:${v}` })}
         />
       </Command>
