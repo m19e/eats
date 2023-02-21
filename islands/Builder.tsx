@@ -10,13 +10,17 @@ type QueryData = {
 };
 
 const queryMap = signal(new Map<string, QueryData>());
+const isExcludeUser = signal(true);
 const queryString = computed(() => {
   return [...queryMap.value.values()].filter((q) => q.active).map((q) =>
     q.query
-  ).join(" ");
+  ).join(" ") + (isExcludeUser.value ? " OR @i -@i" : "");
 });
-const updateQuery = (data: QueryData) => {
-  queryMap.value = new Map(queryMap.value.set(data.id, data));
+type UpdateQueryData = Omit<QueryData, "active"> & Partial<QueryData>;
+const updateQuery = (
+  { id, query, active = true }: UpdateQueryData,
+) => {
+  queryMap.value = new Map(queryMap.value.set(id, { id, query, active }));
 };
 const toggleQuery = (data: QueryData) => {
   const { id, active } = data;
@@ -30,32 +34,50 @@ const Builder = () => {
       <SearchQuery />
 
       <Category title="Basic" />
-      <Command id="keywords" title="keywords" noColon>
+      <Command
+        id="keywords"
+        title="keywords"
+        noColon
+        onToggle={(active) =>
+          toggleQuery({ id: "keywords", query: "", active })}
+      >
         <TextInput
           placeholder="what’s happening"
-          onInput={(v) =>
-            updateQuery({ id: "keywords", query: v.trim(), active: true })}
+          onInput={(v) => updateQuery({ id: "keywords", query: v.trim() })}
         />
       </Command>
-      <Command id="exact" title={`"exact match"`} noColon>
+      <Command
+        id="exact"
+        title={`"exact match"`}
+        noColon
+        onToggle={(active) => toggleQuery({ id: "exact", query: `""`, active })}
+      >
         <TextInput
           placeholder="happy hour"
-          onInput={(v) =>
-            updateQuery({ id: "exact", query: `"${v.trim()}"`, active: true })}
+          onInput={(v) => updateQuery({ id: "exact", query: `"${v.trim()}"` })}
         />
       </Command>
-      <Command id="or" title="a OR b" noColon>
+      <Command
+        id="or"
+        title="a OR b"
+        noColon
+        onToggle={(active) => toggleQuery({ id: "or", query: "", active })}
+      >
         <TextInput
           placeholder="cats dogs"
           onInput={(v) =>
             updateQuery({
               id: "or",
               query: `(${v.trim().split(" ").filter((c) => c).join(" OR ")})`,
-              active: true,
             })}
         />
       </Command>
-      <Command id="minus" title="-exclude" noColon>
+      <Command
+        id="minus"
+        title="-minus"
+        noColon
+        onToggle={(active) => toggleQuery({ id: "minus", query: "-", active })}
+      >
         <TextInput
           placeholder="cats dogs"
           onInput={(v) =>
@@ -65,11 +87,15 @@ const Builder = () => {
                 .join(
                   " ",
                 ),
-              active: true,
             })}
         />
       </Command>
-      <Command id="hashtag" title="#hashtag" noColon>
+      <Command
+        id="hashtag"
+        title="#hashtag"
+        noColon
+        onToggle={(active) => toggleQuery({ id: "", query: "#", active })}
+      >
         <TextInput
           placeholder="ThrowbackThursday"
           onInput={(v) =>
@@ -79,7 +105,6 @@ const Builder = () => {
                 .join(
                   " ",
                 ),
-              active: true,
             })}
         />
       </Command>
@@ -92,9 +117,8 @@ const Builder = () => {
           toggleQuery({ id: "from", query: "from:", active })}
       >
         <TextInput
-          placeholder="screen name"
-          onInput={(v) =>
-            updateQuery({ id: "from", query: `from:${v}`, active: true })}
+          placeholder="@misskey_io"
+          onInput={(v) => updateQuery({ id: "from", query: `from:${v}` })}
         />
       </Command>
       <Command
@@ -103,9 +127,8 @@ const Builder = () => {
         onToggle={(active) => toggleQuery({ id: "to", query: "to:", active })}
       >
         <TextInput
-          placeholder="screen name"
-          onInput={(v) =>
-            updateQuery({ id: "to", query: `to:${v}`, active: true })}
+          placeholder="@misskey_io"
+          onInput={(v) => updateQuery({ id: "to", query: `to:${v}` })}
         />
       </Command>
       <Command
@@ -211,7 +234,7 @@ const Calendar = ({ id }: { id: "until" | "since" }) => {
     if (skip) return;
     const ymd = `${y}-${m}-${d}`;
     console.log(ymd);
-    updateQuery({ id, query: `${id}:${ymd}`, active: true });
+    updateQuery({ id, query: `${id}:${ymd}` });
   }, [calendar]);
 
   const updateCalendar = (data: Partial<CalendarData>) => {
@@ -250,7 +273,7 @@ const DateSelect = (
 
   return (
     <select
-      class="border px-1"
+      class="border px-0.5"
       onChange={(e) => onChange(e.currentTarget.value)}
     >
       {options}
@@ -260,35 +283,47 @@ const DateSelect = (
 
 const SearchQuery = () => {
   return (
-    <div class="w-full flex items-center gap-2">
-      <p class="py-1 px-2 flex-1 rounded border border-gray-400 whitespace-pre-wrap">
-        {queryString.value || (
-          <span class="opacity-50">
-            Search Query
-          </span>
-        )}
-      </p>
-      <a
-        class="flex justify-center items-center rounded-full border-2 border-gray-400 w-8 h-8"
-        href={`https://twitter.com/search?q=${
-          encodeURIComponent(queryString.value)
-        }&src=typed_query`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          class="w-5 h-5"
+    <div class="space-y-1">
+      <div class="flex items-center gap-2">
+        <p class="py-1 px-2 flex-1 rounded border border-gray-400 whitespace-pre-wrap">
+          {queryString.value || (
+            <span class="opacity-50">
+              Search Query
+            </span>
+          )}
+        </p>
+        <a
+          class="flex justify-center items-center rounded-full border-2 border-gray-400 w-8 h-8"
+          href={`https://twitter.com/search?q=${
+            encodeURIComponent(queryString.value)
+          }&src=typed_query`}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          <path
-            fillRule="evenodd"
-            d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </a>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            class="w-5 h-5"
+          >
+            <path
+              fillRule="evenodd"
+              d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </a>
+      </div>
+      <div class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          checked={isExcludeUser.value}
+          onClick={(e) => isExcludeUser.value = !isExcludeUser.value}
+        />
+        <p class="text-sm">
+          Exclude user name and screen name
+        </p>
+      </div>
     </div>
   );
 };
@@ -386,7 +421,6 @@ const FilterSelect = ({ type }: { type: "tweet" | "media" }) => {
     updateQuery({
       id: `filter:${type}`,
       query: `filter:${value}`,
-      active: true,
     });
   };
 
