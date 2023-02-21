@@ -59,7 +59,7 @@ const Builder = () => {
       </Command>
       <Command
         id="or"
-        title="a OR b"
+        title="yes OR no"
         noColon
         onToggle={(active) => toggleQuery({ id: "or", query: "", active })}
       >
