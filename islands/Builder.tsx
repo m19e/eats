@@ -276,8 +276,8 @@ const Calendar = ({ id }: { id: "until" | "since" }) => {
     const { y, m, d, skip } = calendar;
     if (skip) return;
     const ymd = `${y}-${m}-${d}`;
-    console.log(ymd);
-    updateQuery({ id, query: `${id}:${ymd}` });
+    const query = `${id}:${ymd}`;
+    updateQuery({ id, query });
   }, [calendar]);
 
   const updateCalendar = (data: Partial<CalendarData>) => {
