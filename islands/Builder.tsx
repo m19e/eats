@@ -3,20 +3,39 @@ import { computed, effect, signal } from "@preact/signals";
 import { useEffect, useState } from "preact/hooks";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 
+const COMMAND_IDS = {
+  keywords: "KEYWORDS",
+  exact: "EXACT",
+  or: "OR",
+  minus: "MINUS",
+  tag: "TAG",
+  from: "FROM",
+  to: "TO",
+  until: "UNTIL",
+  since: "SINCE",
+  min_retweets: "MIN_RETWEETS",
+  min_faves: "MIN_FAVES",
+  min_replies: "MIN_REPLIES",
+  "filter:follows": "FILTER:FOLLOWS",
+  "filter:media": "FILTER:MEDIA",
+  "filter:tweet": "FILTER:TWEET",
+} as const;
+type CommandID = keyof typeof COMMAND_IDS;
+
 type QueryData = {
-  id: string;
+  id: CommandID;
   query: string;
   active: boolean;
 };
+type UpdateQueryData = Omit<QueryData, "active"> & Partial<QueryData>;
 
-const queryMap = signal(new Map<string, QueryData>());
+const queryMap = signal(new Map<CommandID, QueryData>());
 const isExcludeUser = signal(true);
 const queryString = computed(() => {
   return [...queryMap.value.values()].filter((q) => q.active).map((q) =>
     q.query
   ).join(" ") + (isExcludeUser.value ? " OR @i -@i" : "");
 });
-type UpdateQueryData = Omit<QueryData, "active"> & Partial<QueryData>;
 const updateQuery = (
   { id, query, active = true }: UpdateQueryData,
 ) => {
@@ -401,7 +420,7 @@ const TextInput = ({ placeholder, onInput, disabled }: TextInputProps) => {
 };
 
 type CommandProps = {
-  id: string;
+  id: CommandID;
   title: string;
   desc?: string;
   noColon?: boolean;
