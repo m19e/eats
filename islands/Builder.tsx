@@ -59,7 +59,7 @@ const Builder = () => {
       </Command>
       <Command
         id="or"
-        title="a OR b"
+        title="yes OR no"
         noColon
         onToggle={(active) => toggleQuery({ id: "or", query: "", active })}
       >
@@ -91,16 +91,16 @@ const Builder = () => {
         />
       </Command>
       <Command
-        id="hashtag"
+        id="tag"
         title="#hashtag"
         noColon
-        onToggle={(active) => toggleQuery({ id: "", query: "#", active })}
+        onToggle={(active) => toggleQuery({ id: "tag", query: "#", active })}
       >
         <TextInput
           placeholder="ThrowbackThursday"
           onInput={(v) =>
             updateQuery({
-              id: "hashtag",
+              id: "tag",
               query: v.trim().split(" ").filter((c) => c).map((c) => `#${c}`)
                 .join(
                   " ",
@@ -117,7 +117,7 @@ const Builder = () => {
           toggleQuery({ id: "from", query: "from:", active })}
       >
         <TextInput
-          placeholder="@misskey_io"
+          placeholder="@discord_jp"
           onInput={(v) => updateQuery({ id: "from", query: `from:${v}` })}
         />
       </Command>
@@ -127,7 +127,7 @@ const Builder = () => {
         onToggle={(active) => toggleQuery({ id: "to", query: "to:", active })}
       >
         <TextInput
-          placeholder="@misskey_io"
+          placeholder="@discord_jp"
           onInput={(v) => updateQuery({ id: "to", query: `to:${v}` })}
         />
       </Command>
@@ -142,7 +142,7 @@ const Builder = () => {
           })}
       >
         <input
-          class="border px-2"
+          class="border px-2 min-w-[12rem]"
           type="text"
           value="follows"
           disabled
@@ -197,9 +197,52 @@ const Builder = () => {
       </Command>
 
       <Category title="Engagement" />
-      <Command id="min_retweets" title="min_retweets"></Command>
-      <Command id="min_faves" title="min_faves"></Command>
-      <Command id="min_replies" title="min_replies"></Command>
+      <Command
+        id="min_retweets"
+        title="min_retweets"
+        onToggle={(active) =>
+          toggleQuery({
+            id: "min_retweets",
+            query: "min_retweets:0",
+            active,
+          })}
+      >
+        <TextInput
+          placeholder="280"
+          onInput={(v) =>
+            updateQuery({
+              id: "min_retweets",
+              query: `min_retweets:${v.trim()}`,
+            })}
+        />
+      </Command>
+      <Command
+        id="min_faves"
+        title="min_faves"
+        onToggle={(active) =>
+          toggleQuery({ id: "min_faves", query: "min_faves:0", active })}
+      >
+        <TextInput
+          placeholder="280"
+          onInput={(v) =>
+            updateQuery({ id: "min_faves", query: `min_faves:${v.trim()}` })}
+        />
+      </Command>
+      <Command
+        id="min_replies"
+        title="min_replies"
+        onToggle={(active) =>
+          toggleQuery({ id: "min_replies", query: "min_replies:0", active })}
+      >
+        <TextInput
+          placeholder="280"
+          onInput={(v) =>
+            updateQuery({
+              id: "min_replies",
+              query: `min_replies:${v.trim()}`,
+            })}
+        />
+      </Command>
 
       {/* <Command id="until_time" title="until_time"></Command> */}
       {/* <Command id="since_time" title="since_time"></Command> */}
@@ -233,8 +276,8 @@ const Calendar = ({ id }: { id: "until" | "since" }) => {
     const { y, m, d, skip } = calendar;
     if (skip) return;
     const ymd = `${y}-${m}-${d}`;
-    console.log(ymd);
-    updateQuery({ id, query: `${id}:${ymd}` });
+    const query = `${id}:${ymd}`;
+    updateQuery({ id, query });
   }, [calendar]);
 
   const updateCalendar = (data: Partial<CalendarData>) => {
