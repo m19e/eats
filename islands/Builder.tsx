@@ -76,8 +76,19 @@ const splitQueryText = (text: string): string[] => {
   return text.trim().split(" ").filter((c) => c);
 };
 const forms: {
-  [key in Extract<CommandID, "keywords" | "exact" | "or" | "minus" | "tag">]:
-    ContentForm;
+  [
+    key in Extract<
+      CommandID,
+      | "keywords"
+      | "exact"
+      | "or"
+      | "minus"
+      | "tag"
+      | "from"
+      | "to"
+      | "filter:follows"
+    >
+  ]: ContentForm;
 } = {
   keywords: {
     type: "input",
@@ -108,6 +119,21 @@ const forms: {
     id: "tag",
     placeholder: "ThrowbackThursday",
     getQuery: (v) => splitQueryText(v).map((c) => `#${c}`).join(" "),
+  },
+  from: {
+    type: "input",
+    id: "from",
+    placeholder: "@discord_jp",
+  },
+  to: {
+    type: "input",
+    id: "to",
+    placeholder: "@discord_jp",
+  },
+  "filter:follows": {
+    type: "input:disabled",
+    id: "filter:follows",
+    value: "follows",
   },
 };
 const contents: Content[] = [
@@ -361,6 +387,16 @@ const CommandForm = (props: ContentForm) => {
       <TextInput
         placeholder={placeholder}
         onInput={(v) => updateQuery({ id, query: getQuery(v) })}
+      />
+    );
+  }
+  if (props.type === "input:disabled") {
+    return (
+      <input
+        class="border px-2 min-w-[12rem]"
+        type="text"
+        value={props.value}
+        disabled
       />
     );
   }
