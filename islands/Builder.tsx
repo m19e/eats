@@ -110,7 +110,6 @@ const forms: {
     getQuery: (v) => splitQueryText(v).map((c) => `#${c}`).join(" "),
   },
 };
-
 const contents: Content[] = [
   { type: "group", title: "Basic" },
   {
@@ -492,7 +491,7 @@ type CommandProps = {
   title: string;
   desc?: string;
   noColon?: boolean;
-  onToggle?: (a: boolean) => void;
+  onToggle: (a: boolean) => void;
 };
 
 const Command: FunctionComponent<CommandProps> = (
@@ -503,7 +502,7 @@ const Command: FunctionComponent<CommandProps> = (
       <input
         type="checkbox"
         checked={queryMap.value.get(id)?.active}
-        onClick={(e) => onToggle && onToggle(e.currentTarget.checked)}
+        onClick={(e) => onToggle(e.currentTarget.checked)}
       />
       <div class="flex flex-1">
         <p class="flex-1 mx-2 border-b border-black border-opacity-50">
