@@ -152,11 +152,39 @@ const contents: Content[] = [
     defaultQuery: "#",
     form: forms.tag,
   },
+  {
+    type: "group",
+    title: "Users",
+  },
+  {
+    type: "command",
+    id: "from",
+    title: "from",
+    noColon: false,
+    defaultQuery: "from:",
+    form: forms.from,
+  },
+  {
+    type: "command",
+    id: "to",
+    title: "to",
+    noColon: false,
+    defaultQuery: "from:",
+    form: forms.from,
+  },
+  {
+    type: "command",
+    id: "filter:follows",
+    title: "filter",
+    noColon: false,
+    defaultQuery: "filter:follows",
+    form: forms["filter:follows"],
+  },
 ];
 
 const Builder = () => {
   return (
-    <div class="space-y-4 px-3 w-full">
+    <div class="space-y-3 px-3 w-full">
       <SearchQuery />
 
       <Category title="Users" />
