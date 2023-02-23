@@ -61,13 +61,14 @@ type ContentForm = {
   filterType: "media" | "tweet";
 } | {
   type: "calendar";
-  calendarType: "until" | "since";
+  calendarId: "until" | "since";
 };
 type Content = { type: "group"; title: string } | {
   type: "command";
   id: CommandID;
   title: string;
-  noColon: boolean;
+  noColon?: boolean;
+  desc?: string;
   defaultQuery: string;
   form: ContentForm;
 };
@@ -77,16 +78,9 @@ const splitQueryText = (text: string): string[] => {
 };
 const forms: {
   [
-    key in Extract<
+    key in Exclude<
       CommandID,
-      | "keywords"
-      | "exact"
-      | "or"
-      | "minus"
-      | "tag"
-      | "from"
-      | "to"
-      | "filter:follows"
+      "min_retweets" | "min_faves" | "min_replies"
     >
   ]: ContentForm;
 } = {
@@ -130,10 +124,26 @@ const forms: {
     id: "to",
     placeholder: "@discord_jp",
   },
+  until: {
+    type: "calendar",
+    calendarId: "until",
+  },
+  since: {
+    type: "calendar",
+    calendarId: "since",
+  },
   "filter:follows": {
     type: "input:disabled",
     id: "filter:follows",
     value: "follows",
+  },
+  "filter:media": {
+    type: "select",
+    filterType: "media",
+  },
+  "filter:tweet": {
+    type: "select",
+    filterType: "tweet",
   },
 };
 const contents: Content[] = [
@@ -202,9 +212,50 @@ const contents: Content[] = [
     type: "command",
     id: "filter:follows",
     title: "filter",
-    noColon: false,
     defaultQuery: "filter:follows",
     form: forms["filter:follows"],
+  },
+  {
+    type: "group",
+    title: "Tweet Type",
+  },
+  {
+    type: "command",
+    id: "filter:media",
+    title: "filter",
+    desc: "media type",
+    defaultQuery: "filter:images",
+    form: forms["filter:media"],
+  },
+  {
+    type: "command",
+    id: "filter:tweet",
+    title: "filter",
+    desc: "tweet type",
+    defaultQuery: "filter:nativeretweets",
+    form: forms["filter:tweet"],
+  },
+  {
+    type: "group",
+    title: "Time",
+  },
+  {
+    type: "command",
+    id: "until",
+    title: "until",
+    defaultQuery: "until:2023-1-1",
+    form: forms.until,
+  },
+  {
+    type: "command",
+    id: "since",
+    title: "since",
+    defaultQuery: "since:2023-1-1",
+    form: forms.since,
+  },
+  {
+    type: "group",
+    title: "Engagement",
   },
 ];
 
@@ -218,48 +269,6 @@ const Builder = () => {
         //   <input type="text" placeholder="screen name" class="border px-2" />
         // </Command>
       }
-
-      <Category title="Tweet Type" />
-      <Command
-        id="filter:media"
-        title="filter"
-        desc="media type"
-        onToggle={(active) =>
-          toggleQuery({ id: "filter:media", query: "filter:images", active })}
-      >
-        <FilterSelect type="media" />
-      </Command>
-      <Command
-        id="filter:tweet"
-        title="filter"
-        desc="tweet type"
-        onToggle={(active) =>
-          toggleQuery({
-            id: "filter:tweet",
-            query: "filter:nativeretweets",
-            active,
-          })}
-      >
-        <FilterSelect type="tweet" />
-      </Command>
-
-      <Category title="Time" />
-      <Command
-        id="until"
-        title="until"
-        onToggle={(active) =>
-          toggleQuery({ id: "until", query: "until:2023-1-1", active })}
-      >
-        <Calendar id="until" />
-      </Command>
-      <Command
-        id="since"
-        title="since"
-        onToggle={(active) =>
-          toggleQuery({ id: "since", query: "since:2023-1-1", active })}
-      >
-        <Calendar id="since" />
-      </Command>
 
       <Category title="Engagement" />
       <Command
@@ -366,6 +375,12 @@ const CommandForm = (props: ContentForm) => {
         disabled
       />
     );
+  }
+  if (props.type === "select") {
+    return <FilterSelect type={props.filterType} />;
+  }
+  if (props.type === "calendar") {
+    return <Calendar id={props.calendarId} />;
   }
   return null;
 };
