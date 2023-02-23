@@ -362,11 +362,17 @@ const Builder = () => {
 const AppContents = () => {
   const body = contents.map((content) => {
     if (content.type === "group") {
-      return <Category title={content.title} />;
+      return (
+        <Category
+          key={content.title}
+          title={content.title}
+        />
+      );
     }
     const { id, title, defaultQuery, form, noColon } = content;
     return (
       <Command
+        key={id}
         id={id}
         title={title}
         noColon={noColon}
