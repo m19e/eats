@@ -213,45 +213,6 @@ const Builder = () => {
     <div class="space-y-3 px-3 w-full">
       <SearchQuery />
 
-      <Category title="Users" />
-      <Command
-        id="from"
-        title="from"
-        onToggle={(active) =>
-          toggleQuery({ id: "from", query: "from:", active })}
-      >
-        <TextInput
-          placeholder="@discord_jp"
-          onInput={(v) => updateQuery({ id: "from", query: `from:${v}` })}
-        />
-      </Command>
-      <Command
-        id="to"
-        title="to"
-        onToggle={(active) => toggleQuery({ id: "to", query: "to:", active })}
-      >
-        <TextInput
-          placeholder="@discord_jp"
-          onInput={(v) => updateQuery({ id: "to", query: `to:${v}` })}
-        />
-      </Command>
-      <Command
-        id="filter:follows"
-        title="filter"
-        onToggle={(active) =>
-          toggleQuery({
-            id: "filter:follows",
-            query: "filter:follows",
-            active,
-          })}
-      >
-        <input
-          class="border px-2 min-w-[12rem]"
-          type="text"
-          value="follows"
-          disabled
-        />
-      </Command>
       {
         // <Command id="@" title="@" noColon>
         //   <input type="text" placeholder="screen name" class="border px-2" />
