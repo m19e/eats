@@ -66,7 +66,7 @@ type ContentForm = {
 type Content = { type: "group"; title: string } | {
   type: "command";
   id: CommandID;
-  title: string;
+  title?: string;
   noColon?: boolean;
   desc?: string;
   defaultQuery: string;
@@ -344,7 +344,7 @@ const AppContents = () => {
       <Command
         key={id}
         id={id}
-        title={title}
+        title={title ?? id}
         noColon={noColon}
         desc={desc}
         onToggle={(active) => toggleQuery({ id, active, query: defaultQuery })}
