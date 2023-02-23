@@ -498,23 +498,26 @@ const Command: FunctionComponent<CommandProps> = (
   { id, title, desc, noColon = false, onToggle, children },
 ) => {
   return (
-    <div class="flex w-full">
+    <div class="flex w-full group">
       <input
         type="checkbox"
         checked={queryMap.value.get(id)?.active}
         onClick={(e) => onToggle(e.currentTarget.checked)}
       />
       <div class="flex flex-1">
-        <p class="flex-1 mx-2 border-b border-black border-opacity-50">
-          {title}
-          {!noColon && ":"}
-          {desc &&
-            (
-              <span class="text-black text-opacity-50 px-1 text-sm">
-                {desc}
-              </span>
-            )}
-        </p>
+        <div class="flex-1 flex flex-col px-1">
+          <p class="px-1">
+            {title}
+            {!noColon && ":"}
+            {desc &&
+              (
+                <span class="text-black text-opacity-50 px-1 text-sm">
+                  {desc}
+                </span>
+              )}
+          </p>
+          <span class="bg-gray-500 h-[1px] w-0 group-hover:!w-full transition-all duration-300" />
+        </div>
         {children}
       </div>
     </div>
