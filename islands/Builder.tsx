@@ -458,7 +458,7 @@ const SearchQuery = () => {
 };
 
 const Category = ({ title }: { title: string }) => {
-  return <h2 class="text-xl border-b border-black">{title}</h2>;
+  return <h2 class="text-xl font-semibold border-b border-black">{title}</h2>;
 };
 
 type TextInputProps = {
