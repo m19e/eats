@@ -358,7 +358,7 @@ const AppContents = () => {
 const CommandForm = (props: ContentForm) => {
   if (props.type === "input") {
     const { placeholder, id } = props;
-    const getQuery: GetQueryFn = props.getQuery ?? ((v) => `${id}:${v}`);
+    const getQuery: GetQueryFn = props.getQuery ?? ((v) => `${id}:${v.trim()}`);
     return (
       <TextInput
         placeholder={placeholder}
