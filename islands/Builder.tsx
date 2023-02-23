@@ -195,8 +195,8 @@ const contents: Content[] = [
     id: "to",
     title: "to",
     noColon: false,
-    defaultQuery: "from:",
-    form: forms.from,
+    defaultQuery: "to:",
+    form: forms.to,
   },
   {
     type: "command",
