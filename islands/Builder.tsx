@@ -77,12 +77,7 @@ const splitQueryText = (text: string): string[] => {
   return text.trim().split(" ").filter((c) => c);
 };
 const forms: {
-  [
-    key in Exclude<
-      CommandID,
-      "min_retweets" | "min_faves" | "min_replies"
-    >
-  ]: ContentForm;
+  [key in CommandID]: ContentForm;
 } = {
   keywords: {
     type: "input",
@@ -131,6 +126,21 @@ const forms: {
   since: {
     type: "calendar",
     calendarId: "since",
+  },
+  min_retweets: {
+    type: "input",
+    id: "min_retweets",
+    placeholder: "280",
+  },
+  min_faves: {
+    type: "input",
+    id: "min_faves",
+    placeholder: "280",
+  },
+  min_replies: {
+    type: "input",
+    id: "min_replies",
+    placeholder: "280",
   },
   "filter:follows": {
     type: "input:disabled",
@@ -257,6 +267,24 @@ const contents: Content[] = [
     type: "group",
     title: "Engagement",
   },
+  {
+    type: "command",
+    id: "min_retweets",
+    defaultQuery: "min_retweets:0",
+    form: forms.min_retweets,
+  },
+  {
+    type: "command",
+    id: "min_faves",
+    defaultQuery: "min_faves:0",
+    form: forms.min_faves,
+  },
+  {
+    type: "command",
+    id: "min_replies",
+    defaultQuery: "min_replies:0",
+    form: forms.min_replies,
+  },
 ];
 
 const Builder = () => {
@@ -269,54 +297,6 @@ const Builder = () => {
         //   <input type="text" placeholder="screen name" class="border px-2" />
         // </Command>
       }
-
-      <Category title="Engagement" />
-      <Command
-        id="min_retweets"
-        title="min_retweets"
-        onToggle={(active) =>
-          toggleQuery({
-            id: "min_retweets",
-            query: "min_retweets:0",
-            active,
-          })}
-      >
-        <TextInput
-          placeholder="280"
-          onInput={(v) =>
-            updateQuery({
-              id: "min_retweets",
-              query: `min_retweets:${v.trim()}`,
-            })}
-        />
-      </Command>
-      <Command
-        id="min_faves"
-        title="min_faves"
-        onToggle={(active) =>
-          toggleQuery({ id: "min_faves", query: "min_faves:0", active })}
-      >
-        <TextInput
-          placeholder="280"
-          onInput={(v) =>
-            updateQuery({ id: "min_faves", query: `min_faves:${v.trim()}` })}
-        />
-      </Command>
-      <Command
-        id="min_replies"
-        title="min_replies"
-        onToggle={(active) =>
-          toggleQuery({ id: "min_replies", query: "min_replies:0", active })}
-      >
-        <TextInput
-          placeholder="280"
-          onInput={(v) =>
-            updateQuery({
-              id: "min_replies",
-              query: `min_replies:${v.trim()}`,
-            })}
-        />
-      </Command>
 
       {/* <Command id="until_time" title="until_time"></Command> */}
       {/* <Command id="since_time" title="since_time"></Command> */}
