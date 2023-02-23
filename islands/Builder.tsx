@@ -1,22 +1,40 @@
 import type { FunctionComponent } from "preact";
-import { computed, effect, signal } from "@preact/signals";
+import { computed, signal } from "@preact/signals";
 import { useEffect, useState } from "preact/hooks";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 
+const COMMAND_IDS = {
+  keywords: "KEYWORDS",
+  exact: "EXACT",
+  or: "OR",
+  minus: "MINUS",
+  tag: "TAG",
+  from: "FROM",
+  to: "TO",
+  until: "UNTIL",
+  since: "SINCE",
+  min_retweets: "MIN_RETWEETS",
+  min_faves: "MIN_FAVES",
+  min_replies: "MIN_REPLIES",
+  "filter:follows": "FILTER:FOLLOWS",
+  "filter:media": "FILTER:MEDIA",
+  "filter:tweet": "FILTER:TWEET",
+} as const;
+type CommandID = keyof typeof COMMAND_IDS;
 type QueryData = {
-  id: string;
+  id: CommandID;
   query: string;
   active: boolean;
 };
+type UpdateQueryData = Omit<QueryData, "active"> & Partial<QueryData>;
 
-const queryMap = signal(new Map<string, QueryData>());
+const queryMap = signal(new Map<CommandID, QueryData>());
 const isExcludeUser = signal(true);
 const queryString = computed(() => {
   return [...queryMap.value.values()].filter((q) => q.active).map((q) =>
     q.query
   ).join(" ") + (isExcludeUser.value ? " OR @i -@i" : "");
 });
-type UpdateQueryData = Omit<QueryData, "active"> & Partial<QueryData>;
 const updateQuery = (
   { id, query, active = true }: UpdateQueryData,
 ) => {
@@ -28,86 +46,118 @@ const toggleQuery = (data: QueryData) => {
   updateQuery({ ...prevQuery, active });
 };
 
+type GetQueryFn = (value: string) => string;
+type ContentForm = {
+  type: "input";
+  id: CommandID;
+  placeholder: string;
+  getQuery?: GetQueryFn;
+} | {
+  type: "input:disabled";
+  id: CommandID;
+  value: string;
+} | {
+  type: "select";
+  filterType: "media" | "tweet";
+} | {
+  type: "calendar";
+  calendarType: "until" | "since";
+};
+type Content = { type: "group"; title: string } | {
+  type: "command";
+  id: CommandID;
+  title: string;
+  noColon: boolean;
+  defaultQuery: string;
+  form: ContentForm;
+};
+
+const splitQueryText = (text: string): string[] => {
+  return text.trim().split(" ").filter((c) => c);
+};
+const forms: {
+  [key in Extract<CommandID, "keywords" | "exact" | "or" | "minus" | "tag">]:
+    ContentForm;
+} = {
+  keywords: {
+    type: "input",
+    id: "keywords",
+    placeholder: "what’s happening",
+    getQuery: (v) => v.trim(),
+  },
+  exact: {
+    type: "input",
+    id: "exact",
+    placeholder: "happy hour",
+    getQuery: (v) => `"${v.trim()}"`,
+  },
+  or: {
+    type: "input",
+    id: "or",
+    placeholder: "cats dogs",
+    getQuery: (v) => `(${splitQueryText(v).join(" OR ")})`,
+  },
+  minus: {
+    type: "input",
+    id: "minus",
+    placeholder: "cats dogs",
+    getQuery: (v) => splitQueryText(v).map((c) => `-${c}`).join(" "),
+  },
+  tag: {
+    type: "input",
+    id: "tag",
+    placeholder: "ThrowbackThursday",
+    getQuery: (v) => splitQueryText(v).map((c) => `#${c}`).join(" "),
+  },
+};
+const contents: Content[] = [
+  { type: "group", title: "Basic" },
+  {
+    type: "command",
+    id: "keywords",
+    title: "keywords",
+    noColon: true,
+    defaultQuery: "",
+    form: forms.keywords,
+  },
+  {
+    type: "command",
+    id: "exact",
+    title: `"exact match"`,
+    noColon: true,
+    defaultQuery: `""`,
+    form: forms.exact,
+  },
+  {
+    type: "command",
+    id: "or",
+    title: "yes OR no",
+    noColon: true,
+    defaultQuery: "",
+    form: forms.or,
+  },
+  {
+    type: "command",
+    id: "minus",
+    title: "-minus",
+    noColon: true,
+    defaultQuery: "-",
+    form: forms.minus,
+  },
+  {
+    type: "command",
+    id: "tag",
+    title: "#hashtag",
+    noColon: true,
+    defaultQuery: "#",
+    form: forms.tag,
+  },
+];
+
 const Builder = () => {
   return (
     <div class="space-y-4 px-3 w-full">
       <SearchQuery />
-
-      <Category title="Basic" />
-      <Command
-        id="keywords"
-        title="keywords"
-        noColon
-        onToggle={(active) =>
-          toggleQuery({ id: "keywords", query: "", active })}
-      >
-        <TextInput
-          placeholder="what’s happening"
-          onInput={(v) => updateQuery({ id: "keywords", query: v.trim() })}
-        />
-      </Command>
-      <Command
-        id="exact"
-        title={`"exact match"`}
-        noColon
-        onToggle={(active) => toggleQuery({ id: "exact", query: `""`, active })}
-      >
-        <TextInput
-          placeholder="happy hour"
-          onInput={(v) => updateQuery({ id: "exact", query: `"${v.trim()}"` })}
-        />
-      </Command>
-      <Command
-        id="or"
-        title="yes OR no"
-        noColon
-        onToggle={(active) => toggleQuery({ id: "or", query: "", active })}
-      >
-        <TextInput
-          placeholder="cats dogs"
-          onInput={(v) =>
-            updateQuery({
-              id: "or",
-              query: `(${v.trim().split(" ").filter((c) => c).join(" OR ")})`,
-            })}
-        />
-      </Command>
-      <Command
-        id="minus"
-        title="-minus"
-        noColon
-        onToggle={(active) => toggleQuery({ id: "minus", query: "-", active })}
-      >
-        <TextInput
-          placeholder="cats dogs"
-          onInput={(v) =>
-            updateQuery({
-              id: "minus",
-              query: v.trim().split(" ").filter((c) => c).map((c) => `-${c}`)
-                .join(
-                  " ",
-                ),
-            })}
-        />
-      </Command>
-      <Command
-        id="tag"
-        title="#hashtag"
-        noColon
-        onToggle={(active) => toggleQuery({ id: "tag", query: "#", active })}
-      >
-        <TextInput
-          placeholder="ThrowbackThursday"
-          onInput={(v) =>
-            updateQuery({
-              id: "tag",
-              query: v.trim().split(" ").filter((c) => c).map((c) => `#${c}`)
-                .join(
-                  " ",
-                ),
-            })}
-        />
-      </Command>
 
       <Category title="Users" />
       <Command
@@ -249,8 +299,44 @@ const Builder = () => {
       {/* <Command id="since_id" title="since_id"></Command> */}
       {/* <Command id="max_id" title="max_id"></Command> */}
       {/* <Command id="within_time" title="within_time"></Command> */}
+
+      <AppContents />
     </div>
   );
+};
+
+const AppContents = () => {
+  const body = contents.map((content) => {
+    if (content.type === "group") {
+      return <Category title={content.title} />;
+    }
+    const { id, title, defaultQuery, form, noColon } = content;
+    return (
+      <Command
+        id={id}
+        title={title}
+        noColon={noColon}
+        onToggle={(active) => toggleQuery({ id, active, query: defaultQuery })}
+      >
+        <CommandForm {...form} />
+      </Command>
+    );
+  });
+
+  return <>{body}</>;
+};
+const CommandForm = (props: ContentForm) => {
+  if (props.type === "input") {
+    const { placeholder, id } = props;
+    const getQuery: GetQueryFn = props.getQuery ?? ((v) => `${id}:${v}`);
+    return (
+      <TextInput
+        placeholder={placeholder}
+        onInput={(v) => updateQuery({ id, query: getQuery(v) })}
+      />
+    );
+  }
+  return null;
 };
 
 function* range(start: number, end: number) {
@@ -401,34 +487,37 @@ const TextInput = ({ placeholder, onInput, disabled }: TextInputProps) => {
 };
 
 type CommandProps = {
-  id: string;
+  id: CommandID;
   title: string;
   desc?: string;
   noColon?: boolean;
-  onToggle?: (a: boolean) => void;
+  onToggle: (a: boolean) => void;
 };
 
 const Command: FunctionComponent<CommandProps> = (
   { id, title, desc, noColon = false, onToggle, children },
 ) => {
   return (
-    <div class="flex w-full">
+    <div class="flex w-full group">
       <input
         type="checkbox"
         checked={queryMap.value.get(id)?.active}
-        onClick={(e) => onToggle && onToggle(e.currentTarget.checked)}
+        onClick={(e) => onToggle(e.currentTarget.checked)}
       />
       <div class="flex flex-1">
-        <p class="flex-1 mx-2 border-b border-black border-opacity-50">
-          {title}
-          {!noColon && ":"}
-          {desc &&
-            (
-              <span class="text-black text-opacity-50 px-1 text-sm">
-                {desc}
-              </span>
-            )}
-        </p>
+        <div class="flex-1 flex flex-col px-1">
+          <p class="px-1">
+            {title}
+            {!noColon && ":"}
+            {desc &&
+              (
+                <span class="text-black text-opacity-50 px-1 text-sm">
+                  {desc}
+                </span>
+              )}
+          </p>
+          <span class="bg-gray-500 h-[1px] w-0 group-hover:!w-full transition-all duration-300" />
+        </div>
         {children}
       </div>
     </div>
