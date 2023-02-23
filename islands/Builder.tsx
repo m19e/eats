@@ -339,13 +339,14 @@ const AppContents = () => {
         />
       );
     }
-    const { id, title, defaultQuery, form, noColon } = content;
+    const { id, title, noColon, desc, defaultQuery, form } = content;
     return (
       <Command
         key={id}
         id={id}
         title={title}
         noColon={noColon}
+        desc={desc}
         onToggle={(active) => toggleQuery({ id, active, query: defaultQuery })}
       >
         <CommandForm {...form} />
