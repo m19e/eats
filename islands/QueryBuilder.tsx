@@ -7,6 +7,7 @@ import type { CommandID } from "utils/signals.ts";
 import { TextInput } from "components/TextInput.tsx";
 import { DateSelect } from "components/DateSelect.tsx";
 
+type TweetFilter = "media" | "tweet";
 type GetQueryFn = (value: string) => string;
 type ContentForm = {
   type: "input";
@@ -18,7 +19,7 @@ type ContentForm = {
   value: string;
 } | {
   type: "select";
-  filterType: "media" | "tweet";
+  filterType: TweetFilter;
 } | {
   type: "calendar";
   calendarId: "until" | "since";
@@ -394,7 +395,7 @@ const filtersMap = {
 } as const;
 
 type SelectProps = {
-  type: "tweet" | "media";
+  type: TweetFilter;
   onChange: (value: string) => void;
 };
 
