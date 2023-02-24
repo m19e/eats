@@ -369,19 +369,12 @@ type TextInputProps = {
   disabled?: boolean;
 };
 const TextInput = ({ placeholder, onInput, disabled }: TextInputProps) => {
-  const [text, setText] = useState("");
-  const handleInput = (value: string) => {
-    onInput(value);
-    setText(value);
-  };
-
   return (
     <input
       class="border px-2 min-w-[12rem]"
       type="text"
       placeholder={placeholder}
-      value={text}
-      onInput={(e) => handleInput(e.currentTarget.value)}
+      onInput={(e) => onInput(e.currentTarget.value)}
       disabled={!IS_BROWSER || disabled}
     />
   );
