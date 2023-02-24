@@ -2,13 +2,7 @@ import type { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 
-import {
-  isExcludeUser,
-  queryMap,
-  queryString,
-  toggleQuery,
-  updateQuery,
-} from "utils/signals.ts";
+import { queryMap, toggleQuery, updateQuery } from "utils/signals.ts";
 import type { CommandID } from "utils/signals.ts";
 
 type GetQueryFn = (value: string) => string;
@@ -249,7 +243,7 @@ const contents: Content[] = [
 
 const Builder = () => {
   return (
-    <div class="space-y-3 px-3 w-full">
+    <>
       {
         // <Command id="@" title="@" noColon>
         //   <input type="text" placeholder="screen name" class="border px-2" />
@@ -263,7 +257,7 @@ const Builder = () => {
       {/* <Command id="within_time" title="within_time"></Command> */}
 
       <AppContents />
-    </div>
+    </>
   );
 };
 
