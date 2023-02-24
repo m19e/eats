@@ -1,6 +1,6 @@
 import { Head } from "$fresh/runtime.ts";
 import SearchQuery from "islands/SearchQuery.tsx";
-import Builder from "islands/Builder.tsx";
+import QueryBuilder from "islands/QueryBuilder.tsx";
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
         />
         <div class="space-y-3 px-3 w-full">
           <SearchQuery />
-          <Builder />
+          <QueryBuilder />
         </div>
       </div>
     </>
