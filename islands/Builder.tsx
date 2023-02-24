@@ -161,7 +161,6 @@ const contents: Content[] = [
   {
     type: "command",
     id: "keywords",
-    title: "keywords",
     noColon: true,
     defaultQuery: "",
     form: forms.keywords,
@@ -205,7 +204,6 @@ const contents: Content[] = [
   {
     type: "command",
     id: "from",
-    title: "from",
     noColon: false,
     defaultQuery: "from:",
     form: forms.from,
@@ -213,7 +211,6 @@ const contents: Content[] = [
   {
     type: "command",
     id: "to",
-    title: "to",
     noColon: false,
     defaultQuery: "to:",
     form: forms.to,
@@ -252,14 +249,12 @@ const contents: Content[] = [
   {
     type: "command",
     id: "until",
-    title: "until",
     defaultQuery: "until:2023-1-1",
     form: forms.until,
   },
   {
     type: "command",
     id: "since",
-    title: "since",
     defaultQuery: "since:2023-1-1",
     form: forms.since,
   },
@@ -324,7 +319,7 @@ const AppContents = () => {
       <Command
         key={id}
         id={id}
-        title={title ?? id}
+        title={title}
         noColon={noColon}
         desc={desc}
         onToggle={(active) => toggleQuery({ id, active, query: defaultQuery })}
@@ -515,7 +510,7 @@ const TextInput = ({ placeholder, onInput, disabled }: TextInputProps) => {
 
 type CommandProps = {
   id: CommandID;
-  title: string;
+  title?: string;
   desc?: string;
   noColon?: boolean;
   onToggle: (a: boolean) => void;
@@ -534,7 +529,7 @@ const Command: FunctionComponent<CommandProps> = (
       <div class="flex flex-1">
         <div class="flex-1 flex flex-col px-1">
           <p class="px-1">
-            {title}
+            {title ?? id}
             {!noColon && ":"}
             {desc &&
               (
