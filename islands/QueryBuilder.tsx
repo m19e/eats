@@ -1,13 +1,13 @@
 import type { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
+import type { TweetFilter } from "types/builder.ts";
 import { queryMap, toggleQuery, updateQuery } from "utils/signals.ts";
 import type { CommandID } from "utils/signals.ts";
 
 import { TextInput } from "components/TextInput.tsx";
 import { DateSelect } from "components/DateSelect.tsx";
 
-type TweetFilter = "media" | "tweet";
 type GetQueryFn = (value: string) => string;
 type ContentForm = {
   type: "input";
