@@ -241,7 +241,7 @@ const contents: Content[] = [
   },
 ];
 
-const Builder = () => {
+const QueryBuilder = () => {
   return (
     <>
       {
@@ -498,4 +498,4 @@ const DateSelect = (
   );
 };
 
-export default Builder;
+export default QueryBuilder;
