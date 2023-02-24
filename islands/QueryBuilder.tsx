@@ -15,7 +15,6 @@ type ContentForm = {
   getQuery?: GetQueryFn;
 } | {
   type: "input:disabled";
-  id: CommandID;
   value: string;
 } | {
   type: "select";
@@ -105,7 +104,6 @@ const forms: {
   },
   "filter:follows": {
     type: "input:disabled",
-    id: "filter:follows",
     value: "follows",
   },
   "filter:media": {
@@ -355,7 +353,18 @@ const CommandForm = (props: ContentForm) => {
     );
   }
   if (props.type === "select") {
-    return <FilterSelect type={props.filterType} />;
+    const { filterType } = props;
+    return (
+      <FilterSelect
+        type={filterType}
+        onChange={(value) => {
+          updateQuery({
+            id: `filter:${filterType}`,
+            query: `filter:${value}`,
+          });
+        }}
+      />
+    );
   }
   if (props.type === "calendar") {
     return <Calendar id={props.calendarId} />;
@@ -383,22 +392,22 @@ const filtersMap = {
   tweet: tweetFilters,
   media: mediaFilters,
 } as const;
-const FilterSelect = ({ type }: { type: "tweet" | "media" }) => {
+
+type SelectProps = {
+  type: "tweet" | "media";
+  onChange: (value: string) => void;
+};
+
+const FilterSelect = ({ type, onChange }: SelectProps) => {
   const options = filtersMap[type].map(({ value, label }) => (
     <option key={value} value={value}>{label}</option>
   ));
-  const handleChange = (value: string) => {
-    updateQuery({
-      id: `filter:${type}`,
-      query: `filter:${value}`,
-    });
-  };
 
   return (
     <select
       class="border px-2 min-w-[12rem]"
       defaultValue={filtersMap[type][0].value}
-      onChange={(e) => handleChange(e.currentTarget.value)}
+      onChange={(e) => onChange(e.currentTarget.value)}
     >
       {options}
     </select>
