@@ -1,5 +1,4 @@
 import { Head } from "$fresh/runtime.ts";
-import Counter from "islands/Counter.tsx";
 import Builder from "islands/Builder.tsx";
 
 export default function Home() {
