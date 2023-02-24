@@ -5,6 +5,8 @@ import { IS_BROWSER } from "$fresh/runtime.ts";
 import { queryMap, toggleQuery, updateQuery } from "utils/signals.ts";
 import type { CommandID } from "utils/signals.ts";
 
+import { DateSelect } from "components/DateSelect.tsx";
+
 type GetQueryFn = (value: string) => string;
 type ContentForm = {
   type: "input";
@@ -475,26 +477,6 @@ const Calendar = ({ id }: { id: "until" | "since" }) => {
         onChange={(value) => updateCalendar({ d: value })}
       />
     </div>
-  );
-};
-const DateSelect = (
-  { times, onChange }: {
-    times: number[];
-    onChange: (value: string) => void;
-  },
-) => {
-  const options = times
-    .map(
-      (time) => <option key={time} value={time}>{time}</option>,
-    );
-
-  return (
-    <select
-      class="border px-0.5"
-      onChange={(e) => onChange(e.currentTarget.value)}
-    >
-      {options}
-    </select>
   );
 };
 
