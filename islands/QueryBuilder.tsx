@@ -1,10 +1,10 @@
 import type { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { IS_BROWSER } from "$fresh/runtime.ts";
 
 import { queryMap, toggleQuery, updateQuery } from "utils/signals.ts";
 import type { CommandID } from "utils/signals.ts";
 
+import { TextInput } from "components/TextInput.tsx";
 import { DateSelect } from "components/DateSelect.tsx";
 
 type GetQueryFn = (value: string) => string;
@@ -363,30 +363,13 @@ const CommandForm = (props: ContentForm) => {
   return null;
 };
 
-type TextInputProps = {
-  placeholder: string;
-  onInput: (value: string) => void;
-  disabled?: boolean;
-};
-const TextInput = ({ placeholder, onInput, disabled }: TextInputProps) => {
-  return (
-    <input
-      class="border px-2 min-w-[12rem]"
-      type="text"
-      placeholder={placeholder}
-      onInput={(e) => onInput(e.currentTarget.value)}
-      disabled={!IS_BROWSER || disabled}
-    />
-  );
-};
-
-const tweetFilters: { value: string; label: string }[] = [
+const tweetFilters = [
   { value: "nativeretweets", label: "nativeretweets" },
   { value: "retweets", label: "retweets" },
   { value: "replies", label: "replies" },
   { value: "quote", label: "quote" },
-];
-const mediaFilters: { value: string; label: string }[] = [
+] as const;
+const mediaFilters = [
   { value: "images", label: "images" },
   { value: "videos", label: "videos" },
   { value: "twimg", label: "twimg" },
@@ -395,7 +378,7 @@ const mediaFilters: { value: string; label: string }[] = [
   { value: "consumer_video", label: "consumer_video" },
   { value: "pro_video", label: "pro_video" },
   { value: "spaces", label: "spaces" },
-];
+] as const;
 const filtersMap = {
   tweet: tweetFilters,
   media: mediaFilters,
