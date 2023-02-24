@@ -61,13 +61,14 @@ type ContentForm = {
   filterType: "media" | "tweet";
 } | {
   type: "calendar";
-  calendarType: "until" | "since";
+  calendarId: "until" | "since";
 };
 type Content = { type: "group"; title: string } | {
   type: "command";
   id: CommandID;
-  title: string;
-  noColon: boolean;
+  title?: string;
+  noColon?: boolean;
+  desc?: string;
   defaultQuery: string;
   form: ContentForm;
 };
@@ -76,8 +77,7 @@ const splitQueryText = (text: string): string[] => {
   return text.trim().split(" ").filter((c) => c);
 };
 const forms: {
-  [key in Extract<CommandID, "keywords" | "exact" | "or" | "minus" | "tag">]:
-    ContentForm;
+  [key in CommandID]: ContentForm;
 } = {
   keywords: {
     type: "input",
@@ -108,6 +108,52 @@ const forms: {
     id: "tag",
     placeholder: "ThrowbackThursday",
     getQuery: (v) => splitQueryText(v).map((c) => `#${c}`).join(" "),
+  },
+  from: {
+    type: "input",
+    id: "from",
+    placeholder: "@discord_jp",
+  },
+  to: {
+    type: "input",
+    id: "to",
+    placeholder: "@discord_jp",
+  },
+  until: {
+    type: "calendar",
+    calendarId: "until",
+  },
+  since: {
+    type: "calendar",
+    calendarId: "since",
+  },
+  min_retweets: {
+    type: "input",
+    id: "min_retweets",
+    placeholder: "280",
+  },
+  min_faves: {
+    type: "input",
+    id: "min_faves",
+    placeholder: "280",
+  },
+  min_replies: {
+    type: "input",
+    id: "min_replies",
+    placeholder: "280",
+  },
+  "filter:follows": {
+    type: "input:disabled",
+    id: "filter:follows",
+    value: "follows",
+  },
+  "filter:media": {
+    type: "select",
+    filterType: "media",
+  },
+  "filter:tweet": {
+    type: "select",
+    filterType: "tweet",
   },
 };
 const contents: Content[] = [
@@ -152,147 +198,105 @@ const contents: Content[] = [
     defaultQuery: "#",
     form: forms.tag,
   },
+  {
+    type: "group",
+    title: "Users",
+  },
+  {
+    type: "command",
+    id: "from",
+    title: "from",
+    noColon: false,
+    defaultQuery: "from:",
+    form: forms.from,
+  },
+  {
+    type: "command",
+    id: "to",
+    title: "to",
+    noColon: false,
+    defaultQuery: "to:",
+    form: forms.to,
+  },
+  {
+    type: "command",
+    id: "filter:follows",
+    title: "filter",
+    defaultQuery: "filter:follows",
+    form: forms["filter:follows"],
+  },
+  {
+    type: "group",
+    title: "Tweet Type",
+  },
+  {
+    type: "command",
+    id: "filter:media",
+    title: "filter",
+    desc: "media type",
+    defaultQuery: "filter:images",
+    form: forms["filter:media"],
+  },
+  {
+    type: "command",
+    id: "filter:tweet",
+    title: "filter",
+    desc: "tweet type",
+    defaultQuery: "filter:nativeretweets",
+    form: forms["filter:tweet"],
+  },
+  {
+    type: "group",
+    title: "Time",
+  },
+  {
+    type: "command",
+    id: "until",
+    title: "until",
+    defaultQuery: "until:2023-1-1",
+    form: forms.until,
+  },
+  {
+    type: "command",
+    id: "since",
+    title: "since",
+    defaultQuery: "since:2023-1-1",
+    form: forms.since,
+  },
+  {
+    type: "group",
+    title: "Engagement",
+  },
+  {
+    type: "command",
+    id: "min_retweets",
+    defaultQuery: "min_retweets:0",
+    form: forms.min_retweets,
+  },
+  {
+    type: "command",
+    id: "min_faves",
+    defaultQuery: "min_faves:0",
+    form: forms.min_faves,
+  },
+  {
+    type: "command",
+    id: "min_replies",
+    defaultQuery: "min_replies:0",
+    form: forms.min_replies,
+  },
 ];
 
 const Builder = () => {
   return (
-    <div class="space-y-4 px-3 w-full">
+    <div class="space-y-3 px-3 w-full">
       <SearchQuery />
 
-      <Category title="Users" />
-      <Command
-        id="from"
-        title="from"
-        onToggle={(active) =>
-          toggleQuery({ id: "from", query: "from:", active })}
-      >
-        <TextInput
-          placeholder="@discord_jp"
-          onInput={(v) => updateQuery({ id: "from", query: `from:${v}` })}
-        />
-      </Command>
-      <Command
-        id="to"
-        title="to"
-        onToggle={(active) => toggleQuery({ id: "to", query: "to:", active })}
-      >
-        <TextInput
-          placeholder="@discord_jp"
-          onInput={(v) => updateQuery({ id: "to", query: `to:${v}` })}
-        />
-      </Command>
-      <Command
-        id="filter:follows"
-        title="filter"
-        onToggle={(active) =>
-          toggleQuery({
-            id: "filter:follows",
-            query: "filter:follows",
-            active,
-          })}
-      >
-        <input
-          class="border px-2 min-w-[12rem]"
-          type="text"
-          value="follows"
-          disabled
-        />
-      </Command>
       {
         // <Command id="@" title="@" noColon>
         //   <input type="text" placeholder="screen name" class="border px-2" />
         // </Command>
       }
-
-      <Category title="Tweet Type" />
-      <Command
-        id="filter:media"
-        title="filter"
-        desc="media type"
-        onToggle={(active) =>
-          toggleQuery({ id: "filter:media", query: "filter:images", active })}
-      >
-        <FilterSelect type="media" />
-      </Command>
-      <Command
-        id="filter:tweet"
-        title="filter"
-        desc="tweet type"
-        onToggle={(active) =>
-          toggleQuery({
-            id: "filter:tweet",
-            query: "filter:nativeretweets",
-            active,
-          })}
-      >
-        <FilterSelect type="tweet" />
-      </Command>
-
-      <Category title="Time" />
-      <Command
-        id="until"
-        title="until"
-        onToggle={(active) =>
-          toggleQuery({ id: "until", query: "until:2023-1-1", active })}
-      >
-        <Calendar id="until" />
-      </Command>
-      <Command
-        id="since"
-        title="since"
-        onToggle={(active) =>
-          toggleQuery({ id: "since", query: "since:2023-1-1", active })}
-      >
-        <Calendar id="since" />
-      </Command>
-
-      <Category title="Engagement" />
-      <Command
-        id="min_retweets"
-        title="min_retweets"
-        onToggle={(active) =>
-          toggleQuery({
-            id: "min_retweets",
-            query: "min_retweets:0",
-            active,
-          })}
-      >
-        <TextInput
-          placeholder="280"
-          onInput={(v) =>
-            updateQuery({
-              id: "min_retweets",
-              query: `min_retweets:${v.trim()}`,
-            })}
-        />
-      </Command>
-      <Command
-        id="min_faves"
-        title="min_faves"
-        onToggle={(active) =>
-          toggleQuery({ id: "min_faves", query: "min_faves:0", active })}
-      >
-        <TextInput
-          placeholder="280"
-          onInput={(v) =>
-            updateQuery({ id: "min_faves", query: `min_faves:${v.trim()}` })}
-        />
-      </Command>
-      <Command
-        id="min_replies"
-        title="min_replies"
-        onToggle={(active) =>
-          toggleQuery({ id: "min_replies", query: "min_replies:0", active })}
-      >
-        <TextInput
-          placeholder="280"
-          onInput={(v) =>
-            updateQuery({
-              id: "min_replies",
-              query: `min_replies:${v.trim()}`,
-            })}
-        />
-      </Command>
 
       {/* <Command id="until_time" title="until_time"></Command> */}
       {/* <Command id="since_time" title="since_time"></Command> */}
@@ -308,14 +312,21 @@ const Builder = () => {
 const AppContents = () => {
   const body = contents.map((content) => {
     if (content.type === "group") {
-      return <Category title={content.title} />;
+      return (
+        <Category
+          key={content.title}
+          title={content.title}
+        />
+      );
     }
-    const { id, title, defaultQuery, form, noColon } = content;
+    const { id, title, noColon, desc, defaultQuery, form } = content;
     return (
       <Command
+        key={id}
         id={id}
-        title={title}
+        title={title ?? id}
         noColon={noColon}
+        desc={desc}
         onToggle={(active) => toggleQuery({ id, active, query: defaultQuery })}
       >
         <CommandForm {...form} />
@@ -328,13 +339,29 @@ const AppContents = () => {
 const CommandForm = (props: ContentForm) => {
   if (props.type === "input") {
     const { placeholder, id } = props;
-    const getQuery: GetQueryFn = props.getQuery ?? ((v) => `${id}:${v}`);
+    const getQuery: GetQueryFn = props.getQuery ?? ((v) => `${id}:${v.trim()}`);
     return (
       <TextInput
         placeholder={placeholder}
         onInput={(v) => updateQuery({ id, query: getQuery(v) })}
       />
     );
+  }
+  if (props.type === "input:disabled") {
+    return (
+      <input
+        class="border px-2 min-w-[12rem]"
+        type="text"
+        value={props.value}
+        disabled
+      />
+    );
+  }
+  if (props.type === "select") {
+    return <FilterSelect type={props.filterType} />;
+  }
+  if (props.type === "calendar") {
+    return <Calendar id={props.calendarId} />;
   }
   return null;
 };
@@ -458,7 +485,7 @@ const SearchQuery = () => {
 };
 
 const Category = ({ title }: { title: string }) => {
-  return <h2 class="text-xl border-b border-black">{title}</h2>;
+  return <h2 class="text-xl font-semibold border-b border-black">{title}</h2>;
 };
 
 type TextInputProps = {
