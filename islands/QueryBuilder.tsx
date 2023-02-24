@@ -1,4 +1,3 @@
-import type { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import type { TweetFilter } from "types/builder.ts";
@@ -266,25 +265,22 @@ const QueryBuilder = () => {
 const AppContents = () => {
   const body = contents.map((content) => {
     if (content.type === "group") {
+      const { title } = content;
       return (
         <Category
-          key={content.title}
-          title={content.title}
+          key={title}
+          title={title}
         />
       );
     }
-    const { id, title, noColon, desc, defaultQuery, form } = content;
+    const { type, defaultQuery, ...props } = content;
+    const { id } = props;
     return (
       <Command
+        {...props}
         key={id}
-        id={id}
-        title={title}
-        noColon={noColon}
-        desc={desc}
         onToggle={(active) => toggleQuery({ id, active, query: defaultQuery })}
-      >
-        <CommandForm {...form} />
-      </Command>
+      />
     );
   });
 
@@ -301,9 +297,10 @@ type CommandProps = {
   desc?: string;
   noColon?: boolean;
   onToggle: (a: boolean) => void;
+  form: ContentForm;
 };
-const Command: FunctionComponent<CommandProps> = (
-  { id, title, desc, noColon = false, onToggle, children },
+const Command = (
+  { id, title, desc, noColon = false, onToggle, form }: CommandProps,
 ) => {
   return (
     <div class="flex w-full group">
@@ -326,7 +323,7 @@ const Command: FunctionComponent<CommandProps> = (
           </p>
           <span class="bg-gray-500 h-[1px] w-0 group-hover:!w-full transition-all duration-300" />
         </div>
-        {children}
+        <CommandForm {...form} />
       </div>
     </div>
   );
