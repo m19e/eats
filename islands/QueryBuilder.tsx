@@ -6,6 +6,7 @@ import { queryMap, toggleQuery, updateQuery } from "utils/signals.ts";
 import type { CommandID } from "utils/signals.ts";
 
 import { TextInput } from "components/TextInput.tsx";
+import { FilterSelect } from "components/FilterSelect.tsx";
 import { DateSelect } from "components/DateSelect.tsx";
 
 type GetQueryFn = (value: string) => string;
@@ -301,7 +302,6 @@ type CommandProps = {
   noColon?: boolean;
   onToggle: (a: boolean) => void;
 };
-
 const Command: FunctionComponent<CommandProps> = (
   { id, title, desc, noColon = false, onToggle, children },
 ) => {
@@ -371,48 +371,6 @@ const CommandForm = (props: ContentForm) => {
     return <Calendar id={props.calendarId} />;
   }
   return null;
-};
-
-const tweetFilters = [
-  { value: "nativeretweets", label: "nativeretweets" },
-  { value: "retweets", label: "retweets" },
-  { value: "replies", label: "replies" },
-  { value: "quote", label: "quote" },
-] as const;
-const mediaFilters = [
-  { value: "images", label: "images" },
-  { value: "videos", label: "videos" },
-  { value: "twimg", label: "twimg" },
-  { value: "native_video", label: "native_video" },
-  { value: "media", label: "media" },
-  { value: "consumer_video", label: "consumer_video" },
-  { value: "pro_video", label: "pro_video" },
-  { value: "spaces", label: "spaces" },
-] as const;
-const filtersMap = {
-  tweet: tweetFilters,
-  media: mediaFilters,
-} as const;
-
-type SelectProps = {
-  type: TweetFilter;
-  onChange: (value: string) => void;
-};
-
-const FilterSelect = ({ type, onChange }: SelectProps) => {
-  const options = filtersMap[type].map(({ value, label }) => (
-    <option key={value} value={value}>{label}</option>
-  ));
-
-  return (
-    <select
-      class="border px-2 min-w-[12rem]"
-      defaultValue={filtersMap[type][0].value}
-      onChange={(e) => onChange(e.currentTarget.value)}
-    >
-      {options}
-    </select>
-  );
 };
 
 function* range(start: number, end: number) {
