@@ -1,6 +1,6 @@
 import { Head } from "$fresh/runtime.ts";
-import Counter from "islands/Counter.tsx";
-import Builder from "islands/Builder.tsx";
+import SearchQuery from "islands/SearchQuery.tsx";
+import QueryBuilder from "islands/QueryBuilder.tsx";
 
 export default function Home() {
   return (
@@ -14,7 +14,10 @@ export default function Home() {
           class="w-32 h-32"
           alt="the fresh logo: a sliced lemon dripping with juice"
         />
-        <Builder />
+        <div class="space-y-3 px-3 w-full">
+          <SearchQuery />
+          <QueryBuilder />
+        </div>
       </div>
     </>
   );
