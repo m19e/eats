@@ -321,7 +321,7 @@ const Command = (
                 </span>
               )}
           </p>
-          <span class="bg-gray-500 h-[1px] w-0 group-hover:!w-full transition-all duration-300" />
+          <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all duration-300" />
         </div>
         <CommandForm {...form} />
       </div>
