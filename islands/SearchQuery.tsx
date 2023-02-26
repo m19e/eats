@@ -4,7 +4,7 @@ const SearchQuery = () => {
   return (
     <div class="space-y-1">
       <div class="flex items-center gap-2">
-        <p class="py-1 px-2 flex-1 rounded border border-gray-400 whitespace-pre-wrap">
+        <p class="py-1 px-2 flex-1 rounded-full border border-gray-400 whitespace-pre-wrap">
           {queryString.value || (
             <span class="opacity-50">
               Search Query
