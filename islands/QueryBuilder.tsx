@@ -277,9 +277,9 @@ const AppContents = () => {
     const { id } = props;
     return (
       <Command
-        {...props}
         key={id}
         onToggle={(active) => toggleQuery({ id, active, query: defaultQuery })}
+        {...props}
       />
     );
   });
