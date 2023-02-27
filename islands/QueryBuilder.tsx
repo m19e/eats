@@ -288,7 +288,7 @@ const AppContents = () => {
 };
 
 const Category = ({ title }: { title: string }) => {
-  return <h2 class="text-xl font-semibold">{title}</h2>;
+  return <h2 class="text-xl text-gray-800 font-semibold">{title}</h2>;
 };
 
 type CommandProps = {
