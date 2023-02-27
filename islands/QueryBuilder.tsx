@@ -371,7 +371,7 @@ const CommandForm = (props: ContentForm) => {
   if (props.type === "input:disabled") {
     return (
       <input
-        class="px-2 min-w-[12rem] text-gray-800 border-2 rounded outline-none disabled:(cursor-not-allowed)"
+        class="px-2 w-[12rem] text-gray-800 border-2 rounded outline-none disabled:(cursor-not-allowed)"
         type="text"
         value={props.value}
         disabled
