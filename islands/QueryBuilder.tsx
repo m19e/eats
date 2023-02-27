@@ -288,7 +288,7 @@ const AppContents = () => {
 };
 
 const Category = ({ title }: { title: string }) => {
-  return <h2 class="text-xl font-semibold">{title}</h2>;
+  return <h2 class="text-xl text-gray-800 font-semibold">{title}</h2>;
 };
 
 type CommandProps = {
@@ -303,20 +303,19 @@ const Command = (
   { id, title, desc, noColon = false, onToggle, form }: CommandProps,
 ) => {
   return (
-    <div class="flex w-full group">
-      <input
-        type="checkbox"
+    <div class="flex items-center w-full group">
+      <Checkbox
         checked={queryMap.value.get(id)?.active}
-        onClick={(e) => onToggle(e.currentTarget.checked)}
+        onClick={(checked) => onToggle(checked)}
       />
       <div class="flex flex-1">
         <div class="flex-1 flex flex-col px-1">
-          <p class="px-1">
+          <p class="px-1 text-gray-800 group-hover:font-medium group-hover:text(twitter) transition-colors sm:duration-300">
             {title ?? id}
             {!noColon && ":"}
             {desc &&
               (
-                <span class="text-black text-opacity-50 px-1 text-sm">
+                <span class="text-gray-800 text-opacity-50 group-hover:text(twitter opacity-50) px-1 text-sm">
                   {desc}
                 </span>
               )}
@@ -325,6 +324,35 @@ const Command = (
         </div>
         <CommandForm {...form} />
       </div>
+    </div>
+  );
+};
+
+const Checkbox = (
+  { checked, onClick }: {
+    checked?: boolean;
+    onClick: (checked: boolean) => void;
+  },
+) => {
+  return (
+    <div
+      class={`flex items-center justify-center w-5 h-5 rounded-full cursor-pointer ${
+        checked ? "bg(twitter)" : "border-2 border-gray-600"
+      }`}
+      onClick={() => onClick(!checked)}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        className="w-3.5 h-3.5 text-white"
+      >
+        <path
+          fillRule="evenodd"
+          d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+          clipRule="evenodd"
+        />
+      </svg>
     </div>
   );
 };
@@ -343,7 +371,7 @@ const CommandForm = (props: ContentForm) => {
   if (props.type === "input:disabled") {
     return (
       <input
-        class="border px-2 min-w-[12rem]"
+        class="px-2 w-[12rem] text-gray-800 border-2 rounded outline-none disabled:(cursor-not-allowed)"
         type="text"
         value={props.value}
         disabled
@@ -402,21 +430,25 @@ const Calendar = ({ id }: { id: "until" | "since" }) => {
   };
 
   return (
-    <div class="flex gap-1 min-w-[12rem]">
-      <DateSelect
-        times={[...range(2006, 2023)].reverse()}
-        onChange={(value) => updateCalendar({ y: value })}
-      />
-      <span>-</span>
-      <DateSelect
-        times={[...range(1, 12)]}
-        onChange={(value) => updateCalendar({ m: value })}
-      />
-      <span>-</span>
-      <DateSelect
-        times={[...range(1, 31)]}
-        onChange={(value) => updateCalendar({ d: value })}
-      />
+    <div class="flex gap-1 w-[12rem]">
+      <div class="w-[5rem]">
+        <DateSelect
+          times={[...range(2006, 2023)].reverse()}
+          onChange={(value) => updateCalendar({ y: value })}
+        />
+      </div>
+      <div class="w-[3.5rem]">
+        <DateSelect
+          times={[...range(1, 12)]}
+          onChange={(value) => updateCalendar({ m: value })}
+        />
+      </div>
+      <div class="w-[3.5rem]">
+        <DateSelect
+          times={[...range(1, 31)]}
+          onChange={(value) => updateCalendar({ d: value })}
+        />
+      </div>
     </div>
   );
 };

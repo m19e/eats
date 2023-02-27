@@ -11,7 +11,7 @@ export const DateSelect = ({ times, onChange }: Props) => {
 
   return (
     <select
-      class="border px-0.5"
+      class="w-full px-1 rounded border-2 focus:border(twitter) outline-none"
       onChange={(e) => onChange(e.currentTarget.value)}
     >
       {options}
