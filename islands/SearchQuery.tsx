@@ -1,29 +1,31 @@
 import { isExcludeUser, queryString } from "utils/signals.ts";
 
 const SearchQuery = () => {
+  const searchURL = `https://twitter.com/search?q=${
+    encodeURIComponent(queryString.value)
+  }&src=typed_query`;
+
   return (
-    <div class="space-y-1">
-      <div class="flex items-center gap-2">
-        <p class="py-1 px-2 flex-1 rounded-full border border-gray-400 whitespace-pre-wrap">
+    <div class="space-y-2 pb-2 border-b">
+      <a
+        class="relative flex items-center pl-12 pr-4 py-3 rounded-3xl border border(twitter)"
+        href={searchURL}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <p class="whitespace-pre-wrap">
           {queryString.value || (
             <span class="opacity-50">
               Search Query
             </span>
           )}
         </p>
-        <a
-          class="flex justify-center items-center rounded-full border-2 border-gray-400 w-8 h-8"
-          href={`https://twitter.com/search?q=${
-            encodeURIComponent(queryString.value)
-          }&src=typed_query`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <div class="h-full absolute inset-0 flex items-center ml-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
-            class="w-5 h-5"
+            class="w-5 h-5 text(twitter)"
           >
             <path
               fillRule="evenodd"
@@ -31,8 +33,9 @@ const SearchQuery = () => {
               clipRule="evenodd"
             />
           </svg>
-        </a>
-      </div>
+        </div>
+      </a>
+
       <div class="flex items-center gap-2">
         <input
           type="checkbox"

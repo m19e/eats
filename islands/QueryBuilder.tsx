@@ -288,7 +288,7 @@ const AppContents = () => {
 };
 
 const Category = ({ title }: { title: string }) => {
-  return <h2 class="text-xl font-semibold border-b border-black">{title}</h2>;
+  return <h2 class="text-xl font-semibold">{title}</h2>;
 };
 
 type CommandProps = {
@@ -321,7 +321,7 @@ const Command = (
                 </span>
               )}
           </p>
-          <span class="bg-gray-500 h-[1px] w-0 group-hover:!w-full transition-all duration-300" />
+          <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all sm:duration-300" />
         </div>
         <CommandForm {...form} />
       </div>
