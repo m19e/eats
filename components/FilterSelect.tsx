@@ -35,7 +35,7 @@ export const FilterSelect = ({ type, onChange }: Props) => {
 
   return (
     <select
-      class="border px-1 min-w-[12rem]"
+      class="px-1 m-[1px] focus:m-0 min-w-[12rem] rounded border focus:border(twitter 2) outline-none"
       defaultValue={filtersMap[type][0].value}
       onChange={(e) => onChange(e.currentTarget.value)}
     >
