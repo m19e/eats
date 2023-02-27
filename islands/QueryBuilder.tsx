@@ -430,17 +430,17 @@ const Calendar = ({ id }: { id: "until" | "since" }) => {
   };
 
   return (
-    <div class="flex gap-1 min-w-[12rem]">
+    <div class="flex gap-1 w-[12rem]">
       <DateSelect
         times={[...range(2006, 2023)].reverse()}
         onChange={(value) => updateCalendar({ y: value })}
       />
-      <span>-</span>
+      {/* <span>-</span> */}
       <DateSelect
         times={[...range(1, 12)]}
         onChange={(value) => updateCalendar({ m: value })}
       />
-      <span>-</span>
+      {/* <span>-</span> */}
       <DateSelect
         times={[...range(1, 31)]}
         onChange={(value) => updateCalendar({ d: value })}
