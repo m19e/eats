@@ -9,7 +9,7 @@ type Props = {
 export const TextInput = ({ placeholder, onInput, disabled }: Props) => {
   return (
     <input
-      class="border px-2 min-w-[12rem]"
+      class="px-2 m-[1px] focus:m-0 min-w-[12rem] rounded border focus:border(twitter 2) outline-none"
       type="text"
       placeholder={placeholder}
       onInput={(e) => onInput(e.currentTarget.value)}
