@@ -16,7 +16,7 @@ export default function Home() {
           alt="the fresh logo: a sliced lemon dripping with juice"
         /> */
         }
-        <div class="space-y-3 px-3 w-full">
+        <div class="space-y-3 w-full">
           <SearchQuery />
           <QueryBuilder />
         </div>
