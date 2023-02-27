@@ -303,7 +303,7 @@ const Command = (
   { id, title, desc, noColon = false, onToggle, form }: CommandProps,
 ) => {
   return (
-    <div class="flex w-full group">
+    <div class="flex items-center w-full group">
       <Checkbox
         checked={queryMap.value.get(id)?.active}
         onClick={(checked) => onToggle(checked)}
