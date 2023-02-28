@@ -1,4 +1,3 @@
-import { Head } from "$fresh/runtime.ts";
 import SearchQuery from "islands/SearchQuery.tsx";
 import QueryBuilder from "islands/QueryBuilder.tsx";
 
