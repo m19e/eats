@@ -5,9 +5,9 @@ export const Header = () => {
     <div class="flex justify-center bg(twitter)">
       <div class="w-full max-w-screen-sm">
         <div class="flex items-center gap-1.5 p-4 text-white">
-          <IconBrandTwitter color="white" size={36} />
-          <h1 class="font-black text-3xl">EATS</h1>
-          <span class="font-medium text-sm sm:text-base">
+          <IconBrandTwitter color="white" size={36} stroke={1} />
+          <h1 class="font-extrabold text-3xl">EATS</h1>
+          <span class="text-sm sm:text-base">
             -Easy Advanced Twitter Search-
           </span>
         </div>
