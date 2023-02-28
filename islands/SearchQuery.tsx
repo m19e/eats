@@ -1,3 +1,4 @@
+import IconBrandTwitter from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/brand-twitter.tsx";
 import { isExcludeUser, queryString } from "utils/signals.ts";
 
 const SearchQuery = () => {
@@ -7,6 +8,13 @@ const SearchQuery = () => {
 
   return (
     <div class="space-y-2 pb-2 border-b">
+      <div class="flex items-center gap-2 text-gray-600">
+        <IconBrandTwitter color="#1DA1F2" size={36} />
+        <h1 class="font-black text-3xl">EATS</h1>
+        <span class="font-medium hidden sm:inline">
+          -Easy Advanced Twitter Search-
+        </span>
+      </div>
       <a
         class="relative flex items-center pl-12 pr-4 py-3 rounded-3xl border border(twitter)"
         href={searchURL}
