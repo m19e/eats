@@ -8,7 +8,7 @@ const SearchQuery = () => {
 
   return (
     <div class="space-y-2 pb-2 border-b">
-      <div class="flex items-center gap-2 text-gray-600">
+      <div class="flex items-center gap-1.5 text-gray-600">
         <IconBrandTwitter color="#1DA1F2" size={36} />
         <h1 class="font-black text-3xl">EATS</h1>
         <span class="font-medium text-sm sm:text-base">
