@@ -11,7 +11,7 @@ const SearchQuery = () => {
       <div class="flex items-center gap-2 text-gray-600">
         <IconBrandTwitter color="#1DA1F2" size={36} />
         <h1 class="font-black text-3xl">EATS</h1>
-        <span class="font-medium hidde sm:inline">
+        <span class="font-medium text-sm sm:text-base">
           -Easy Advanced Twitter Search-
         </span>
       </div>
