@@ -2,7 +2,7 @@ import IconBrandTwitter from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/bra
 
 export const Header = () => {
   return (
-    <div class="flex justify-center bg(twitter)">
+    <header class="flex justify-center bg(twitter)">
       <div class="w-full max-w-screen-sm">
         <div class="flex items-center gap-1.5 p-4 text-white">
           <IconBrandTwitter color="white" size={36} stroke={1} />
@@ -12,6 +12,6 @@ export const Header = () => {
           </span>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
