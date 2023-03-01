@@ -36,7 +36,7 @@ type Content = { type: "group"; title: string } | {
 };
 
 const splitQueryText = (text: string): string[] => {
-  return text.trim().split(" ").filter((c) => c);
+  return text.trim().split(/\s+/).filter((c) => c);
 };
 const forms: {
   [key in CommandID]: ContentForm;
