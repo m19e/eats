@@ -9,6 +9,7 @@ import { FilterSelect } from "components/FilterSelect.tsx";
 import { DateSelect } from "components/DateSelect.tsx";
 
 type GetQueryFn = (value: string) => string;
+type CalendarID = "until" | "since";
 type ContentForm = {
   type: "input";
   id: CommandID;
@@ -22,7 +23,7 @@ type ContentForm = {
   filterType: TweetFilter;
 } | {
   type: "calendar";
-  calendarId: "until" | "since";
+  calendarId: CalendarID;
 };
 type Content = { type: "group"; title: string } | {
   type: "command";
@@ -409,7 +410,7 @@ type CalendarData = {
   d: string;
   skip: boolean;
 };
-const Calendar = ({ id }: { id: "until" | "since" }) => {
+const Calendar = ({ id }: { id: CalendarID }) => {
   const [calendar, setCalendar] = useState({
     y: "2023",
     m: "1",
