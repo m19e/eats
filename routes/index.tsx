@@ -2,6 +2,7 @@ import SearchQuery from "islands/SearchQuery.tsx";
 import QueryBuilder from "islands/QueryBuilder.tsx";
 
 import { Header } from "components/Header.tsx";
+import { Footer } from "components/Footer.tsx";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
           <QueryBuilder />
         </div>
       </div>
+      <Footer />
     </>
   );
 }
