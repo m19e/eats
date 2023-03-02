@@ -258,12 +258,12 @@ const QueryBuilder = () => {
       {/* <Command id="max_id" title="max_id"></Command> */}
       {/* <Command id="within_time" title="within_time"></Command> */}
 
-      <AppContents />
+      <BuilderBody />
     </>
   );
 };
 
-const AppContents = () => {
+const BuilderBody = () => {
   const body = contents.map((content) => {
     if (content.type === "group") {
       const { title } = content;
@@ -301,7 +301,14 @@ type CommandProps = {
   form: ContentForm;
 };
 const Command = (
-  { id, title, desc, noColon = false, onToggle, form }: CommandProps,
+  {
+    id,
+    title,
+    desc,
+    noColon = false,
+    onToggle,
+    form,
+  }: CommandProps,
 ) => {
   return (
     <div class="flex items-center w-full group">
@@ -329,12 +336,11 @@ const Command = (
   );
 };
 
-const Checkbox = (
-  { checked, onClick }: {
-    checked?: boolean;
-    onClick: (checked: boolean) => void;
-  },
-) => {
+type CheckBoxProps = {
+  checked?: boolean;
+  onClick: (checked: boolean) => void;
+};
+const Checkbox = ({ checked, onClick }: CheckBoxProps) => {
   return (
     <div
       class={`flex items-center justify-center w-5 h-5 rounded-full cursor-pointer ${

@@ -95,6 +95,10 @@
     "https://deno.land/x/rutt@0.0.14/mod.ts": "5027b8e8b12acca48b396a25aee74ad7ee94a25c24cda75571d7839cbd41113c",
     "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/brand-github.tsx": "583c14b1fcea8a5fb3caf390516d252f8093a97d2bf2554a121f2dcbd648b401",
     "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/brand-twitter.tsx": "51c8f92da4ebf98263c256546b3f650aa74e82b75ed911809b0c32099845b113",
+    "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/check.tsx": "7e37b5ec20dca30a9ab29fbfdbde3bd6158cd38066ddbf35480ca744e8235f68",
+    "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/copy.tsx": "990d45680d8839fd89ae9ef69222fc2b74e2226ea919ff0d0b04425840fdbd34",
+    "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/search.tsx": "e069124726261b5c394a922dcc59cf5eebfe608da522143cde81ab39e7efc771",
+    "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/share.tsx": "34efa8b55c93f0bd5aa2a4b6e5f30d1604f7d16dd60bb30b6e34d2902e53dccd",
     "https://deno.land/x/ts_morph@16.0.0/common/DenoRuntime.ts": "537800e840d0994f9055164e11bf33eadf96419246af0d3c453793c3ae67bdb3",
     "https://deno.land/x/ts_morph@16.0.0/common/mod.ts": "01985d2ee7da8d1caee318a9d07664774fbee4e31602bc2bb6bb62c3489555ed",
     "https://deno.land/x/ts_morph@16.0.0/common/ts_morph_common.d.ts": "39f2ddefd4995e4344236c44c2bf296069149f45ef6f00440b56e7b32cb2b3bd",
@@ -107,6 +111,7 @@
     "https://esm.sh/*@preact/signals-core@1.0.1": "b9b340813266cce6eb9893125439475d2c93d8d03479d12cf189de62783927a2",
     "https://esm.sh/*@preact/signals@1.0.3": "0c7fa9548961281b10103645c28bbc8dc0724a98ac66876d523c897674546a5c",
     "https://esm.sh/*preact-render-to-string@5.2.4": "b5ea1be1c1c40c87e04f7f29921e504032e0afa618ca8941aad479ea0f4d8751",
+    "https://esm.sh/copy-to-clipboard@3.3.2": "5f8be31398184e8ba9e91fa7baa7c21a88493792d05313a50b995a12314e6393",
     "https://esm.sh/preact@10.11.0": "e888b244446037c56f1881173fb51d1f5fa7aae5599e6c5154619346a6a5094e",
     "https://esm.sh/preact@10.11.0/": "e888b244446037c56f1881173fb51d1f5fa7aae5599e6c5154619346a6a5094e",
     "https://esm.sh/preact@10.11.0/hooks": "2b8ec155eb8b87501663f074acff1d55a9114fa7d88f0b39da06c940af1ff736",
@@ -131,6 +136,26 @@
     "https://esm.sh/v106/twind@0.16.17/deno/sheets.js": "f75586c3a778278f99ca9e6761e8c8a2089c66d6a503bb25e3bba38597fe1e30",
     "https://esm.sh/v106/twind@0.16.17/deno/twind.js": "41f9ec5fe59338ccbd5877b6c7d2c41536b6ed725280d447777435fa446faabc",
     "https://esm.sh/v106/twind@0.16.17/sheets/sheets.d.ts": "73505b4708bcde9254db584db58166bda6e45860d905991a2cfa049dda805efa",
-    "https://esm.sh/v106/twind@0.16.17/twind.d.ts": "880fbe3dea75d4d1ed627d272bae4afd34c1865be7f85ff10399aaaaaa3f7869"
+    "https://esm.sh/v106/twind@0.16.17/twind.d.ts": "880fbe3dea75d4d1ed627d272bae4afd34c1865be7f85ff10399aaaaaa3f7869",
+    "https://esm.sh/v110/copy-to-clipboard@3.3.2/deno/copy-to-clipboard.js": "e1a999ea250cc865611378488e87f69b40c5b611d037a339b04c233e76f432c1",
+    "https://esm.sh/v110/copy-to-clipboard@3.3.2/index.d.ts": "2c8381a3a5a1663aa1723b31f3718dda9a359ad8eef9342b79f553de106b7ead",
+    "https://esm.sh/v110/toggle-selection@1.0.6/deno/toggle-selection.js": "4b5012e1b9e8b4087ecd91e97bad05fe01ab17e609eae2a6e2078f6578fdc255"
+  },
+  "npm": {
+    "specifiers": {
+      "copy-to-clipboard@3.3.2": "copy-to-clipboard@3.3.2"
+    },
+    "packages": {
+      "copy-to-clipboard@3.3.2": {
+        "integrity": "sha512-Vme1Z6RUDzrb6xAI7EZlVZ5uvOk2F//GaxKUxajDqm9LhOVM1inxNAD2vy+UZDYsd0uyA9s7b3/FVZPSxqrCfg==",
+        "dependencies": {
+          "toggle-selection": "toggle-selection@1.0.6"
+        }
+      },
+      "toggle-selection@1.0.6": {
+        "integrity": "sha512-BiZS+C1OS8g/q2RRbJmy59xpyghNBqrr6k5L/uKBGRsTfxmu3ffiRnd8mlGPUVayg8pvfi5urfnu8TU7DVOkLQ==",
+        "dependencies": {}
+      }
+    }
   }
 }
