@@ -258,12 +258,12 @@ const QueryBuilder = () => {
       {/* <Command id="max_id" title="max_id"></Command> */}
       {/* <Command id="within_time" title="within_time"></Command> */}
 
-      <AppContents />
+      <BuilderBody />
     </>
   );
 };
 
-const AppContents = () => {
+const BuilderBody = () => {
   const body = contents.map((content) => {
     if (content.type === "group") {
       const { title } = content;
