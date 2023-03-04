@@ -12,6 +12,7 @@
     "components/": "./components/",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.0.3",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.0.1",
-    "copy": "https://esm.sh/copy-to-clipboard@3.3.2"
+    "copy": "https://esm.sh/copy-to-clipboard@3.3.2",
+    "framer-motion": "https://esm.sh/framer-motion@10.0.1?alias=react:preact/compat&external=preact/compat"
   }
 }
