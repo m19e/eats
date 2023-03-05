@@ -363,7 +363,7 @@ const Command = (
               {!noColon && ":"}
               {desc &&
                 (
-                  <span class="text-gray-800 text-opacity-50 group-hover:text(twitter opacity-50) px-1 text-sm">
+                  <span class="hidden sm:inline text-gray-800 text-opacity-50 group-hover:text(twitter opacity-50) px-1 text-sm">
                     {desc}
                   </span>
                 )}
