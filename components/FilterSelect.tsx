@@ -2,20 +2,20 @@ import type { TweetFilter } from "types/builder.ts";
 
 const tweetFilters = [
   { value: "nativeretweets", label: "nativeretweets" },
-  // { value: "retweets", label: "retweets" },
   { value: "replies", label: "replies" },
   { value: "quote", label: "quote" },
+  // { value: "retweets", label: "retweets" },
 ] as const;
 
 const mediaFilters = [
   { value: "images", label: "images" },
   { value: "videos", label: "videos" },
   { value: "twimg", label: "twimg" },
-  { value: "native_video", label: "native_video" },
-  { value: "media", label: "media" },
   { value: "consumer_video", label: "consumer_video" },
-  { value: "pro_video", label: "pro_video" },
+  { value: "media", label: "media" },
   { value: "spaces", label: "spaces" },
+  { value: "native_video", label: "native_video" },
+  { value: "pro_video", label: "pro_video" },
 ] as const;
 
 const filtersMap = {
