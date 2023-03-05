@@ -6,7 +6,9 @@ export const Header = () => {
       <div class="w-full max-w-screen-sm">
         <div class="flex items-center gap-1 sm:gap-1.5 p-2 sm:p-4 text-white">
           <IconBrandTwitter color="white" size={36} stroke={1} />
-          <h1 class="font-extrabold text-3xl">EATS</h1>
+          <a href="/">
+            <h1 class="font-extrabold text-3xl">EATS</h1>
+          </a>
           <span class="text-sm sm:text-base">
             -Easy Advanced Twitter Search-
           </span>
