@@ -91,9 +91,7 @@ const SearchBox = () => {
       </div>
       {active &&
         (
-          <div
-            class={`absolute inset-0 bg-transparent px-4 flex items-center justify-center gap-1 sm:gap-2`}
-          >
+          <div class="absolute inset-0 bg-transparent px-4 flex items-center justify-center gap-1 sm:gap-2">
             <CopyButton text={queryString.value} />
             <a
               class="p-1.5 sm:p-2 flex items-center gap-1 sm:gap-1.5 text(twitter) bg-white border rounded shadow"

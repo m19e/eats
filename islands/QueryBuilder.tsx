@@ -1,7 +1,15 @@
 import { useEffect, useState } from "preact/hooks";
+import { effect } from "@preact/signals";
+import { motion, useAnimationControls } from "framer-motion";
+import IconChevronRight from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/chevron-right.tsx";
 
 import type { TweetFilter } from "types/builder.ts";
-import { queryMap, toggleQuery, updateQuery } from "utils/signals.ts";
+import {
+  queryMap,
+  selectedCommand,
+  toggleQuery,
+  updateQuery,
+} from "utils/signals.ts";
 import type { CommandID } from "utils/signals.ts";
 
 import { TextInput } from "components/TextInput.tsx";
@@ -31,6 +39,7 @@ type Content = { type: "group"; title: string } | {
   title?: string;
   noColon?: boolean;
   desc?: string;
+  hint?: string;
   defaultQuery: string;
   form: ContentForm;
 };
@@ -123,6 +132,7 @@ const contents: Content[] = [
     type: "command",
     id: "keywords",
     noColon: true,
+    hint: "キーワードをすべて含む",
     defaultQuery: "",
     form: forms.keywords,
   },
@@ -131,6 +141,7 @@ const contents: Content[] = [
     id: "exact",
     title: `"exact match"`,
     noColon: true,
+    hint: "キーワード全体を含む",
     defaultQuery: `""`,
     form: forms.exact,
   },
@@ -139,6 +150,7 @@ const contents: Content[] = [
     id: "or",
     title: "yes OR no",
     noColon: true,
+    hint: "キーワードのいずれかを含む",
     defaultQuery: "",
     form: forms.or,
   },
@@ -147,6 +159,7 @@ const contents: Content[] = [
     id: "minus",
     title: "-minus",
     noColon: true,
+    hint: "キーワードを含まない",
     defaultQuery: "-",
     form: forms.minus,
   },
@@ -155,6 +168,7 @@ const contents: Content[] = [
     id: "tag",
     title: "#hashtag",
     noColon: true,
+    hint: "ハッシュタグを含む",
     defaultQuery: "#",
     form: forms.tag,
   },
@@ -166,6 +180,7 @@ const contents: Content[] = [
     type: "command",
     id: "from",
     noColon: false,
+    hint: "指定アカウントのツイート",
     defaultQuery: "from:",
     form: forms.from,
   },
@@ -173,6 +188,7 @@ const contents: Content[] = [
     type: "command",
     id: "to",
     noColon: false,
+    hint: "指定アカウント宛てのツイート",
     defaultQuery: "to:",
     form: forms.to,
   },
@@ -180,6 +196,7 @@ const contents: Content[] = [
     type: "command",
     id: "filter:follows",
     title: "filter",
+    hint: "フォローしているアカウントのツイート",
     defaultQuery: "filter:follows",
     form: forms["filter:follows"],
   },
@@ -192,6 +209,7 @@ const contents: Content[] = [
     id: "filter:media",
     title: "filter",
     desc: "media type",
+    hint: "メディアタイプ(画像,動画...)で絞り込み",
     defaultQuery: "filter:images",
     form: forms["filter:media"],
   },
@@ -200,6 +218,7 @@ const contents: Content[] = [
     id: "filter:tweet",
     title: "filter",
     desc: "tweet type",
+    hint: "ツイートタイプ(RT,返信,引用)で絞り込み",
     defaultQuery: "filter:nativeretweets",
     form: forms["filter:tweet"],
   },
@@ -210,12 +229,14 @@ const contents: Content[] = [
   {
     type: "command",
     id: "until",
+    hint: "指定した日付以前のツイート",
     defaultQuery: "until:2023-1-1",
     form: forms.until,
   },
   {
     type: "command",
     id: "since",
+    hint: "指定した日付以降のツイート",
     defaultQuery: "since:2023-1-1",
     form: forms.since,
   },
@@ -226,18 +247,21 @@ const contents: Content[] = [
   {
     type: "command",
     id: "min_retweets",
+    hint: "RTの最小件数",
     defaultQuery: "min_retweets:0",
     form: forms.min_retweets,
   },
   {
     type: "command",
     id: "min_faves",
+    hint: "お気に入りの最小件数",
     defaultQuery: "min_faves:0",
     form: forms.min_faves,
   },
   {
     type: "command",
     id: "min_replies",
+    hint: "返信の最小件数",
     defaultQuery: "min_replies:0",
     form: forms.min_replies,
   },
@@ -295,8 +319,9 @@ const Category = ({ title }: { title: string }) => {
 type CommandProps = {
   id: CommandID;
   title?: string;
-  desc?: string;
   noColon?: boolean;
+  desc?: string;
+  hint?: string;
   onToggle: (a: boolean) => void;
   form: ContentForm;
 };
@@ -304,34 +329,68 @@ const Command = (
   {
     id,
     title,
-    desc,
     noColon = false,
+    desc,
+    hint,
     onToggle,
     form,
   }: CommandProps,
 ) => {
+  const controls = useAnimationControls();
+
+  effect(() => {
+    const isOpen = selectedCommand.value === id;
+    controls.start({
+      height: isOpen ? "100%" : "0px",
+    });
+  });
+
+  const handleSelectCommand = () => {
+    selectedCommand.value = id;
+  };
+
   return (
-    <div class="flex items-center w-full group">
-      <Checkbox
-        checked={queryMap.value.get(id)?.active}
-        onClick={(checked) => onToggle(checked)}
-      />
-      <div class="flex flex-1">
-        <div class="flex-1 flex flex-col px-1">
-          <p class="px-1 text-gray-800 group-hover:font-medium group-hover:text(twitter) transition-colors sm:duration-300">
-            {title ?? id}
-            {!noColon && ":"}
-            {desc &&
-              (
-                <span class="text-gray-800 text-opacity-50 group-hover:text(twitter opacity-50) px-1 text-sm">
-                  {desc}
-                </span>
-              )}
-          </p>
-          <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all sm:duration-300" />
+    <div class="group" onClick={handleSelectCommand}>
+      <div class="flex items-center w-full">
+        <Checkbox
+          checked={queryMap.value.get(id)?.active}
+          onClick={(checked) => onToggle(checked)}
+        />
+        <div class="flex flex-1">
+          <div class="flex-1 flex flex-col px-1">
+            <p class="px-1 text-gray-800 group-hover:font-medium group-hover:text(twitter) transition-colors sm:duration-300">
+              {title ?? id}
+              {!noColon && ":"}
+              {desc &&
+                (
+                  <span class="hidden sm:inline text-gray-800 text-opacity-50 group-hover:text(twitter opacity-50) px-1 text-sm">
+                    {desc}
+                  </span>
+                )}
+            </p>
+            <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all sm:duration-300" />
+          </div>
+          <CommandForm {...form} />
         </div>
-        <CommandForm {...form} />
       </div>
+      {(hint) &&
+        (
+          <motion.div
+            className="overflow-hidden w-full h-[1px] pt-[1px]"
+            animate={controls}
+            transition={{
+              duration: 0.3,
+              ease: [0.04, 0.62, 0.23, 0.98],
+            }}
+          >
+            <div class="flex w-full bg-gray-100 text-gray-600 rounded">
+              <IconChevronRight size={24} />
+              <div class="flex-1">
+                <span class="text-sm">{hint}</span>
+              </div>
+            </div>
+          </motion.div>
+        )}
     </div>
   );
 };
