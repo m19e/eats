@@ -47,3 +47,5 @@ export const toggleQuery = (data: QueryData) => {
   const prevQuery = queryMap.value.get(id) ?? data;
   updateQuery({ ...prevQuery, active });
 };
+
+export const selectedCommand = signal<CommandID | undefined>(undefined);
