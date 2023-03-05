@@ -2,7 +2,7 @@ import type { TweetFilter } from "types/builder.ts";
 
 const tweetFilters = [
   { value: "nativeretweets", label: "nativeretweets" },
-  { value: "retweets", label: "retweets" },
+  // { value: "retweets", label: "retweets" },
   { value: "replies", label: "replies" },
   { value: "quote", label: "quote" },
 ] as const;
