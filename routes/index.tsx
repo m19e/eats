@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div class="p-4 mx-auto flex flex-col items-center max-w-screen-sm">
-        <div class="space-y-3 w-full">
+      <div class="p-2 sm:p-4 mx-auto flex flex-col items-center max-w-screen-sm">
+        <div class="space-y-2 sm:space-y-3 w-full">
           <SearchQuery />
           <QueryBuilder />
         </div>
