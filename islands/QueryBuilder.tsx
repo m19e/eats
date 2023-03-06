@@ -77,12 +77,14 @@ const forms: {
     value: "follows",
   },
   "filter:media": {
-    type: "select:filter",
-    filterType: "media",
+    type: "select",
+    id: "filter:media",
+    getQuery: (v) => `filter:${v.trim()}`,
   },
   "filter:tweet": {
-    type: "select:filter",
-    filterType: "tweet",
+    type: "select",
+    id: "filter:tweet",
+    getQuery: (v) => `filter:${v.trim()}`,
   },
   lang: {
     type: "select",

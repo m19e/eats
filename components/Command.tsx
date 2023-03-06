@@ -155,20 +155,10 @@ const CommandForm = (props: ContentForm) => {
     const { id } = props;
     const getQuery: GetQueryFn = props.getQuery ?? ((v) => `${id}:${v.trim()}`);
 
-    return <Select id={id} onChange={(v) => updateQuery({ id, query: getQuery(v) })} />;
-  }
-
-  if (type === "select:filter") {
-    const { filterType } = props;
     return (
-      <FilterSelect
-        type={filterType}
-        onChange={(value) => {
-          updateQuery({
-            id: `filter:${filterType}`,
-            query: `filter:${value}`,
-          });
-        }}
+      <Select
+        id={id}
+        onChange={(v) => updateQuery({ id, query: getQuery(v) })}
       />
     );
   }

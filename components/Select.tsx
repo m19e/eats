@@ -24,9 +24,9 @@ const mediaFilters = [
 ] as const;
 
 const optionsMap = {
-  lang: langs,
-  "filter:tweet": tweetFilters,
   "filter:media": mediaFilters,
+  "filter:tweet": tweetFilters,
+  lang: langs,
 } as const;
 
 type Props = {

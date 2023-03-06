@@ -41,9 +41,6 @@ export type ContentForm = {
   id: SelectID;
   getQuery?: GetQueryFn;
 } | {
-  type: "select:filter";
-  filterType: TweetFilter;
-} | {
   type: "calendar";
   calendarId: CalendarID;
 };
