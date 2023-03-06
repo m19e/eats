@@ -383,14 +383,20 @@ const Command = (
               ease: [0.04, 0.62, 0.23, 0.98],
             }}
           >
-            <div class="flex w-full bg-gray-100 text-gray-600 rounded">
-              <IconChevronRight size={24} />
-              <div class="flex-1">
-                <span class="text-sm">{hint}</span>
-              </div>
-            </div>
+            <Hint hint={hint} />
           </motion.div>
         )}
+    </div>
+  );
+};
+
+const Hint = ({ hint }: { hint: string }) => {
+  return (
+    <div class="flex w-full bg-gray-100 text-gray-600 rounded">
+      <IconChevronRight size={24} />
+      <div class="flex-1">
+        <span class="text-sm">{hint}</span>
+      </div>
     </div>
   );
 };
