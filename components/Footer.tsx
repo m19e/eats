@@ -1,4 +1,4 @@
-import IconBrandGithub from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/brand-github.tsx";
+import { IconBrandGithub } from "utils/icons.ts";
 
 export const Footer = () => {
   return (

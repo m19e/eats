@@ -1,9 +1,6 @@
 import { useState } from "preact/hooks";
 import copy from "copy";
-import IconCopy from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/copy.tsx";
-import IconCheck from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/check.tsx";
-import IconShare from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/share.tsx";
-import IconSearch from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/search.tsx";
+import { IconCheck, IconCopy, IconSearch, IconShare } from "utils/icons.ts";
 
 import { isExcludeUser, queryString } from "utils/signals.ts";
 
