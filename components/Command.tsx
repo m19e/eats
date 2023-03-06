@@ -52,7 +52,7 @@ export const Command = (
         />
         <div class="flex flex-1">
           <div class="flex-1 flex flex-col px-1">
-            <CommandTitle id={id} title={title} noColon={noColon} desc={desc} />
+            <CommandLabel id={id} title={title} noColon={noColon} desc={desc} />
             <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all sm:duration-300" />
           </div>
           <CommandForm {...form} />
@@ -101,9 +101,9 @@ const Checkbox = ({ checked, onClick }: CheckBoxProps) => {
   );
 };
 
-type TitleProps = Pick<CommandProps, "id" | "title" | "noColon" | "desc">;
+type LabelProps = Pick<CommandProps, "id" | "title" | "noColon" | "desc">;
 
-const CommandTitle = ({ id, title, noColon, desc }: TitleProps) => {
+const CommandLabel = ({ id, title, noColon, desc }: LabelProps) => {
   return (
     <p class="px-1 text-gray-800 group-hover:font-medium group-hover:text(twitter) transition-colors sm:duration-300">
       {title ?? id}
