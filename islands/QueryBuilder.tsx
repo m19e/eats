@@ -1,25 +1,23 @@
-import { useEffect, useState } from "preact/hooks";
 import { effect } from "@preact/signals";
 import { motion, useAnimationControls } from "framer-motion";
 import IconChevronRight from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/chevron-right.tsx";
 
+import type {
+  CommandID,
+  Content,
+  ContentForm,
+  GetQueryFn,
+} from "types/builder.ts";
 import {
   focusedCommand,
   queryMap,
   toggleQuery,
   updateQuery,
 } from "utils/signals.ts";
-import type {
-  CalendarID,
-  CommandID,
-  Content,
-  ContentForm,
-  GetQueryFn,
-} from "types/builder.ts";
 
 import { TextInput } from "components/TextInput.tsx";
 import { FilterSelect } from "components/FilterSelect.tsx";
-import { DateSelect } from "components/DateSelect.tsx";
+import { Calendar } from "components/Calendar.tsx";
 
 const splitQueryText = (text: string): string[] => {
   return text.trim().split(/\s+/).filter((c) => c);
@@ -442,61 +440,6 @@ const CommandForm = (props: ContentForm) => {
     return <Calendar id={props.calendarId} />;
   }
   return null;
-};
-
-function* range(start: number, end: number) {
-  for (let i = start; i <= end; i++) {
-    yield i;
-  }
-}
-type CalendarData = {
-  y: string;
-  m: string;
-  d: string;
-  skip: boolean;
-};
-const Calendar = ({ id }: { id: CalendarID }) => {
-  const [calendar, setCalendar] = useState({
-    y: "2023",
-    m: "1",
-    d: "1",
-    skip: true,
-  });
-
-  useEffect(() => {
-    const { y, m, d, skip } = calendar;
-    if (skip) return;
-    const ymd = `${y}-${m}-${d}`;
-    const query = `${id}:${ymd}`;
-    updateQuery({ id, query });
-  }, [calendar]);
-
-  const updateCalendar = (data: Partial<CalendarData>) => {
-    setCalendar((prev) => ({ ...prev, ...data, skip: false }));
-  };
-
-  return (
-    <div class="flex gap-1 w-[12rem]">
-      <div class="w-[5rem]">
-        <DateSelect
-          times={[...range(2006, 2023)].reverse()}
-          onChange={(value) => updateCalendar({ y: value })}
-        />
-      </div>
-      <div class="w-[3.5rem]">
-        <DateSelect
-          times={[...range(1, 12)]}
-          onChange={(value) => updateCalendar({ m: value })}
-        />
-      </div>
-      <div class="w-[3.5rem]">
-        <DateSelect
-          times={[...range(1, 31)]}
-          onChange={(value) => updateCalendar({ d: value })}
-        />
-      </div>
-    </div>
-  );
 };
 
 export default QueryBuilder;
