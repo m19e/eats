@@ -7,7 +7,6 @@ import { focusedCommand, queryMap, updateQuery } from "utils/signals.ts";
 
 import { TextInput } from "components/TextInput.tsx";
 import { Select } from "components/Select.tsx";
-import { FilterSelect } from "components/FilterSelect.tsx";
 import { Calendar } from "components/Calendar.tsx";
 
 type CommandProps = {
