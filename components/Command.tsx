@@ -53,7 +53,7 @@ export const Command = (
         <div class="flex flex-1">
           <div class="flex-1 flex flex-col px-1">
             <CommandLabel id={id} title={title} noColon={noColon} desc={desc} />
-            <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all sm:duration-300" />
+            <CommandUnderline />
           </div>
           <CommandForm {...form} />
         </div>
@@ -115,6 +115,12 @@ const CommandLabel = ({ id, title, noColon, desc }: LabelProps) => {
           </span>
         )}
     </p>
+  );
+};
+
+const CommandUnderline = () => {
+  return (
+    <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all sm:duration-300" />
   );
 };
 
