@@ -1,10 +1,10 @@
 import { effect } from "@preact/signals";
 import { motion, useAnimationControls } from "framer-motion";
-import IconChevronRight from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/chevron-right.tsx";
 
 import type { CommandID, ContentForm, GetQueryFn } from "types/builder.ts";
 import { focusedCommand, queryMap, updateQuery } from "utils/signals.ts";
 
+import { IconChevronRight } from "utils/icons.ts";
 import { TextInput } from "components/TextInput.tsx";
 import { Select } from "components/Select.tsx";
 import { Calendar } from "components/Calendar.tsx";
