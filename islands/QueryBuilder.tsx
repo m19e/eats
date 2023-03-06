@@ -3,46 +3,23 @@ import { effect } from "@preact/signals";
 import { motion, useAnimationControls } from "framer-motion";
 import IconChevronRight from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/chevron-right.tsx";
 
-import type { TweetFilter } from "types/builder.ts";
 import {
   focusedCommand,
   queryMap,
   toggleQuery,
   updateQuery,
 } from "utils/signals.ts";
-import type { CommandID } from "types/builder.ts";
+import type {
+  CalendarID,
+  CommandID,
+  Content,
+  ContentForm,
+  GetQueryFn,
+} from "types/builder.ts";
 
 import { TextInput } from "components/TextInput.tsx";
 import { FilterSelect } from "components/FilterSelect.tsx";
 import { DateSelect } from "components/DateSelect.tsx";
-
-type GetQueryFn = (value: string) => string;
-type CalendarID = "until" | "since";
-type ContentForm = {
-  type: "input";
-  id: CommandID;
-  placeholder: string;
-  getQuery?: GetQueryFn;
-} | {
-  type: "input:disabled";
-  value: string;
-} | {
-  type: "select";
-  filterType: TweetFilter;
-} | {
-  type: "calendar";
-  calendarId: CalendarID;
-};
-type Content = { type: "group"; title: string } | {
-  type: "command";
-  id: CommandID;
-  title?: string;
-  noColon?: boolean;
-  desc?: string;
-  hint: string;
-  defaultQuery: string;
-  form: ContentForm;
-};
 
 const splitQueryText = (text: string): string[] => {
   return text.trim().split(/\s+/).filter((c) => c);

@@ -15,7 +15,36 @@ const COMMAND_IDS = {
   "filter:media": "FILTER:MEDIA",
   "filter:tweet": "FILTER:TWEET",
 } as const;
-
 export type CommandID = keyof typeof COMMAND_IDS;
 
+export type GetQueryFn = (value: string) => string;
+
 export type TweetFilter = "media" | "tweet";
+export type CalendarID = "until" | "since";
+
+export type ContentForm = {
+  type: "input";
+  id: CommandID;
+  placeholder: string;
+  getQuery?: GetQueryFn;
+} | {
+  type: "input:disabled";
+  value: string;
+} | {
+  type: "select";
+  filterType: TweetFilter;
+} | {
+  type: "calendar";
+  calendarId: CalendarID;
+};
+
+export type Content = { type: "group"; title: string } | {
+  type: "command";
+  id: CommandID;
+  title?: string;
+  noColon?: boolean;
+  desc?: string;
+  hint: string;
+  defaultQuery: string;
+  form: ContentForm;
+};
