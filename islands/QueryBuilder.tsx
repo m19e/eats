@@ -10,7 +10,7 @@ import {
   toggleQuery,
   updateQuery,
 } from "utils/signals.ts";
-import type { CommandID } from "utils/signals.ts";
+import type { CommandID } from "types/builder.ts";
 
 import { TextInput } from "components/TextInput.tsx";
 import { FilterSelect } from "components/FilterSelect.tsx";
