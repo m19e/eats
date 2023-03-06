@@ -20,7 +20,6 @@ export type CommandID = keyof typeof COMMAND_IDS;
 
 export type GetQueryFn = (value: string) => string;
 
-export type TweetFilter = "media" | "tweet";
 export type CalendarID = "until" | "since";
 
 export type SelectID = Extract<
