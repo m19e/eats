@@ -14,6 +14,7 @@ const COMMAND_IDS = {
   "filter:follows": "FILTER:FOLLOWS",
   "filter:media": "FILTER:MEDIA",
   "filter:tweet": "FILTER:TWEET",
+  lang: "LANG",
 } as const;
 export type CommandID = keyof typeof COMMAND_IDS;
 
@@ -21,6 +22,11 @@ export type GetQueryFn = (value: string) => string;
 
 export type TweetFilter = "media" | "tweet";
 export type CalendarID = "until" | "since";
+
+export type SelectID = Extract<
+  CommandID,
+  "lang" | "filter:media" | "filter:tweet"
+>;
 
 export type ContentForm = {
   type: "input";
@@ -30,6 +36,10 @@ export type ContentForm = {
 } | {
   type: "input:disabled";
   value: string;
+} | {
+  type: "select";
+  id: SelectID;
+  getQuery?: GetQueryFn;
 } | {
   type: "select:filter";
   filterType: TweetFilter;

@@ -6,6 +6,7 @@ import type { CommandID, ContentForm, GetQueryFn } from "types/builder.ts";
 import { focusedCommand, queryMap, updateQuery } from "utils/signals.ts";
 
 import { TextInput } from "components/TextInput.tsx";
+import { Select } from "components/Select.tsx";
 import { FilterSelect } from "components/FilterSelect.tsx";
 import { Calendar } from "components/Calendar.tsx";
 
@@ -150,9 +151,15 @@ const CommandForm = (props: ContentForm) => {
     );
   }
 
+  if (type === "select") {
+    const { id } = props;
+    const getQuery: GetQueryFn = props.getQuery ?? ((v) => `${id}:${v.trim()}`);
+
+    return <Select id={id} onChange={(v) => updateQuery({ id, query: getQuery(v) })} />;
+  }
+
   if (type === "select:filter") {
     const { filterType } = props;
-
     return (
       <FilterSelect
         type={filterType}

@@ -84,6 +84,10 @@ const forms: {
     type: "select:filter",
     filterType: "tweet",
   },
+  lang: {
+    type: "select",
+    id: "lang",
+  },
 };
 const contents: Content[] = [
   { type: "group", title: "Basic" },
@@ -180,6 +184,13 @@ const contents: Content[] = [
     hint: "ツイートタイプ(RT,返信,引用)で絞り込み",
     defaultQuery: "filter:nativeretweets",
     form: forms["filter:tweet"],
+  },
+  {
+    type: "command",
+    id: "lang",
+    hint: "指定した言語のツイート",
+    defaultQuery: "lang:ja",
+    form: forms.lang,
   },
   {
     type: "group",
