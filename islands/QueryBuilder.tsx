@@ -350,19 +350,16 @@ const Command = (
           <CommandForm {...form} />
         </div>
       </div>
-      {(hint) &&
-        (
-          <motion.div
-            className="overflow-hidden w-full h-[1px] pt-[1px]"
-            animate={controls}
-            transition={{
-              duration: 0.3,
-              ease: [0.04, 0.62, 0.23, 0.98],
-            }}
-          >
-            <Hint hint={hint} />
-          </motion.div>
-        )}
+      <motion.div
+        className="overflow-hidden w-full h-[1px] pt-[1px]"
+        animate={controls}
+        transition={{
+          duration: 0.3,
+          ease: [0.04, 0.62, 0.23, 0.98],
+        }}
+      >
+        <Hint hint={hint} />
+      </motion.div>
     </div>
   );
 };
