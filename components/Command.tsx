@@ -52,16 +52,7 @@ export const Command = (
         />
         <div class="flex flex-1">
           <div class="flex-1 flex flex-col px-1">
-            <p class="px-1 text-gray-800 group-hover:font-medium group-hover:text(twitter) transition-colors sm:duration-300">
-              {title ?? id}
-              {!noColon && ":"}
-              {desc &&
-                (
-                  <span class="hidden sm:inline text-gray-800 text-opacity-50 group-hover:text(twitter opacity-50) px-1 text-sm">
-                    {desc}
-                  </span>
-                )}
-            </p>
+            <CommandTitle id={id} title={title} noColon={noColon} desc={desc} />
             <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all sm:duration-300" />
           </div>
           <CommandForm {...form} />
@@ -107,6 +98,23 @@ const Checkbox = ({ checked, onClick }: CheckBoxProps) => {
         />
       </svg>
     </div>
+  );
+};
+
+type TitleProps = Pick<CommandProps, "id" | "title" | "noColon" | "desc">;
+
+const CommandTitle = ({ id, title, noColon, desc }: TitleProps) => {
+  return (
+    <p class="px-1 text-gray-800 group-hover:font-medium group-hover:text(twitter) transition-colors sm:duration-300">
+      {title ?? id}
+      {!noColon && ":"}
+      {desc &&
+        (
+          <span class="hidden sm:inline text-gray-800 text-opacity-50 group-hover:text(twitter opacity-50) px-1 text-sm">
+            {desc}
+          </span>
+        )}
+    </p>
   );
 };
 
