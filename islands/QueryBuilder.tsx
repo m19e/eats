@@ -39,7 +39,7 @@ type Content = { type: "group"; title: string } | {
   title?: string;
   noColon?: boolean;
   desc?: string;
-  hint?: string;
+  hint: string;
   defaultQuery: string;
   form: ContentForm;
 };
