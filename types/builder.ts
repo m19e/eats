@@ -38,7 +38,8 @@ export type ContentForm = {
   calendarId: CalendarID;
 };
 
-export type Content = { type: "group"; title: string } | {
+type GroupContent = { type: "group"; title: string };
+type CommandContent = {
   type: "command";
   id: CommandID;
   title?: string;
@@ -48,3 +49,5 @@ export type Content = { type: "group"; title: string } | {
   defaultQuery: string;
   form: ContentForm;
 };
+
+export type Content = GroupContent | CommandContent;
