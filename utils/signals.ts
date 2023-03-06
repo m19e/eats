@@ -31,4 +31,4 @@ export const toggleQuery = (data: QueryData) => {
   updateQuery({ ...prevQuery, active });
 };
 
-export const selectedCommand = signal<CommandID | undefined>(undefined);
+export const focusedCommand = signal<CommandID | undefined>(undefined);

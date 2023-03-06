@@ -5,8 +5,8 @@ import IconChevronRight from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/che
 
 import type { TweetFilter } from "types/builder.ts";
 import {
+  focusedCommand,
   queryMap,
-  selectedCommand,
   toggleQuery,
   updateQuery,
 } from "utils/signals.ts";
@@ -339,18 +339,18 @@ const Command = (
   const controls = useAnimationControls();
 
   effect(() => {
-    const isOpen = selectedCommand.value === id;
+    const isOpen = focusedCommand.value === id;
     controls.start({
       height: isOpen ? "100%" : "0px",
     });
   });
 
-  const handleSelectCommand = () => {
-    selectedCommand.value = id;
+  const handleFocusCommand = () => {
+    focusedCommand.value = id;
   };
 
   return (
-    <div class="group" onClick={handleSelectCommand}>
+    <div class="group" onClick={handleFocusCommand}>
       <div class="flex items-center w-full">
         <Checkbox
           checked={queryMap.value.get(id)?.active}
