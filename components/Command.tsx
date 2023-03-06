@@ -14,7 +14,7 @@ type CommandProps = {
   title?: string;
   noColon?: boolean;
   desc?: string;
-  hint?: string;
+  hint: string;
   onToggle: (a: boolean) => void;
   form: ContentForm;
 };
