@@ -1,4 +1,9 @@
-import type { TweetFilter } from "types/builder.ts";
+import type { SelectID } from "types/builder.ts";
+
+const langs = [
+  { value: "ja", label: "ja" },
+  { value: "en", label: "en" },
+] as const;
 
 const tweetFilters = [
   { value: "nativeretweets", label: "nativeretweets" },
@@ -18,25 +23,26 @@ const mediaFilters = [
   { value: "pro_video", label: "pro_video" },
 ] as const;
 
-const filtersMap = {
-  tweet: tweetFilters,
-  media: mediaFilters,
+const optionsMap = {
+  "filter:media": mediaFilters,
+  "filter:tweet": tweetFilters,
+  lang: langs,
 } as const;
 
 type Props = {
-  type: TweetFilter;
+  id: SelectID;
   onChange: (value: string) => void;
 };
 
-export const FilterSelect = ({ type, onChange }: Props) => {
-  const options = filtersMap[type].map(({ value, label }) => (
+export const Select = ({ id, onChange }: Props) => {
+  const options = optionsMap[id].map(({ value, label }) => (
     <option key={value} value={value}>{label}</option>
   ));
 
   return (
     <select
       class="px-1 min-w-[12rem] rounded border-2 focus:border(twitter) outline-none"
-      defaultValue={filtersMap[type][0].value}
+      defaultValue={optionsMap[id][0].value}
       onChange={(e) => onChange(e.currentTarget.value)}
     >
       {options}

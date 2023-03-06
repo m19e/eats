@@ -17,7 +17,7 @@ export const handler: Handlers<Data> = {
   },
 };
 
-const Updates = (props: PageProps<Data>) => {
+const Updates = ({ data: { markdown } }: PageProps<Data>) => {
   return (
     <>
       <Head>
@@ -30,7 +30,7 @@ const Updates = (props: PageProps<Data>) => {
         <Header />
         <main class="flex items-start justify-center flex-1 bg-gray-100">
           <div class="m-2 sm:m-4 p-4 w-full max-w-screen-sm rounded-lg bg-white">
-            <Body markdown={props.data.markdown} />
+            <Body markdown={markdown} />
           </div>
         </main>
 
