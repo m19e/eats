@@ -150,7 +150,7 @@ const CommandForm = (props: ContentForm) => {
     );
   }
 
-  if (type === "select") {
+  if (type === "select:filter") {
     const { filterType } = props;
 
     return (

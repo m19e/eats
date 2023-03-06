@@ -77,11 +77,11 @@ const forms: {
     value: "follows",
   },
   "filter:media": {
-    type: "select",
+    type: "select:filter",
     filterType: "media",
   },
   "filter:tweet": {
-    type: "select",
+    type: "select:filter",
     filterType: "tweet",
   },
 };

@@ -31,7 +31,7 @@ export type ContentForm = {
   type: "input:disabled";
   value: string;
 } | {
-  type: "select";
+  type: "select:filter";
   filterType: TweetFilter;
 } | {
   type: "calendar";
