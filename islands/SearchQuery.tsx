@@ -5,6 +5,7 @@ import { IconCheck, IconCopy, IconSearch, IconShare } from "utils/icons.ts";
 import { isExcludeUser, queryString } from "utils/signals.ts";
 
 const SearchQuery = () => {
+  // TODO: remove needless space-y
   return (
     <div class="space-y-2 pb-2 border-b">
       <SearchBox />

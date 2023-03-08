@@ -9,6 +9,7 @@ export default function Home() {
     <>
       <Header />
       <div class="p-2 sm:p-4 mx-auto flex flex-col items-center max-w-screen-sm">
+        {/* TODO: remove needless space-y */}
         <div class="space-y-2 sm:space-y-3 w-full">
           <SearchQuery />
           <QueryBuilder />
