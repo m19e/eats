@@ -6,6 +6,18 @@ import { Command } from "components/Command.tsx";
 const splitQueryText = (text: string): string[] => {
   return text.trim().split(/\s+/).filter((c) => c);
 };
+const createQueryFromWords = (
+  words: string,
+  formatter: ((word: string) => string) | null,
+  separater = " ",
+) => {
+  const splitted = splitQueryText(words);
+  if (formatter) {
+    return splitted.map(formatter).join(separater);
+  }
+  return splitted.join(separater);
+};
+
 const forms: {
   [key in CommandID]: ContentForm;
 } = {
