@@ -35,7 +35,7 @@ const createQueryFromWords = (
   return splitted.join(separater);
 };
 
-const forms: {
+const FORMS: {
   [key in CommandID]: CommandForm;
 } = {
   keywords: {
@@ -130,7 +130,7 @@ export const datas: CategoryData[] = [
         noColon: true,
         hint: "キーワードをすべて含む",
         defaultQuery: "",
-        form: forms.keywords,
+        form: FORMS.keywords,
       },
       {
         id: "exact",
@@ -138,7 +138,7 @@ export const datas: CategoryData[] = [
         noColon: true,
         hint: "キーワード全体を含む",
         defaultQuery: `""`,
-        form: forms.exact,
+        form: FORMS.exact,
       },
       {
         id: "or",
@@ -146,7 +146,7 @@ export const datas: CategoryData[] = [
         noColon: true,
         hint: "キーワードのいずれかを含む",
         defaultQuery: "",
-        form: forms.or,
+        form: FORMS.or,
       },
       {
         id: "minus",
@@ -154,7 +154,7 @@ export const datas: CategoryData[] = [
         noColon: true,
         hint: "キーワードを含まない",
         defaultQuery: "-",
-        form: forms.minus,
+        form: FORMS.minus,
       },
       {
         id: "tag",
@@ -162,7 +162,7 @@ export const datas: CategoryData[] = [
         noColon: true,
         hint: "ハッシュタグを含む",
         defaultQuery: "#",
-        form: forms.tag,
+        form: FORMS.tag,
       },
     ],
   },
@@ -174,21 +174,21 @@ export const datas: CategoryData[] = [
         noColon: false,
         hint: "指定アカウントのツイート",
         defaultQuery: "from:",
-        form: forms.from,
+        form: FORMS.from,
       },
       {
         id: "to",
         noColon: false,
         hint: "指定アカウント宛てのツイート",
         defaultQuery: "to:",
-        form: forms.to,
+        form: FORMS.to,
       },
       {
         id: "filter:follows",
         title: "filter",
         hint: "フォローしているアカウントのツイート",
         defaultQuery: "filter:follows",
-        form: forms["filter:follows"],
+        form: FORMS["filter:follows"],
       },
     ],
   },
@@ -201,7 +201,7 @@ export const datas: CategoryData[] = [
         desc: "media type",
         hint: "メディアタイプ(画像,動画...)で絞り込み",
         defaultQuery: "filter:images",
-        form: forms["filter:media"],
+        form: FORMS["filter:media"],
       },
       {
         id: "filter:tweet",
@@ -209,13 +209,13 @@ export const datas: CategoryData[] = [
         desc: "tweet type",
         hint: "ツイートタイプ(RT,返信,引用)で絞り込み",
         defaultQuery: "filter:nativeretweets",
-        form: forms["filter:tweet"],
+        form: FORMS["filter:tweet"],
       },
       {
         id: "lang",
         hint: "指定した言語のツイート",
         defaultQuery: "lang:ja",
-        form: forms.lang,
+        form: FORMS.lang,
       },
     ],
   },
@@ -226,13 +226,13 @@ export const datas: CategoryData[] = [
         id: "until",
         hint: "指定した日付以前のツイート",
         defaultQuery: "until:2023-1-1",
-        form: forms.until,
+        form: FORMS.until,
       },
       {
         id: "since",
         hint: "指定した日付以降のツイート",
         defaultQuery: "since:2023-1-1",
-        form: forms.since,
+        form: FORMS.since,
       },
     ],
   },
@@ -243,19 +243,19 @@ export const datas: CategoryData[] = [
         id: "min_retweets",
         hint: "RTの最小件数",
         defaultQuery: "min_retweets:0",
-        form: forms.min_retweets,
+        form: FORMS.min_retweets,
       },
       {
         id: "min_faves",
         hint: "お気に入りの最小件数",
         defaultQuery: "min_faves:0",
-        form: forms.min_faves,
+        form: FORMS.min_faves,
       },
       {
         id: "min_replies",
         hint: "返信の最小件数",
         defaultQuery: "min_replies:0",
-        form: forms.min_replies,
+        form: FORMS.min_replies,
       },
     ],
   },
