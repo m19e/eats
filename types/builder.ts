@@ -57,3 +57,18 @@ type CommandContent = {
 };
 
 export type Content = GroupContent | CommandContent;
+
+export type CommandData = {
+  id: CommandID;
+  title?: string;
+  noColon?: boolean;
+  desc?: string;
+  hint: string;
+  defaultQuery: string;
+  form: ContentForm;
+};
+
+export type CategoryData = {
+  title: string;
+  commands: CommandData[];
+};
