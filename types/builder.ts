@@ -28,7 +28,7 @@ export type CommandForm = {
   getQuery?: GetQueryFn;
 } | {
   type: "calendar";
-  calendarId: CalendarID;
+  id: CalendarID;
 };
 
 export type CommandData = {

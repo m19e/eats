@@ -158,7 +158,7 @@ const Form = (props: CommandForm) => {
   }
 
   if (type === "calendar") {
-    return <Calendar id={props.calendarId} />;
+    return <Calendar id={props.id} />;
   }
 
   return null;

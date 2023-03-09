@@ -80,11 +80,11 @@ const FORMS: {
   },
   until: {
     type: "calendar",
-    calendarId: "until",
+    id: "until",
   },
   since: {
     type: "calendar",
-    calendarId: "since",
+    id: "since",
   },
   min_retweets: {
     type: "input",
