@@ -1,5 +1,5 @@
+import { DATAS } from "consts/builder.ts";
 import type { CategoryData } from "types/builder.ts";
-import { datas } from "consts/builder.ts";
 
 import { Command } from "components/Command.tsx";
 
@@ -24,7 +24,7 @@ const QueryBuilder = () => {
 };
 
 const Categories = () => {
-  const categories = datas.map(({ title, commands }) => (
+  const categories = DATAS.map(({ title, commands }) => (
     <div key={title} class="space-y-2 sm:space-y-3">
       <Category title={title} />
       <Commands commands={commands} />

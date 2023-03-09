@@ -121,7 +121,7 @@ const FORMS: {
   },
 };
 
-export const datas: CategoryData[] = [
+export const DATAS: CategoryData[] = [
   {
     title: "Basic",
     commands: [
