@@ -4,10 +4,13 @@ export type CommandID = keyof typeof COMMAND_IDS;
 
 export type GetQueryFn = (value: string) => string;
 
-export type CalendarID = "until" | "since";
+export type CalendarID = keyof Pick<
+  typeof COMMAND_IDS,
+  "until" | "since"
+>;
 
-export type SelectID = Extract<
-  CommandID,
+export type SelectID = keyof Pick<
+  typeof COMMAND_IDS,
   "lang" | "filter:media" | "filter:tweet"
 >;
 
