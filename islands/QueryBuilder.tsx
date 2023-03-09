@@ -263,25 +263,21 @@ const QueryBuilder = () => {
 };
 
 const Categories = () => {
-  const categories = datas.map((category) => {
-    const { title, commands } = category;
-
-    return (
-      <div key={title} class="space-y-2 sm:space-y-3">
-        <Category title={title} />
-        <Commands commands={commands} />
-      </div>
-    );
-  });
+  const categories = datas.map(({ title, commands }) => (
+    <div key={title} class="space-y-2 sm:space-y-3">
+      <Category title={title} />
+      <Commands commands={commands} />
+    </div>
+  ));
 
   return <>{categories}</>;
 };
 
-const Category = ({ title }: { title: string }) => {
+const Category = ({ title }: Pick<CategoryData, "title">) => {
   return <h2 class="text-xl text-gray-800 font-semibold">{title}</h2>;
 };
 
-const Commands = ({ commands }: { commands: CategoryData["commands"] }) => {
+const Commands = ({ commands }: Pick<CategoryData, "commands">) => {
   const cmds = commands.map((cmd) => (
     <Command
       key={cmd.id}
