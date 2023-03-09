@@ -47,8 +47,8 @@ export const Command = (
         />
         <div class="flex flex-1">
           <div class="flex-1 flex flex-col px-1">
-            <CommandLabel id={id} title={title} noColon={noColon} desc={desc} />
-            <CommandUnderline />
+            <Label id={id} title={title} noColon={noColon} desc={desc} />
+            <Underline />
           </div>
           <Form {...form} />
         </div>
@@ -98,7 +98,7 @@ const Checkbox = ({ checked, onClick }: CheckBoxProps) => {
 
 type LabelProps = Pick<CommandData, "id" | "title" | "noColon" | "desc">;
 
-const CommandLabel = ({ id, title, noColon, desc }: LabelProps) => {
+const Label = ({ id, title, noColon, desc }: LabelProps) => {
   return (
     <p class="px-1 text-gray-800 group-hover:font-medium group-hover:text(twitter) transition-colors sm:duration-300">
       {title ?? id}
@@ -113,7 +113,7 @@ const CommandLabel = ({ id, title, noColon, desc }: LabelProps) => {
   );
 };
 
-const CommandUnderline = () => {
+const Underline = () => {
   return (
     <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all sm:duration-300" />
   );
