@@ -1,4 +1,4 @@
-import type { CategoryData, CommandID, ContentForm } from "types/builder.ts";
+import type { CategoryData, CommandForm, CommandID } from "types/builder.ts";
 import { toggleQuery } from "utils/signals.ts";
 
 import { Command } from "components/Command.tsx";
@@ -19,7 +19,7 @@ const createQueryFromWords = (
 };
 
 const forms: {
-  [key in CommandID]: ContentForm;
+  [key in CommandID]: CommandForm;
 } = {
   keywords: {
     type: "input",

@@ -27,7 +27,7 @@ export type SelectID = Extract<
   "lang" | "filter:media" | "filter:tweet"
 >;
 
-export type ContentForm = {
+export type CommandForm = {
   type: "input";
   id: CommandID;
   placeholder: string;
@@ -51,7 +51,7 @@ export type CommandData = {
   desc?: string;
   hint: string;
   defaultQuery: string;
-  form: ContentForm;
+  form: CommandForm;
 };
 
 export type CategoryData = {

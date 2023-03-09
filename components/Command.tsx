@@ -2,7 +2,7 @@ import { effect } from "@preact/signals";
 import { motion, useAnimationControls } from "framer-motion";
 import { IconChevronRight } from "utils/icons.ts";
 
-import type { CommandID, ContentForm, GetQueryFn } from "types/builder.ts";
+import type { CommandForm, CommandID, GetQueryFn } from "types/builder.ts";
 import { focusedCommand, queryMap, updateQuery } from "utils/signals.ts";
 
 import { TextInput } from "components/TextInput.tsx";
@@ -16,7 +16,7 @@ type CommandProps = {
   desc?: string;
   hint: string;
   onToggle: (a: boolean) => void;
-  form: ContentForm;
+  form: CommandForm;
 };
 
 export const Command = (
@@ -124,7 +124,7 @@ const CommandUnderline = () => {
   );
 };
 
-const CommandForm = (props: ContentForm) => {
+const CommandForm = (props: CommandForm) => {
   const { type } = props;
 
   if (type === "input") {
