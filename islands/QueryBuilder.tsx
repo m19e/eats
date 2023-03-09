@@ -37,19 +37,19 @@ const forms: {
     type: "input",
     id: "or",
     placeholder: "cats dogs",
-    getQuery: (v) => `(${splitQueryText(v).join(" OR ")})`,
+    getQuery: (v) => `(${createQueryFromWords(v, null, " OR ")})`,
   },
   minus: {
     type: "input",
     id: "minus",
     placeholder: "cats dogs",
-    getQuery: (v) => splitQueryText(v).map((c) => `-${c}`).join(" "),
+    getQuery: (v) => createQueryFromWords(v, (c) => `-${c}`),
   },
   tag: {
     type: "input",
     id: "tag",
     placeholder: "ThrowbackThursday",
-    getQuery: (v) => splitQueryText(v).map((c) => `#${c}`).join(" "),
+    getQuery: (v) => createQueryFromWords(v, (c) => `#${c}`),
   },
   from: {
     type: "input",
