@@ -260,3 +260,32 @@ export const DATAS: CategoryData[] = [
     ],
   },
 ];
+
+const langs = [
+  { value: "ja", label: "ja" },
+  { value: "en", label: "en" },
+] as const;
+
+const tweetFilters = [
+  { value: "nativeretweets", label: "nativeretweets" },
+  { value: "replies", label: "replies" },
+  { value: "quote", label: "quote" },
+  // { value: "retweets", label: "retweets" },
+] as const;
+
+const mediaFilters = [
+  { value: "images", label: "images" },
+  { value: "videos", label: "videos" },
+  { value: "twimg", label: "twimg" },
+  { value: "consumer_video", label: "consumer_video" },
+  { value: "media", label: "media" },
+  { value: "spaces", label: "spaces" },
+  { value: "native_video", label: "native_video" },
+  { value: "pro_video", label: "pro_video" },
+] as const;
+
+export const OPTIONS_MAP = {
+  "filter:media": mediaFilters,
+  "filter:tweet": tweetFilters,
+  lang: langs,
+} as const;
