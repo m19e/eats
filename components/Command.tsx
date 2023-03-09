@@ -19,16 +19,6 @@ import { TextInput } from "components/TextInput.tsx";
 import { Select } from "components/Select.tsx";
 import { Calendar } from "components/Calendar.tsx";
 
-type CommandProps = {
-  id: CommandID;
-  title?: string;
-  noColon?: boolean;
-  desc?: string;
-  hint: string;
-  onToggle: (a: boolean) => void;
-  form: CommandForm;
-};
-
 export const Command = (
   {
     id,
@@ -36,7 +26,6 @@ export const Command = (
     noColon = false,
     desc,
     hint,
-    // onToggle,
     defaultQuery,
     form,
   }: CommandData,
@@ -112,7 +101,7 @@ const Checkbox = ({ checked, onClick }: CheckBoxProps) => {
   );
 };
 
-type LabelProps = Pick<CommandProps, "id" | "title" | "noColon" | "desc">;
+type LabelProps = Pick<CommandData, "id" | "title" | "noColon" | "desc">;
 
 const CommandLabel = ({ id, title, noColon, desc }: LabelProps) => {
   return (
