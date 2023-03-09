@@ -2,12 +2,7 @@ import { effect } from "@preact/signals";
 import { motion, useAnimationControls } from "framer-motion";
 import { IconChevronRight } from "utils/icons.ts";
 
-import type {
-  CommandData,
-  CommandForm,
-  CommandID,
-  GetQueryFn,
-} from "types/builder.ts";
+import type { CommandData, CommandForm, GetQueryFn } from "types/builder.ts";
 import {
   focusedCommand,
   queryMap,
@@ -55,7 +50,7 @@ export const Command = (
             <CommandLabel id={id} title={title} noColon={noColon} desc={desc} />
             <CommandUnderline />
           </div>
-          <CommandForm {...form} />
+          <Form {...form} />
         </div>
       </div>
       <motion.div
@@ -124,7 +119,7 @@ const CommandUnderline = () => {
   );
 };
 
-const CommandForm = (props: CommandForm) => {
+const Form = (props: CommandForm) => {
   const { type } = props;
 
   if (type === "input") {
