@@ -1,5 +1,4 @@
 import type { CategoryData, CommandForm, CommandID } from "types/builder.ts";
-import { toggleQuery } from "utils/signals.ts";
 
 import { Command } from "components/Command.tsx";
 
@@ -282,15 +281,15 @@ const Category = ({ title }: { title: string }) => {
   return <h2 class="text-xl text-gray-800 font-semibold">{title}</h2>;
 };
 
-const Commands = (props: { commands: CategoryData["commands"] }) => {
-  const commands = props.commands.map((command) => (
+const Commands = ({ commands }: { commands: CategoryData["commands"] }) => {
+  const cmds = commands.map((cmd) => (
     <Command
-      key={command.id}
-      {...command}
+      key={cmd.id}
+      {...cmd}
     />
   ));
 
-  return <>{commands}</>;
+  return <>{cmds}</>;
 };
 
 export default QueryBuilder;
