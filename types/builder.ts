@@ -44,20 +44,6 @@ export type ContentForm = {
   calendarId: CalendarID;
 };
 
-type GroupContent = { type: "group"; title: string };
-type CommandContent = {
-  type: "command";
-  id: CommandID;
-  title?: string;
-  noColon?: boolean;
-  desc?: string;
-  hint: string;
-  defaultQuery: string;
-  form: ContentForm;
-};
-
-export type Content = GroupContent | CommandContent;
-
 export type CommandData = {
   id: CommandID;
   title?: string;
