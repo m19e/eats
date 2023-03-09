@@ -2,8 +2,18 @@ import { effect } from "@preact/signals";
 import { motion, useAnimationControls } from "framer-motion";
 import { IconChevronRight } from "utils/icons.ts";
 
-import type { CommandForm, CommandID, GetQueryFn } from "types/builder.ts";
-import { focusedCommand, queryMap, updateQuery } from "utils/signals.ts";
+import type {
+  CommandData,
+  CommandForm,
+  CommandID,
+  GetQueryFn,
+} from "types/builder.ts";
+import {
+  focusedCommand,
+  queryMap,
+  toggleQuery,
+  updateQuery,
+} from "utils/signals.ts";
 
 import { TextInput } from "components/TextInput.tsx";
 import { Select } from "components/Select.tsx";
@@ -26,9 +36,10 @@ export const Command = (
     noColon = false,
     desc,
     hint,
-    onToggle,
+    // onToggle,
+    defaultQuery,
     form,
-  }: CommandProps,
+  }: CommandData,
 ) => {
   const controls = useAnimationControls();
 
@@ -48,7 +59,7 @@ export const Command = (
       <div class="flex items-center w-full">
         <Checkbox
           checked={queryMap.value.get(id)?.active}
-          onClick={(checked) => onToggle(checked)}
+          onClick={(active) => toggleQuery({ id, active, query: defaultQuery })}
         />
         <div class="flex flex-1">
           <div class="flex-1 flex flex-col px-1">

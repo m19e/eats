@@ -283,18 +283,12 @@ const Category = ({ title }: { title: string }) => {
 };
 
 const Commands = (props: { commands: CategoryData["commands"] }) => {
-  const commands = props.commands.map((c) => {
-    const { defaultQuery, ...props } = c;
-    const { id } = props;
-
-    return (
-      <Command
-        key={id}
-        onToggle={(active) => toggleQuery({ id, active, query: defaultQuery })}
-        {...props}
-      />
-    );
-  });
+  const commands = props.commands.map((command) => (
+    <Command
+      key={command.id}
+      {...command}
+    />
+  ));
 
   return <>{commands}</>;
 };
