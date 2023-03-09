@@ -1,8 +1,28 @@
 import type { CategoryData, CommandForm, CommandID } from "types/builder.ts";
 
+export const COMMAND_IDS = {
+  keywords: "KEYWORDS",
+  exact: "EXACT",
+  or: "OR",
+  minus: "MINUS",
+  tag: "TAG",
+  from: "FROM",
+  to: "TO",
+  until: "UNTIL",
+  since: "SINCE",
+  min_retweets: "MIN_RETWEETS",
+  min_faves: "MIN_FAVES",
+  min_replies: "MIN_REPLIES",
+  "filter:follows": "FILTER:FOLLOWS",
+  "filter:media": "FILTER:MEDIA",
+  "filter:tweet": "FILTER:TWEET",
+  lang: "LANG",
+} as const;
+
 const splitQueryText = (text: string): string[] => {
   return text.trim().split(/\s+/).filter((c) => c);
 };
+
 const createQueryFromWords = (
   words: string,
   formatter: ((word: string) => string) | null,
