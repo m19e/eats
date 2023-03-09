@@ -1,4 +1,4 @@
-import { COMMAND_IDS } from "consts/builder.ts";
+import { COMMAND_IDS } from "/consts/builder.ts";
 
 export type CommandID = keyof typeof COMMAND_IDS;
 
