@@ -31,10 +31,12 @@ export const Calendar = ({ id }: Props) => {
   });
 
   useEffect(() => {
-    const { y, m, d, skip } = calendar;
-    if (skip) return;
+    if (calendar.skip) return;
+
+    const { y, m, d } = calendar;
     const ymd = `${y}-${m}-${d}`;
     const query = `${id}:${ymd}`;
+
     updateQuery({ id, query });
   }, [calendar]);
 
