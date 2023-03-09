@@ -24,7 +24,7 @@ const Updates = ({ data: { markdown } }: PageProps<Data>) => {
         <link rel="stylesheet" href={`/gfm.css?build=${__FRSH_BUILD_ID}`} />
       </Head>
 
-      <div class="flex flex-col min-h-screen">
+      <div class="min-h-screen">
         <Header />
         <main class="flex items-start justify-center flex-1 bg-gray-100">
           <Body markdown={markdown} />
