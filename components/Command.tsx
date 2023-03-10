@@ -2,7 +2,12 @@ import { effect } from "@preact/signals";
 import { motion, useAnimationControls } from "framer-motion";
 import { IconChevronRight } from "utils/icons.ts";
 
-import type { CommandData, CommandForm, GetQueryFn } from "types/builder.ts";
+import type {
+  CommandData,
+  CommandForm,
+  CommandID,
+  GetQueryFn,
+} from "types/builder.ts";
 import {
   focusedCommand,
   queryMap,
@@ -119,21 +124,22 @@ const Underline = () => {
   );
 };
 
+const getHandler = (props: { id: CommandID; getQuery?: GetQueryFn }) => {
+  const { id } = props;
+
+  const getQuery: GetQueryFn = props.getQuery ??
+    ((v) => `${id}:${v.trim()}`);
+  const handler = (v: string) => updateQuery({ id, query: getQuery(v) });
+
+  return handler;
+};
+
 const Form = (props: CommandForm) => {
   const { type } = props;
 
-  if (type === "input") {
-    const { id } = props;
-    const getQuery: GetQueryFn = props.getQuery ?? ((v) => `${id}:${v.trim()}`);
-
-    return (
-      <TextInput
-        placeholder={props.placeholder}
-        onInput={(v) => updateQuery({ id, query: getQuery(v) })}
-      />
-    );
+  if (type === "calendar") {
+    return <Calendar id={props.id} />;
   }
-
   if (type === "input:disabled") {
     return (
       <input
@@ -145,23 +151,25 @@ const Form = (props: CommandForm) => {
     );
   }
 
-  if (type === "select") {
-    const { id } = props;
-    const getQuery: GetQueryFn = props.getQuery ?? ((v) => `${id}:${v.trim()}`);
+  const { id, getQuery } = props;
+  const handler = getHandler({ id, getQuery });
 
+  if (type === "input") {
     return (
-      <Select
-        id={id}
-        onChange={(v) => updateQuery({ id, query: getQuery(v) })}
+      <TextInput
+        placeholder={props.placeholder}
+        onInput={handler}
       />
     );
   }
-
-  if (type === "calendar") {
-    return <Calendar id={props.id} />;
+  if (type === "select") {
+    return (
+      <Select
+        id={props.id}
+        onChange={handler}
+      />
+    );
   }
-
-  return null;
 };
 
 const Hint = ({ hint }: { hint: string }) => {
