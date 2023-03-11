@@ -30,6 +30,13 @@
 | &nbsp;     | min_faves      | `min_faves:280`         |
 | &nbsp;     | min_replies    | `min_replies:280`       |
 
+### TODO
+
+- [ ] `until/since: hhmmss`
+- [ ] `include:nativeretweets`
+- [ ] `@USER -from:USER`
+- [ ] OGP
+
 ### Usage
 
 Start the project:
