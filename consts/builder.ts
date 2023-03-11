@@ -65,7 +65,7 @@ const FORMS: {
   tag: {
     type: "input",
     id: "tag",
-    placeholder: "ThrowbackThursday",
+    placeholder: "bigdog",
     getQuery: (v) => createQueryFromWords(v, (c) => `#${c}`),
   },
   from: {
