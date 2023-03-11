@@ -19,6 +19,9 @@
 | &nbsp;     | &nbsp;         | `filter:spaces`         |
 | &nbsp;     | &nbsp;         | `filter:native_video`   |
 | &nbsp;     | &nbsp;         | `filter:pro_video`      |
+| &nbsp;     | filter:tweet   | `filter:nativeretweets` |
+| &nbsp;     | &nbsp;         | `filter:replies`        |
+| &nbsp;     | &nbsp;         | `filter:quote`          |
 | Time       | until          | `until:2023-3-11`       |
 | &nbsp;     | since          | `since:2021-2-4`        |
 | Engagement | min_retweets   | `min_retweets:280`      |
