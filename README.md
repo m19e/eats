@@ -12,6 +12,8 @@
 | Users  | from           | `from:discord_jp`  |
 | &nbsp; | to             | `to:discord_jp`    |
 | &nbsp; | filter:follows | `filter:follows`   |
+| Time   | until          | `until:2023-3-11`  |
+| &nbsp; | since          | `since:2021-2-4`   |
 
 ### Usage
 
