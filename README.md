@@ -22,6 +22,8 @@
 | &nbsp;     | filter:tweet   | `filter:nativeretweets` |
 | &nbsp;     | &nbsp;         | `filter:replies`        |
 | &nbsp;     | &nbsp;         | `filter:quote`          |
+| &nbsp;     | lang           | `lang:ja`               |
+| &nbsp;     | &nbsp;         | `lang:en`               |
 | Time       | until          | `until:2023-3-11`       |
 | &nbsp;     | since          | `since:2021-2-4`        |
 | Engagement | min_retweets   | `min_retweets:280`      |
