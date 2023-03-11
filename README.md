@@ -1,5 +1,7 @@
 # EATS
 
+🔍 Easy Advanced Twitter Search
+
 ### Commands
 
 | Group      | Command        | Operater                |
