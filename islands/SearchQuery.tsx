@@ -1,8 +1,8 @@
 import { useState } from "preact/hooks";
 import copy from "copy";
-import { IconCheck, IconCopy, IconSearch, IconShare } from "utils/icons.ts";
+import { IconCheck, IconCopy, IconSearch, IconShare } from "/utils/icons.ts";
 
-import { isExcludeUser, queryString } from "utils/signals.ts";
+import { isExcludeUser, queryString } from "/utils/signals.ts";
 
 const SearchQuery = () => {
   return (

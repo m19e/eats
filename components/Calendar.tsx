@@ -1,7 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 
 import type { CalendarID } from "/types/builder.ts";
-import { updateQuery } from "utils/signals.ts";
+import { updateQuery } from "/utils/signals.ts";
 
 import { DateSelect } from "/components/DateSelect.tsx";
 

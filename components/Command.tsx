@@ -1,6 +1,6 @@
 import { effect } from "@preact/signals";
 import { motion, useAnimationControls } from "framer-motion";
-import { IconChevronRight } from "utils/icons.ts";
+import { IconChevronRight } from "/utils/icons.ts";
 
 import type {
   CommandData,
@@ -13,7 +13,7 @@ import {
   queryMap,
   toggleQuery,
   updateQuery,
-} from "utils/signals.ts";
+} from "/utils/signals.ts";
 
 import { TextInput } from "/components/TextInput.tsx";
 import { Select } from "/components/Select.tsx";

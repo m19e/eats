@@ -1,5 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-import { gfm } from "utils/markdown.ts";
+import { gfm } from "/utils/markdown.ts";
 
 const CSS = `${gfm.CSS}
 
