@@ -1,7 +1,6 @@
 import type {
   CommandForm,
   CommandFormWithGetQuery,
-  CommandID,
   GetQueryFn,
 } from "/types/builder.ts";
 import { updateQuery } from "/utils/signals.ts";
