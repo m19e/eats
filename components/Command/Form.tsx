@@ -10,7 +10,9 @@ import { TextInput } from "/components/TextInput.tsx";
 import { Select } from "/components/Select.tsx";
 import { Calendar } from "/components/Calendar.tsx";
 
-const getHandler = (props: { id: CommandID; getQuery?: GetQueryFn }) => {
+const getHandler = (
+  props: Pick<CommandFormWithGetQuery, "id" | "getQuery">,
+) => {
   const { id } = props;
 
   const getQuery: GetQueryFn = props.getQuery ??
