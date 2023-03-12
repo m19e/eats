@@ -17,6 +17,7 @@ export const COMMAND_IDS = {
   "filter:media": "FILTER:MEDIA",
   "filter:tweet": "FILTER:TWEET",
   lang: "LANG",
+  exclude_name: "EXCLUDE_NAME",
 } as const;
 
 const splitQueryText = (text: string): string[] => {
@@ -36,7 +37,7 @@ const createQueryFromWords = (
 };
 
 const FORMS: {
-  [key in CommandID]: CommandForm;
+  [key in Exclude<CommandID, "exclude_name">]: CommandForm;
 } = {
   keywords: {
     type: "input",
