@@ -2,7 +2,7 @@
 
 🔍 [EATS](https://m19e-eats.deno.dev/) | Easy Advanced Twitter Search
 
-### Commands
+## Commands
 
 | Group      | Command        | Operater                |
 | ---------- | -------------- | ----------------------- |
@@ -32,7 +32,7 @@
 | &nbsp;     | min_faves      | `min_faves:280`         |
 | &nbsp;     | min_replies    | `min_replies:280`       |
 
-### TODO
+## TODO
 
 - [ ] `until/since: hhmmss`
 - [ ] `include:nativeretweets`
@@ -41,7 +41,7 @@
 - [ ] README > License
 - [x] ~~README > Reference~~
 
-### Usage
+## Usage
 
 Start the project:
 
@@ -51,10 +51,10 @@ deno task start
 
 This will watch the project directory and restart as necessary.
 
-### Reference
+## Reference
 
 [👀 Advanced Search on Twitter](https://github.com/igorbrigadir/twitter-advanced-search)
 
-### License
+## License
 
 [MIT](./LICENSE.md)
