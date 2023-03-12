@@ -28,17 +28,21 @@ export const Form = (props: CommandForm) => {
     return <Calendar id={props.id} />;
   }
   if (type === "input:disabled") {
-    return (
-      <input
-        class="px-2 w-[12rem] text-gray-800 border-2 rounded outline-none disabled:(cursor-not-allowed)"
-        type="text"
-        value={props.value}
-        disabled
-      />
-    );
+    return <InputDisabled value={props.value} />;
   }
 
   return <FormWithQuery {...props} />;
+};
+
+const InputDisabled = ({ value }: { value: string }) => {
+  return (
+    <input
+      class="px-2 w-[12rem] text-gray-800 border-2 rounded outline-none disabled:(cursor-not-allowed)"
+      type="text"
+      value={value}
+      disabled
+    />
+  );
 };
 
 const FormWithQuery = (props: CommandFormWithGetQuery) => {
@@ -46,18 +50,8 @@ const FormWithQuery = (props: CommandFormWithGetQuery) => {
   const handler = getHandler({ id, getQuery });
 
   if (type === "select") {
-    return (
-      <Select
-        id={props.id}
-        onChange={handler}
-      />
-    );
+    return <Select id={props.id} onChange={handler} />;
   }
 
-  return (
-    <TextInput
-      placeholder={props.placeholder}
-      onInput={handler}
-    />
-  );
+  return <TextInput placeholder={props.placeholder} onInput={handler} />;
 };
