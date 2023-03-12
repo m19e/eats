@@ -1,6 +1,6 @@
 # EATS
 
-🔍 Easy Advanced Twitter Search
+🔍 [EATS](https://m19e-eats.deno.dev/) | Easy Advanced Twitter Search
 
 ### Commands
 
