@@ -38,6 +38,8 @@
 - [ ] `include:nativeretweets`
 - [ ] `@USER -from:USER`
 - [ ] OGP
+- [ ] README > License
+- [x] README > Reference
 
 ### Usage
 
@@ -48,3 +50,7 @@ deno task start
 ```
 
 This will watch the project directory and restart as necessary.
+
+### Reference
+
+[👀 Advanced Search on Twitter](https://github.com/igorbrigadir/twitter-advanced-search)
