@@ -10,7 +10,7 @@
     "/types/": "./types/",
     "/components/": "./components/",
     "/utils/": "./utils/",
-    "islands/": "./islands/",
+    "/islands/": "./islands/",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.0.3",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.0.1",
     "copy": "https://esm.sh/copy-to-clipboard@3.3.2",

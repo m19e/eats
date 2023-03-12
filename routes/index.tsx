@@ -1,5 +1,5 @@
-import SearchQuery from "islands/SearchQuery.tsx";
-import QueryBuilder from "islands/QueryBuilder.tsx";
+import SearchQuery from "/islands/SearchQuery.tsx";
+import QueryBuilder from "/islands/QueryBuilder.tsx";
 
 import { Header } from "/components/Header.tsx";
 import { Footer } from "/components/Footer.tsx";
