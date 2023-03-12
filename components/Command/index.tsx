@@ -1,24 +1,11 @@
 import { effect } from "@preact/signals";
 import { motion, useAnimationControls } from "framer-motion";
 
-import type {
-  CommandData,
-  CommandForm,
-  CommandID,
-  GetQueryFn,
-} from "/types/builder.ts";
-import {
-  focusedCommand,
-  queryMap,
-  toggleQuery,
-  updateQuery,
-} from "/utils/signals.ts";
-
-import { TextInput } from "/components/TextInput.tsx";
-import { Select } from "/components/Select.tsx";
-import { Calendar } from "/components/Calendar.tsx";
+import type { CommandData } from "/types/builder.ts";
+import { focusedCommand, queryMap, toggleQuery } from "/utils/signals.ts";
 
 import { Label } from "/components/Command/Label.tsx";
+import { Form } from "/components/Command/Form.tsx";
 import { Hint } from "/components/Command/Hint.tsx";
 
 export const Command = (
@@ -107,54 +94,4 @@ const Underline = () => {
   return (
     <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all sm:duration-300" />
   );
-};
-
-const getHandler = (props: { id: CommandID; getQuery?: GetQueryFn }) => {
-  const { id } = props;
-
-  const getQuery: GetQueryFn = props.getQuery ??
-    ((v) => `${id}:${v.trim()}`);
-  const handler = (v: string) => updateQuery({ id, query: getQuery(v) });
-
-  return handler;
-};
-
-const Form = (props: CommandForm) => {
-  const { type } = props;
-
-  if (type === "calendar") {
-    return <Calendar id={props.id} />;
-  }
-  if (type === "input:disabled") {
-    return (
-      <input
-        class="px-2 w-[12rem] text-gray-800 border-2 rounded outline-none disabled:(cursor-not-allowed)"
-        type="text"
-        value={props.value}
-        disabled
-      />
-    );
-  }
-
-  const { id, getQuery } = props;
-  const handler = getHandler({ id, getQuery });
-
-  if (type === "input") {
-    return (
-      <TextInput
-        placeholder={props.placeholder}
-        onInput={handler}
-      />
-    );
-  }
-  if (type === "select") {
-    return (
-      <Select
-        id={props.id}
-        onChange={handler}
-      />
-    );
-  }
-
-  return null;
 };
