@@ -8,6 +8,7 @@ import { Checkbox } from "/components/Command/Checkbox.tsx";
 import { Label } from "/components/Command/Label.tsx";
 import { Form } from "/components/Command/Form.tsx";
 import { Hint } from "/components/Command/Hint.tsx";
+import { Underline } from "/components/Command/Underline.tsx";
 
 export const Command = (
   {
@@ -59,11 +60,5 @@ export const Command = (
         <Hint hint={hint} />
       </motion.div>
     </div>
-  );
-};
-
-const Underline = () => {
-  return (
-    <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all sm:duration-300" />
   );
 };
