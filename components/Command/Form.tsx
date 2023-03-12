@@ -1,4 +1,9 @@
-import type { CommandForm, CommandID, GetQueryFn } from "/types/builder.ts";
+import type {
+  CommandForm,
+  CommandFormWithGetQuery,
+  CommandID,
+  GetQueryFn,
+} from "/types/builder.ts";
 import { updateQuery } from "/utils/signals.ts";
 
 import { TextInput } from "/components/TextInput.tsx";
@@ -32,17 +37,13 @@ export const Form = (props: CommandForm) => {
     );
   }
 
-  const { id, getQuery } = props;
+  return <FormWithQuery {...props} />;
+};
+
+const FormWithQuery = (props: CommandFormWithGetQuery) => {
+  const { type, id, getQuery } = props;
   const handler = getHandler({ id, getQuery });
 
-  if (type === "input") {
-    return (
-      <TextInput
-        placeholder={props.placeholder}
-        onInput={handler}
-      />
-    );
-  }
   if (type === "select") {
     return (
       <Select
@@ -52,5 +53,10 @@ export const Form = (props: CommandForm) => {
     );
   }
 
-  return null;
+  return (
+    <TextInput
+      placeholder={props.placeholder}
+      onInput={handler}
+    />
+  );
 };
