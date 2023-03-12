@@ -1,9 +1,9 @@
 import { Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { gfm } from "utils/markdown.ts";
+import { gfm } from "/utils/markdown.ts";
 
-import { Header } from "components/Header.tsx";
-import { Footer } from "components/Footer.tsx";
+import { Header } from "/components/Header.tsx";
+import { Footer } from "/components/Footer.tsx";
 
 interface Data {
   markdown: string;
@@ -27,11 +27,8 @@ const Updates = ({ data: { markdown } }: PageProps<Data>) => {
       <div class="flex flex-col min-h-screen">
         <Header />
         <main class="flex items-start justify-center flex-1 bg-gray-100">
-          <div class="m-2 sm:m-4 p-8 w-full max-w-screen-sm rounded-lg bg-white">
-            <Body markdown={markdown} />
-          </div>
+          <Body markdown={markdown} />
         </main>
-
         <Footer />
       </div>
     </>
@@ -47,6 +44,7 @@ const Body = ({ markdown }: { markdown: string }) => {
 
   return (
     <div
+      class="m-2 sm:m-4 p-8 w-full max-w-screen-sm rounded-lg bg-white"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

@@ -1,23 +1,23 @@
 import { effect } from "@preact/signals";
 import { motion, useAnimationControls } from "framer-motion";
-import { IconChevronRight } from "utils/icons.ts";
+import { IconChevronRight } from "/utils/icons.ts";
 
-import type { CommandID, ContentForm, GetQueryFn } from "types/builder.ts";
-import { focusedCommand, queryMap, updateQuery } from "utils/signals.ts";
+import type {
+  CommandData,
+  CommandForm,
+  CommandID,
+  GetQueryFn,
+} from "/types/builder.ts";
+import {
+  focusedCommand,
+  queryMap,
+  toggleQuery,
+  updateQuery,
+} from "/utils/signals.ts";
 
-import { TextInput } from "components/TextInput.tsx";
-import { Select } from "components/Select.tsx";
-import { Calendar } from "components/Calendar.tsx";
-
-type CommandProps = {
-  id: CommandID;
-  title?: string;
-  noColon?: boolean;
-  desc?: string;
-  hint: string;
-  onToggle: (a: boolean) => void;
-  form: ContentForm;
-};
+import { TextInput } from "/components/TextInput.tsx";
+import { Select } from "/components/Select.tsx";
+import { Calendar } from "/components/Calendar.tsx";
 
 export const Command = (
   {
@@ -26,9 +26,9 @@ export const Command = (
     noColon = false,
     desc,
     hint,
-    onToggle,
+    defaultQuery,
     form,
-  }: CommandProps,
+  }: CommandData,
 ) => {
   const controls = useAnimationControls();
 
@@ -48,14 +48,14 @@ export const Command = (
       <div class="flex items-center w-full">
         <Checkbox
           checked={queryMap.value.get(id)?.active}
-          onClick={(checked) => onToggle(checked)}
+          onClick={(active) => toggleQuery({ id, active, query: defaultQuery })}
         />
         <div class="flex flex-1">
           <div class="flex-1 flex flex-col px-1">
-            <CommandLabel id={id} title={title} noColon={noColon} desc={desc} />
-            <CommandUnderline />
+            <Label id={id} title={title} noColon={noColon} desc={desc} />
+            <Underline />
           </div>
-          <CommandForm {...form} />
+          <Form {...form} />
         </div>
       </div>
       <motion.div
@@ -101,9 +101,9 @@ const Checkbox = ({ checked, onClick }: CheckBoxProps) => {
   );
 };
 
-type LabelProps = Pick<CommandProps, "id" | "title" | "noColon" | "desc">;
+type LabelProps = Pick<CommandData, "id" | "title" | "noColon" | "desc">;
 
-const CommandLabel = ({ id, title, noColon, desc }: LabelProps) => {
+const Label = ({ id, title, noColon, desc }: LabelProps) => {
   return (
     <p class="px-1 text-gray-800 group-hover:font-medium group-hover:text(twitter) transition-colors sm:duration-300">
       {title ?? id}
@@ -118,27 +118,28 @@ const CommandLabel = ({ id, title, noColon, desc }: LabelProps) => {
   );
 };
 
-const CommandUnderline = () => {
+const Underline = () => {
   return (
     <span class="bg(twitter) h-[1px] w-0 group-hover:!w-full transition-all sm:duration-300" />
   );
 };
 
-const CommandForm = (props: ContentForm) => {
+const getHandler = (props: { id: CommandID; getQuery?: GetQueryFn }) => {
+  const { id } = props;
+
+  const getQuery: GetQueryFn = props.getQuery ??
+    ((v) => `${id}:${v.trim()}`);
+  const handler = (v: string) => updateQuery({ id, query: getQuery(v) });
+
+  return handler;
+};
+
+const Form = (props: CommandForm) => {
   const { type } = props;
 
-  if (type === "input") {
-    const { id } = props;
-    const getQuery: GetQueryFn = props.getQuery ?? ((v) => `${id}:${v.trim()}`);
-
-    return (
-      <TextInput
-        placeholder={props.placeholder}
-        onInput={(v) => updateQuery({ id, query: getQuery(v) })}
-      />
-    );
+  if (type === "calendar") {
+    return <Calendar id={props.id} />;
   }
-
   if (type === "input:disabled") {
     return (
       <input
@@ -150,23 +151,25 @@ const CommandForm = (props: ContentForm) => {
     );
   }
 
-  if (type === "select") {
-    const { id } = props;
-    const getQuery: GetQueryFn = props.getQuery ?? ((v) => `${id}:${v.trim()}`);
+  const { id, getQuery } = props;
+  const handler = getHandler({ id, getQuery });
 
+  if (type === "input") {
     return (
-      <Select
-        id={id}
-        onChange={(v) => updateQuery({ id, query: getQuery(v) })}
+      <TextInput
+        placeholder={props.placeholder}
+        onInput={handler}
       />
     );
   }
-
-  if (type === "calendar") {
-    return <Calendar id={props.calendarId} />;
+  if (type === "select") {
+    return (
+      <Select
+        id={props.id}
+        onChange={handler}
+      />
+    );
   }
-
-  return null;
 };
 
 const Hint = ({ hint }: { hint: string }) => {

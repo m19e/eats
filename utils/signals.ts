@@ -1,6 +1,6 @@
 import { computed, signal } from "@preact/signals";
 
-import type { CommandID } from "types/builder.ts";
+import type { CommandID } from "/types/builder.ts";
 
 type QueryData = {
   id: CommandID;

@@ -1,4 +1,4 @@
-import { IconBrandTwitter } from "utils/icons.ts";
+import { IconBrandTwitter } from "/utils/icons.ts";
 
 export const Header = () => {
   return (

@@ -1,33 +1,20 @@
-const COMMAND_IDS = {
-  keywords: "KEYWORDS",
-  exact: "EXACT",
-  or: "OR",
-  minus: "MINUS",
-  tag: "TAG",
-  from: "FROM",
-  to: "TO",
-  until: "UNTIL",
-  since: "SINCE",
-  min_retweets: "MIN_RETWEETS",
-  min_faves: "MIN_FAVES",
-  min_replies: "MIN_REPLIES",
-  "filter:follows": "FILTER:FOLLOWS",
-  "filter:media": "FILTER:MEDIA",
-  "filter:tweet": "FILTER:TWEET",
-  lang: "LANG",
-} as const;
+import { COMMAND_IDS } from "/consts/builder.ts";
+
 export type CommandID = keyof typeof COMMAND_IDS;
 
 export type GetQueryFn = (value: string) => string;
 
-export type CalendarID = "until" | "since";
+export type CalendarID = keyof Pick<
+  typeof COMMAND_IDS,
+  "until" | "since"
+>;
 
-export type SelectID = Extract<
-  CommandID,
+export type SelectID = keyof Pick<
+  typeof COMMAND_IDS,
   "lang" | "filter:media" | "filter:tweet"
 >;
 
-export type ContentForm = {
+export type CommandForm = {
   type: "input";
   id: CommandID;
   placeholder: string;
@@ -41,19 +28,20 @@ export type ContentForm = {
   getQuery?: GetQueryFn;
 } | {
   type: "calendar";
-  calendarId: CalendarID;
+  id: CalendarID;
 };
 
-type GroupContent = { type: "group"; title: string };
-type CommandContent = {
-  type: "command";
+export type CommandData = {
   id: CommandID;
   title?: string;
   noColon?: boolean;
   desc?: string;
   hint: string;
   defaultQuery: string;
-  form: ContentForm;
+  form: CommandForm;
 };
 
-export type Content = GroupContent | CommandContent;
+export type CategoryData = {
+  title: string;
+  commands: CommandData[];
+};

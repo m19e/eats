@@ -1,4 +1,4 @@
-import { IconBrandGithub } from "utils/icons.ts";
+import { IconBrandGithub } from "/utils/icons.ts";
 
 export const Footer = () => {
   return (
