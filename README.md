@@ -39,7 +39,7 @@
 - [ ] `@USER -from:USER`
 - [ ] OGP
 - [ ] README > License
-- [x] README > Reference
+- [x] ~~README > Reference~~
 
 ### Usage
 
