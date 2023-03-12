@@ -2,8 +2,8 @@ import { Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { gfm } from "utils/markdown.ts";
 
-import { Header } from "components/Header.tsx";
-import { Footer } from "components/Footer.tsx";
+import { Header } from "/components/Header.tsx";
+import { Footer } from "/components/Footer.tsx";
 
 interface Data {
   markdown: string;

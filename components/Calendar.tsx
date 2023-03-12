@@ -3,7 +3,7 @@ import { useEffect, useState } from "preact/hooks";
 import type { CalendarID } from "types/builder.ts";
 import { updateQuery } from "utils/signals.ts";
 
-import { DateSelect } from "components/DateSelect.tsx";
+import { DateSelect } from "/components/DateSelect.tsx";
 
 function* range(start: number, end: number) {
   for (let i = start; i <= end; i++) {

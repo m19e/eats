@@ -1,7 +1,7 @@
 import { DATAS } from "/consts/builder.ts";
 import type { CategoryData } from "types/builder.ts";
 
-import { Command } from "components/Command.tsx";
+import { Command } from "/components/Command.tsx";
 
 const QueryBuilder = () => {
   return (

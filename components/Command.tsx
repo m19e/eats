@@ -15,9 +15,9 @@ import {
   updateQuery,
 } from "utils/signals.ts";
 
-import { TextInput } from "components/TextInput.tsx";
-import { Select } from "components/Select.tsx";
-import { Calendar } from "components/Calendar.tsx";
+import { TextInput } from "/components/TextInput.tsx";
+import { Select } from "/components/Select.tsx";
+import { Calendar } from "/components/Calendar.tsx";
 
 export const Command = (
   {
