@@ -14,18 +14,24 @@ export type SelectID = keyof Pick<
   "lang" | "filter:media" | "filter:tweet"
 >;
 
-export type CommandForm = {
+type CommandFormInput = {
   type: "input";
   id: CommandID;
   placeholder: string;
   getQuery?: GetQueryFn;
-} | {
-  type: "input:disabled";
-  value: string;
-} | {
+};
+
+type CommandFormSelect = {
   type: "select";
   id: SelectID;
   getQuery?: GetQueryFn;
+};
+
+export type CommandFormWithGetQuery = CommandFormInput | CommandFormSelect;
+
+export type CommandForm = CommandFormWithGetQuery | {
+  type: "input:disabled";
+  value: string;
 } | {
   type: "calendar";
   id: CalendarID;
