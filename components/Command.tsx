@@ -170,6 +170,8 @@ const Form = (props: CommandForm) => {
       />
     );
   }
+
+  return null;
 };
 
 const Hint = ({ hint }: { hint: string }) => {
