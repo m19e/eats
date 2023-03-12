@@ -1,6 +1,5 @@
 import { effect } from "@preact/signals";
 import { motion, useAnimationControls } from "framer-motion";
-import { IconChevronRight } from "/utils/icons.ts";
 
 import type {
   CommandData,
@@ -18,6 +17,8 @@ import {
 import { TextInput } from "/components/TextInput.tsx";
 import { Select } from "/components/Select.tsx";
 import { Calendar } from "/components/Calendar.tsx";
+
+import { Hint } from "/components/Command/Hint.tsx";
 
 export const Command = (
   {
@@ -172,15 +173,4 @@ const Form = (props: CommandForm) => {
   }
 
   return null;
-};
-
-const Hint = ({ hint }: { hint: string }) => {
-  return (
-    <div class="flex w-full bg-gray-100 text-gray-600 rounded">
-      <IconChevronRight size={24} />
-      <div class="flex-1">
-        <span class="text-sm">{hint}</span>
-      </div>
-    </div>
-  );
 };
