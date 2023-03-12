@@ -5,9 +5,9 @@ import type {
 } from "/types/builder.ts";
 import { updateQuery } from "/utils/signals.ts";
 
-import { TextInput } from "/components/TextInput.tsx";
-import { Select } from "/components/Select.tsx";
-import { Calendar } from "/components/Calendar.tsx";
+import { TextInput } from "/components/Form/TextInput.tsx";
+import { Select } from "/components/Form/Select.tsx";
+import { Calendar } from "/components/Form/Calendar.tsx";
 
 const getHandler = (
   props: Pick<CommandFormWithGetQuery, "id" | "getQuery">,
