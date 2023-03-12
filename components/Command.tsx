@@ -7,7 +7,7 @@ import type {
   CommandForm,
   CommandID,
   GetQueryFn,
-} from "types/builder.ts";
+} from "/types/builder.ts";
 import {
   focusedCommand,
   queryMap,

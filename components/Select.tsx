@@ -1,5 +1,5 @@
 import { OPTIONS_MAP } from "/consts/builder.ts";
-import type { SelectID } from "types/builder.ts";
+import type { SelectID } from "/types/builder.ts";
 
 type Props = {
   id: SelectID;

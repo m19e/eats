@@ -1,4 +1,4 @@
-import type { CategoryData, CommandForm, CommandID } from "types/builder.ts";
+import type { CategoryData, CommandForm, CommandID } from "/types/builder.ts";
 
 export const COMMAND_IDS = {
   keywords: "KEYWORDS",
