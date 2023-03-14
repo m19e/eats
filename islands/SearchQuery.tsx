@@ -6,13 +6,6 @@ import { queryMap, queryString, toggleQuery } from "/utils/signals.ts";
 
 const SearchQuery = () => {
   const checked = queryMap.value.get("exclude_name")!.active;
-  const handleToggle = () => {
-    toggleQuery({
-      id: "exclude_name",
-      query: "OR @i -@i",
-      active: !checked,
-    });
-  };
 
   return (
     <div class="space-y-2 pb-2 border-b">
@@ -20,7 +13,7 @@ const SearchQuery = () => {
       <div className="flex justify-start">
         <div
           class="flex items-center gap-2 cursor-pointer"
-          onClick={handleToggle}
+          onClick={() => toggleQuery("exclude_name")}
         >
           <div
             class={`flex items-center justify-center w-5 h-5 rounded-full ${

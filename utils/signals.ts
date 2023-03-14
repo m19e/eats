@@ -49,9 +49,9 @@ export const updateQuery = (
   queryMap.value = new Map(queryMap.value.set(id, { id, query, active }));
 };
 
-export const toggleQuery = (data: QueryData) => {
-  const { id, active } = data;
-  const prevQuery = queryMap.value.get(id) ?? data;
+export const toggleQuery = (id: CommandID) => {
+  const prevQuery = queryMap.value.get(id)!;
+  const active = !prevQuery.active;
   updateQuery({ ...prevQuery, active });
 };
 

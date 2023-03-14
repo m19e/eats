@@ -34,12 +34,14 @@ export const Command = (
     focusedCommand.value = id;
   };
 
+  const active = queryMap.value.get(id)?.active;
+
   return (
     <div class="group" onClick={handleFocusCommand}>
       <div class="flex items-center w-full">
         <Checkbox
-          checked={queryMap.value.get(id)?.active}
-          onClick={(active) => toggleQuery({ id, active, query: defaultQuery })}
+          checked={active}
+          onClick={() => toggleQuery(id)}
         />
         <div class="flex flex-1">
           <div class="flex-1 flex flex-col px-1">
