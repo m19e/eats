@@ -17,7 +17,7 @@ const defaultQueries: UpdateQueryData[] = [
   { id: "tag", query: "#" },
   { id: "exclude_name", query: "OR @i -@i", active: true },
   { id: "from", query: "from:" },
-  { id: "to", query: "to" },
+  { id: "to", query: "to:" },
   { id: "filter:follows", query: "filter:follows" },
   { id: "filter:media", query: "filter:images" },
   { id: "filter:tweet", query: "filter:nativeretweets" },
