@@ -43,7 +43,6 @@ export type CommandData = {
   noColon?: boolean;
   desc?: string;
   hint: string;
-  defaultQuery: string;
   form: CommandForm;
 };
 

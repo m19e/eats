@@ -17,7 +17,6 @@ export const Command = (
     noColon = false,
     desc,
     hint,
-    defaultQuery,
     form,
   }: CommandData,
 ) => {
