@@ -9,7 +9,6 @@ export default function Home() {
     <div class="flex flex-col min-h-screen">
       <Header />
       <main class="flex-1 flex items-start justify-center">
-        {/* TODO: remove needless space-y */}
         <div class="p-2 sm:p-4 space-y-2 sm:space-y-3 w-full max-w-screen-sm">
           <SearchQuery />
           <QueryBuilder />

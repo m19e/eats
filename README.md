@@ -38,7 +38,7 @@
 - [ ] `include:nativeretweets`
 - [ ] `@USER -from:USER`
 - [ ] OGP
-- [ ] README > License
+- [x] ~~README > License~~
 - [x] ~~README > Reference~~
 
 ## Usage

@@ -2,20 +2,22 @@ import { useState } from "preact/hooks";
 import copy from "copy";
 import { IconCheck, IconCopy, IconSearch, IconShare } from "/utils/icons.ts";
 
-import { isExcludeUser, queryString } from "/utils/signals.ts";
+import { queryMap, queryString, toggleQuery } from "/utils/signals.ts";
 
 const SearchQuery = () => {
+  const checked = queryMap.value.get("exclude_name")!.active;
+
   return (
     <div class="space-y-2 pb-2 border-b">
       <SearchBox />
       <div className="flex justify-start">
         <div
           class="flex items-center gap-2 cursor-pointer"
-          onClick={() => isExcludeUser.value = !isExcludeUser.value}
+          onClick={() => toggleQuery("exclude_name")}
         >
           <div
             class={`flex items-center justify-center w-5 h-5 rounded-full ${
-              isExcludeUser.value ? "bg(twitter)" : "border-2 border-gray-600"
+              checked ? "bg(twitter)" : "border-2 border-gray-600"
             }`}
           >
             <svg
