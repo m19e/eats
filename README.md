@@ -38,18 +38,9 @@
 - [ ] `include:nativeretweets`
 - [ ] `@USER -from:USER`
 - [ ] OGP
+- [x] ~~remove Usage~~
 - [x] ~~README > License~~
 - [x] ~~README > Reference~~
-
-## Usage
-
-Start the project:
-
-```
-deno task start
-```
-
-This will watch the project directory and restart as necessary.
 
 ## Reference
 
