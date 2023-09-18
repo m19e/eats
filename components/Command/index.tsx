@@ -20,13 +20,13 @@ export const Command = (
     form,
   }: CommandData,
 ) => {
-  const controls = useAnimationControls();
+  // const controls = useAnimationControls();
 
   effect(() => {
     const isOpen = focusedCommand.value === id;
-    controls.start({
-      height: isOpen ? "100%" : "0px",
-    });
+    // controls.start({
+    //   height: isOpen ? "100%" : "0px",
+    // });
   });
 
   const handleFocusCommand = () => {
@@ -50,7 +50,8 @@ export const Command = (
           <Form {...form} />
         </div>
       </div>
-      <motion.div
+      {
+        /* <motion.div
         className="overflow-hidden w-full h-[1px] pt-[1px]"
         animate={controls}
         transition={{
@@ -59,7 +60,8 @@ export const Command = (
         }}
       >
         <Hint hint={hint} />
-      </motion.div>
+      </motion.div> */
+      }
     </div>
   );
 };
