@@ -6,5 +6,8 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
+  },
+  "lint": {
+    "exclude": ["./fresh.gen.ts"]
   }
 }
