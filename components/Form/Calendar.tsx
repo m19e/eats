@@ -24,7 +24,7 @@ type Props = {
 
 export const Calendar = ({ id }: Props) => {
   const [calendar, setCalendar] = useState<CalendarData>({
-    y: "2023",
+    y: "2025",
     m: "1",
     d: "1",
     skip: true,
@@ -48,7 +48,7 @@ export const Calendar = ({ id }: Props) => {
     <div class="flex gap-1 w-[12rem]">
       <div class="w-[5rem]">
         <DateSelect
-          times={[...range(2006, 2023)].reverse()}
+          times={[...range(2006, 2030)].reverse()}
           onChange={(value) => updateCalendar({ y: value })}
         />
       </div>

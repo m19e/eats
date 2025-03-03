@@ -6,7 +6,9 @@ type Props = {
 export const DateSelect = ({ times, onChange }: Props) => {
   const options = times
     .map(
-      (time) => <option key={time} value={time}>{time}</option>,
+      (time) => (
+        <option key={time} value={time} selected={time === 2025}>{time}</option>
+      ),
     );
 
   return (
