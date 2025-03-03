@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2023 m19e
+Copyright (c) 2023-2025 m19e
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
